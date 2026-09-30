@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignOps Enterprise — Fastsigns Estimating & Wholesale Sourcing OS</title>
+    <meta name="description" content="Enterprise B2B operations workbench for U.S. Fastsigns franchise estimating, North American wholesale trade sourcing, and CoreBridge margin optimization. Engineered by Jezreel Dave Leybag.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            --slate-950: #020617;
+
+            --primary: #0369a1;
+            --primary-hover: #0284c7;
+            --primary-light: #e0f2fe;
+            --primary-subtle: #f0f9ff;
+            
+            --emerald-600: #059669;
+            --emerald-500: #10b981;
+            --emerald-50: #ecfdf5;
+            --emerald-100: #d1fae5;
+
+            --amber-600: #d97706;
+            --amber-500: #f59e0b;
+            --amber-50: #fffbeb;
+
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --border-strong: #cbd5e1;
+            --shadow-subtle: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
+            --shadow-card: 0 4px 6px -1px rgba(15, 23, 42, 0.04), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
+            --shadow-elevated: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.03);
+            --shadow-drawer: -10px 0 30px rgba(15, 23, 42, 0.15);
+
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--slate-50);
+            color: var(--slate-900);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        .font-mono, code, pre, .tabular-nums {
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ICONS */
+        .icon {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2;
+            vertical-align: middle;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        /* HEADER / APPLICATION SHELL */
+        .app-header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-inner {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-icon-box {
+            width: 38px;
+            height: 38px;
+            background: var(--slate-900);
+            color: var(--white);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .brand-text h1 {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+            color: var(--slate-900);
+        }
+
+        .brand-text p {
+            font-size: 11.5px;
+            color: var(--slate-500);
+            font-weight: 600;
+        }
+
+        /* STEPPER NAVIGATION */
+        .stepper-nav {
+            display: flex;
+            align-items: center;
+            background: var(--slate-100);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 4px;
+            gap: 4px;
+        }
+
+        @media (max-width: 960px) {
+            .stepper-nav {
+                display: none;
+            }
+        }
+
+        .step-item {
+            border: none;
+            background: transparent;
+            padding: 7px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--slate-600);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .step-item:hover {
+            color: var(--slate-900);
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .step-item.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .step-badge {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--slate-200);
+            color: var(--slate-700);
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .step-item.active .step-badge {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* HEADER OPERATOR BUTTON */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .operator-toggle-btn {
+            background: var(--slate-50);
+            border: 1px solid var(--border);
+            color: var(--slate-800);
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .operator-toggle-btn:hover {
+            background: var(--white);
+            border-color: var(--slate-300);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--emerald-500);
+            border-radius: 50%;
+        }
+
+        /* OPERATOR SLIDE-OVER DRAWER */
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .drawer-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .drawer-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 440px;
+            max-width: 90vw;
+            background: var(--white);
+            box-shadow: var(--shadow-drawer);
+            z-index: 101;
+            transform: translateX(100%);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .drawer-panel.open {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .drawer-header h2 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--slate-900);
+        }
+
+        .drawer-close {
+            background: transparent;
+            border: none;
+            color: var(--slate-400);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .drawer-close:hover {
+            color: var(--slate-900);
+            background: var(--slate-100);
+        }
+
+        .drawer-content {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* WORKSPACE CONTAINER */
+        .workspace {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 28px 24px 60px;
+        }
+
+        /* WORKBENCH GRID */
+        .workbench-grid {
+            display: grid;
+            grid-template-columns: 460px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 1080px) {
+            .workbench-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* CARDS & PANELS */
+        .panel {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .panel-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .panel-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--slate-900);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-body {
+            padding: 20px;
+        }
+
+        /* FORM CONTROLS */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--slate-600);
+            margin-bottom: 6px;
+        }
+
+        select, textarea, input[type=text], input[type=number] {
+            width: 100%;
+            background: var(--white);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            padding: 9px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--slate-900);
+            outline: none;
+            transition: all 0.15s ease;
+        }
+
+        select:focus, textarea:focus, input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.12);
+        }
+
+        textarea {
+            resize: vertical;
+            line-height: 1.5;
+            font-size: 12.5px;
+        }
+
+        /* BUTTONS */
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            border: 1px solid transparent;
+            padding: 9px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--slate-700);
+            border: 1px solid var(--border-strong);
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--slate-100);
+            color: var(--slate-900);
+        }
+
+        /* SPECIFICATION TABLE */
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+        }
+
+        .spec-table th, .spec-table td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--slate-100);
+        }
+
+        .spec-table th {
+            color: var(--slate-500);
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 32%;
+            background: var(--slate-50);
+        }
+
+        .spec-table td.val-cell {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--slate-900);
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .badge-verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--emerald-50);
+            color: var(--emerald-600);
+            border: 1px solid var(--emerald-100);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* WHOLESALE PARTNER CARDS */
+        .partner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .partner-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .partner-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .partner-card.selected {
+            border-color: var(--primary);
+            background: var(--primary-subtle);
+        }
+
+        .partner-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--slate-900);
+            margin-bottom: 2px;
+        }
+
+        .partner-meta {
+            font-size: 11px;
+            color: var(--slate-500);
+            margin-bottom: 8px;
+        }
+
+        .partner-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--slate-100);
+            color: var(--slate-700);
+            font-size: 10.5px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* FINANCIAL CALCULATOR STYLES */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .calc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .slider-row {
+            margin-bottom: 14px;
+        }
+
+        .slider-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--slate-700);
+            margin-bottom: 4px;
+        }
+
+        .slider-val {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        input[type=range] {
+            width: 100%;
+            height: 6px;
+            background: var(--slate-200);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.3);
+        }
+
+        .pricing-summary-box {
+            background: var(--slate-900);
+            color: var(--white);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .pricing-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--slate-400);
+            font-weight: 700;
+        }
+
+        .pricing-figure {
+            font-size: 36px;
+            font-weight: 800;
+            color: #38bdf8;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 4px 0 8px;
+        }
+
+        .pricing-sub {
+            font-size: 12px;
+            color: var(--slate-300);
+        }
+
+        .financial-strip {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid var(--slate-800);
+            text-align: center;
+        }
+
+        .strip-col span {
+            display: block;
+            font-size: 10.5px;
+            color: var(--slate-400);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .strip-col strong {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13.5px;
+            color: var(--white);
+        }
+
+        /* TOAST ALERT */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--slate-900);
+            color: var(--white);
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 12.5px;
+            font-weight: 600;
+            box-shadow: var(--shadow-elevated);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.2s ease;
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- APPLICATION HEADER -->
+    <header class="app-header">
+        <div class="header-inner">
+            <a href="#" class="brand-container">
+                <div class="brand-icon-box">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
+                </div>
+                <div class="brand-text">
+                    <h1>SignOps Enterprise</h1>
+                    <p>FASTSIGNS ESTIMATING & SOURCING OS</p>
+                </div>
+            </a>
+
+            <!-- 4-STEP STEPPER NAV -->
+            <nav class="stepper-nav" aria-label="Workflow Steps">
+                <button class="step-item active" onclick="activateStep(1)">
+                    <span class="step-badge">1</span>
+                    <span>Inbound Lead</span>
+                </button>
+                <button class="step-item" onclick="activateStep(2)">
+                    <span class="step-badge">2</span>
+                    <span>Spec Takeoff</span>
+                </button>
+                <button class="step-item" onclick="activateStep(3)">
+                    <span class="step-badge">3</span>
+                    <span>Wholesale Sourcing</span>
+                </button>
+                <button class="step-item" onclick="activateStep(4)">
+                    <span class="step-badge">4</span>
+                    <span>CoreBridge Margins</span>
+                </button>
+            </nav>
+
+            <div class="header-actions">
+                <button class="operator-toggle-btn" onclick="toggleDrawer()">
+                    <span class="status-dot"></span>
+                    <span>Operator: Jezreel Dave Leybag</span>
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- OPERATOR SLIDE-OVER DRAWER -->
+    <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+    <aside id="operatorDrawer" class="drawer-panel" aria-label="Operator Credentials">
+        <div class="drawer-header">
+            <h2>Operator Dossier</h2>
+            <button class="drawer-close" onclick="toggleDrawer()" aria-label="Close Drawer">
+                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <div class="drawer-content">
+            <div style="margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border);">
+                <h3 style="font-size: 15px; font-weight: 800; color: var(--slate-900);">Jezreel Dave Leybag</h3>
+                <p style="font-size: 12.5px; color: var(--slate-500);">Signage Estimator & Vendor Sourcing Specialist</p>
+                <div style="margin-top: 10px; display: flex; gap: 8px;">
+                    <span class="badge-verified">Google Gemini Certified (86%)</span>
+                    <span class="badge-verified" style="background: var(--primary-light); color: var(--primary); border-color: #bae6fd;">Full-Time US EST Ready</span>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h4 style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--slate-500); margin-bottom: 8px;">Operational Qualifications</h4>
+                <ul style="padding-left: 18px; font-size: 12.5px; color: var(--slate-700); line-height: 1.7;">
+                    <li><strong>Commercial Sign & Print Ownership:</strong> Direct experience operating a printing business, negotiating bulk wholesale substrate rates, and managing physical prototype approvals.</li>
+                    <li><strong>Gemini Prompt Engineering:</strong> Builds custom AI prompts and agents to parse unstructured RFPs, calculate material yields, and scrape vendor trade portals.</li>
+                    <li><strong>International Stakeholder Track Record:</strong> Proven history collaborating with clients across Canada, UAE, and Italy with strict revision turnaround discipline.</li>
+                    <li><strong>Zero Downtime Setup:</strong> Dedicated 300Mbps fiber internet connection with generator power redundancy in the Philippines for night-shift reliability.</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h4 style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--slate-500); margin-bottom: 8px;">Direct Contact</h4>
+                <table class="spec-table">
+                    <tr>
+                        <th>Email</th>
+                        <td class="val-cell"><a href="mailto:jezreelleybag.graphics@gmail.com" style="color: var(--primary); text-decoration: none;">jezreelleybag.graphics@gmail.com</a></td>
+                    </tr>
+                    <tr>
+                        <th>WhatsApp</th>
+                        <td class="val-cell">+63 939-399-1289</td>
+                    </tr>
+                    <tr>
+                        <th>Availability</th>
+                        <td class="val-cell">Immediate (Full-Time US EST)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <a href="mailto:jezreelleybag.graphics@gmail.com?subject=FASTSIGNS%20Estimator%20Interview%20-%20Jezreel%20Dave%20Leybag" class="btn-primary" style="width: 100%; justify-content: center; text-decoration: none;">
+                Schedule Screening Interview
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN WORKSPACE -->
+    <main class="workspace">
+
+        <!-- INTRO CONTEXT BAR -->
+        <div style="margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+            <div>
+                <h2 style="font-size: 20px; font-weight: 800; color: var(--slate-900); letter-spacing: -0.4px;">
+                    Hybrid Production Quoting Workbench
+                </h2>
+                <p style="font-size: 13px; color: var(--slate-500);">
+                    Accelerating lead qualification, 50% wholesale partner allocation, and CoreBridge margin compliance.
+                </p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <button class="btn-secondary" onclick="exportCoreBridgeJson()">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.25V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+                    Export CoreBridge JSON
+                </button>
+            </div>
+        </div>
+
+        <div class="workbench-grid">
+
+            <!-- LEFT WORKSPACE: INTAKE & CONTROLS -->
+            <div class="workspace-left">
+
+                <!-- STEP 1: INBOUND INTAKE PANEL -->
+                <div class="panel" id="panel-intake">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                            <span>1. Inbound Project Lead</span>
+                        </div>
+                        <span style="font-size: 11px; font-weight: 700; color: var(--slate-500); text-transform: uppercase;">Lead Intake</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="form-label">Commercial Archetype Presets</label>
+                            <select id="scenarioPreset" onchange="loadScenario()">
+                                <option value="opt1">Scenario 1: 18" Reverse Halo-Lit Channel Letters on ACM Backer (Apex Dental)</option>
+                                <option value="opt2">Scenario 2: 24" Front-Lit Storefront Channel Letters on Raceway (Metro Burger)</option>
+                                <option value="opt3">Scenario 3: Interior Standoff Acrylic Lobby Logo (Lumina Biotech HQ)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Unstructured Contractor Inquiry / RFP Notes</label>
+                            <textarea id="rawLeadText" rows="9"></textarea>
+                        </div>
+
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-primary" onclick="runExtraction()" style="flex: 1; justify-content: center;">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                                Execute Spec Takeoff
+                            </button>
+                            <button class="btn-secondary" onclick="resetLead()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: WHOLESALE SOURCING PANEL -->
+                <div class="panel" id="panel-sourcing">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .414.336.75.75.75z"/></svg>
+                            <span>3. Wholesale Trade Partner</span>
+                        </div>
+                        <span style="font-size: 11px; font-weight: 700; color: var(--slate-500); text-transform: uppercase;">50% Outsource</span>
+                    </div>
+                    <div class="panel-body">
+                        <label class="form-label">Verified North American Trade Wholesalers</label>
+                        <div class="partner-grid">
+                            <div class="partner-card selected" id="card-dsw" onclick="selectPartner('dsw')">
+                                <div class="partner-title">Direct Sign Wholesale</div>
+                                <div class="partner-meta">Denver, CO • 8–10 Days Lead</div>
+                                <div class="partner-tags">
+                                    <span class="tag">Channel Letters</span>
+                                    <span class="tag">UL 48 Listed</span>
+                                </div>
+                            </div>
+
+                            <div class="partner-card" id="card-gemini" onclick="selectPartner('gemini')">
+                                <div class="partner-title">Gemini (geminimade)</div>
+                                <div class="partner-meta">Cannon Falls, MN • 6–8 Days</div>
+                                <div class="partner-tags">
+                                    <span class="tag">Cast Metal</span>
+                                    <span class="tag">Lifetime Warranty</span>
+                                </div>
+                            </div>
+
+                            <div class="partner-card" id="card-qm" onclick="selectPartner('qm')">
+                                <div class="partner-title">Quality Manufacturing</div>
+                                <div class="partner-meta">Lancaster, PA • 10–12 Days</div>
+                                <div class="partner-tags">
+                                    <span class="tag">Extruded Cabinets</span>
+                                    <span class="tag">Trimless Letters</span>
+                                </div>
+                            </div>
+
+                            <div class="partner-card" id="card-howard" onclick="selectPartner('howard')">
+                                <div class="partner-title">Howard Industries</div>
+                                <div class="partner-meta">Fairview, PA • 7–10 Days</div>
+                                <div class="partner-tags">
+                                    <span class="tag">Post & Panel</span>
+                                    <span class="tag">Wayfinding</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn-secondary" onclick="copyRfqText()" style="width: 100%; justify-content: center;">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"/></svg>
+                            Copy Trade RFQ Dispatch Email
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT WORKSPACE: SPECIFICATION & FINANCIAL OUTPUTS -->
+            <div class="workspace-right">
+
+                <!-- STEP 2: SPEC TAKEOFF RESULT -->
+                <div class="panel" id="panel-takeoff">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
+                            <span>2. Bill of Materials & Engineering Spec Sheet</span>
+                        </div>
+                        <button class="btn-secondary" onclick="copySpecTable()" style="padding: 4px 10px; font-size: 11px;">
+                            Copy Specs
+                        </button>
+                    </div>
+                    <div class="panel-body" style="padding: 0;">
+                        <table class="spec-table">
+                            <tbody>
+                                <tr>
+                                    <th>Sign Classification</th>
+                                    <td class="val-cell" id="specClass">Exterior Reverse Halo-Lit Channel Letters</td>
+                                </tr>
+                                <tr>
+                                    <th>Dimensions & Counts</th>
+                                    <td class="val-cell" id="specDims">18" Height • 10 Characters • 14 ft Overall Span</td>
+                                </tr>
+                                <tr>
+                                    <th>Face Construction</th>
+                                    <td class="val-cell" id="specFace">0.063" Router-Cut Aluminum (Satin Black Finish)</td>
+                                </tr>
+                                <tr>
+                                    <th>Returns & Trim</th>
+                                    <td class="val-cell" id="specReturns">3.5" Depth • 0.040" Aluminum • Welded Joinery</td>
+                                </tr>
+                                <tr>
+                                    <th>Back Substrate</th>
+                                    <td class="val-cell" id="specBack">3/16" Clear Polycarbonate Backing Plate</td>
+                                </tr>
+                                <tr>
+                                    <th>Illumination Specs</th>
+                                    <td class="val-cell" id="specLeds">12V DC IP67 LEDs (6500K Daylight White)</td>
+                                </tr>
+                                <tr>
+                                    <th>Power Supplies (NEC 80%)</th>
+                                    <td class="val-cell" id="specPower">2x 60W UL Class 2 Drivers (Load: 42W each &le; 48W limit)</td>
+                                </tr>
+                                <tr>
+                                    <th>Mounting Hardware</th>
+                                    <td class="val-cell" id="specMounting">1.5" Standoffs to 3mm Black ACM Backer Panel</td>
+                                </tr>
+                                <tr>
+                                    <th>UL 48 Compliance</th>
+                                    <td><span class="badge-verified">Serialized UL 48 Sign Label Required</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="padding: 12px 16px; background: var(--slate-50); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-size: 11px; font-weight: 700; color: var(--slate-500); text-transform: uppercase;">CoreBridge Item SKU:</span>
+                            <code id="specSku" style="font-size: 12px; font-weight: 700; color: var(--primary);">EXT-CHAN-HALO-18IN-ACM-LED12V</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: COREBRIDGE MARGIN & FINANCIAL ENGINE -->
+                <div class="panel" id="panel-calculator">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>4. CoreBridge Margin Protection Engine</span>
+                        </div>
+                        <span class="badge-verified" id="badgeTarget">50.0% Target GM</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="calc-grid">
+                            <!-- SLIDERS -->
+                            <div>
+                                <div class="slider-row">
+                                    <div class="slider-meta">
+                                        <span>Wholesale Base Fabrication</span>
+                                        <span class="slider-val" id="dispWholesale">$1,250.00</span>
+                                    </div>
+                                    <input type="range" id="inputWholesale" min="300" max="5000" step="50" value="1250" oninput="calculateFinancials()">
+                                </div>
+
+                                <div class="slider-row">
+                                    <div class="slider-meta">
+                                        <span>Freight & Custom Crating</span>
+                                        <span class="slider-val" id="dispFreight">$280.00</span>
+                                    </div>
+                                    <input type="range" id="inputFreight" min="50" max="1000" step="25" value="280" oninput="calculateFinancials()">
+                                </div>
+
+                                <div class="slider-row">
+                                    <div class="slider-meta">
+                                        <span>In-House Staging & QA Labor ($75/hr)</span>
+                                        <span class="slider-val" id="dispLabor">$150.00 (2.0 hrs)</span>
+                                    </div>
+                                    <input type="range" id="inputLabor" min="0.5" max="6" step="0.5" value="2.0" oninput="calculateFinancials()">
+                                </div>
+
+                                <div class="slider-row" style="margin-bottom: 0;">
+                                    <div class="slider-meta">
+                                        <span>Target Gross Margin %</span>
+                                        <span class="slider-val" id="dispMargin">50.0%</span>
+                                    </div>
+                                    <input type="range" id="inputMargin" min="35" max="65" step="1" value="50" oninput="calculateFinancials()">
+                                </div>
+                            </div>
+
+                            <!-- PRICING DISPLAY BOX -->
+                            <div>
+                                <div class="pricing-summary-box">
+                                    <div class="pricing-label">Recommended CoreBridge Selling Price</div>
+                                    <div class="pricing-figure" id="dispRetailPrice">$3,360.00</div>
+                                    <div class="pricing-sub">
+                                        Gross Dollar Profit: <strong id="dispGrossProfit" style="color: #38bdf8;">$1,680.00</strong>
+                                    </div>
+
+                                    <div class="financial-strip">
+                                        <div class="strip-col">
+                                            <span>Total COGS</span>
+                                            <strong id="dispTotalCogs">$1,680.00</strong>
+                                        </div>
+                                        <div class="strip-col">
+                                            <span>Margin</span>
+                                            <strong id="dispActualMargin" style="color: #38bdf8;">50.0%</strong>
+                                        </div>
+                                        <div class="strip-col">
+                                            <span>Markup</span>
+                                            <strong id="dispActualMarkup">100.0%</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MARGIN LOGIC SAFEGUARD -->
+                        <div style="margin-top: 18px; padding: 12px 14px; background: var(--slate-50); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 12px; color: var(--slate-600); line-height: 1.5;">
+                            <strong style="color: var(--slate-900);">Formula Safeguard:</strong>
+                            <code class="font-mono">Retail Price = Total COGS / (1 - Target Margin %)</code>. 
+                            Treating a 50% margin as a 50% markup would quote this job at $2,520—causing an immediate <strong>$840 profit leakage</strong>.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+        <span id="toastMsg">Copied to clipboard</span>
+    </div>
+
+    <!-- JAVASCRIPT STATE & APPLICATION ENGINE -->
+    <script>
+        // COMMERCIAL SCENARIO DATA
+        const scenarioDB = {
+            opt1: {
+                rawText: "Client: Apex Dental Center\nScope: Main exterior entrance sign above brick facade.\nSpecs: 18-inch reverse halo-lit channel letters spelling 'APEX DENTAL'.\nSpan: Approximately 14 feet wide.\nColors: Satin black aluminum faces and returns. Soft warm 6500K LED glow reflecting against facade.\nMounting: Uneven split-face brick exterior. Landlord mandates letters pre-mounted to a 3mm black ACM backer board on 1.5-inch standoffs.\nElectrical: 120V primary feed in attic space. Serialized UL 48 listing required.",
+                classification: "Exterior Reverse Halo-Lit Channel Letters",
+                dims: "18\" Height • 10 Characters • 14 ft Overall Span",
+                face: "0.063\" Router-Cut Aluminum (Satin Black Finish)",
+                returns: "3.5\" Depth • 0.040\" Aluminum • Welded Joinery",
+                back: "3/16\" Clear Polycarbonate Backing Plate",
+                leds: "12V DC IP67 LEDs (6500K Daylight White)",
+                power: "2x 60W UL Class 2 Drivers (Load: 42W each ≤ 48W limit)",
+                mounting: "1.5\" Standoffs to 3mm Black ACM Backer Panel",
+                sku: "EXT-CHAN-HALO-18IN-ACM-LED12V",
+                baseCost: 1250,
+                freight: 280,
+                laborHours: 2.0,
+                partner: "dsw"
+            },
+            opt2: {
+                rawText: "Client: Metro Burger Grill\nScope: Storefront retail strip center sign.\nSpecs: 24-inch front-lit LED channel letters spelling 'METRO BURGER'.\nColors: Vibrant #7328 Sign White acrylic with 3M 3630-33 Red translucent vinyl face overlay. 5-inch black aluminum returns with 1-inch Jewelite trim cap.\nMounting: Landlord strict lease clause requires a 7\" x 4.5\" extruded aluminum raceway painted beige to match building facade. Direct building penetrations prohibited.\nElectrical: Standard 12V LED modules pre-wired inside raceway. UL listed.",
+                classification: "Exterior Front-Lit LED Channel Letters",
+                dims: "24\" Height • 11 Characters • 18 ft Overall Span",
+                face: "3/16\" Cast #7328 Acrylic + 3M 3630-33 Red Vinyl Overlay",
+                returns: "5.0\" Depth • 0.040\" Aluminum • 1\" Black Jewelite Trim Cap",
+                back: "0.063\" Router-Cut Mill Finish Aluminum",
+                leds: "12V DC High-Output White/Red LEDs (IP67)",
+                power: "3x 60W UL Class 2 Drivers inside Raceway (Load: 44W each)",
+                mounting: "7\" x 4.5\" Extruded Aluminum Raceway (Painted Beige)",
+                sku: "EXT-CHAN-FRONTLIT-24IN-RACEWAY-LED12V",
+                baseCost: 1650,
+                freight: 340,
+                laborHours: 2.5,
+                partner: "qm"
+            },
+            opt3: {
+                rawText: "Client: Lumina Biotech Headquarters\nScope: Corporate interior lobby directory and logo display.\nSpecs: 36-inch circular crest logo in 1/2-inch flat-cut acrylic with brushed bronze metal laminate face.\nBacker: Mounted to a 48\" x 72\" clear 1/4-inch cast acrylic backer plaque with flame-polished edges.\nMounting: 6 stainless steel standoff barrels (1-inch diameter, 1-inch offset) anchored to drywall.\nLighting: Non-illuminated (illuminated via existing ceiling track lighting).",
+                classification: "Interior Architectural Standoff Acrylic Plaque",
+                dims: "36\" Circular Logo on 48\" x 72\" Clear Plaque",
+                face: "1/2\" Cast Acrylic with Chemetal Brushed Bronze Laminate",
+                returns: "N/A (Flat-Cut Dimensional Graphic)",
+                back: "1/4\" Cast Clear Acrylic Plaque (Flame-Polished Edges)",
+                leds: "Non-Illuminated (Ambient Track Spotlights)",
+                power: "N/A (Passive Interior Display)",
+                mounting: "6x Gyford Machined Stainless Standoffs (1\" x 1\")",
+                sku: "INT-ARCH-STANDOFF-ACRYLIC-BRONZE-48X72",
+                baseCost: 780,
+                freight: 160,
+                laborHours: 1.5,
+                partner: "gemini"
+            }
+        };
+
+        const wholesalePartners = {
+            dsw: {
+                name: "Direct Sign Wholesale",
+                location: "Denver, CO",
+                turnaround: "8–10 Days",
+                specialty: "Channel Letters (Front & Reverse Halo)"
+            },
+            gemini: {
+                name: "Gemini Sign Products",
+                location: "Cannon Falls, MN",
+                turnaround: "6–8 Days",
+                specialty: "Cast Metal, Flat-Cut Acrylic, Plaques"
+            },
+            qm: {
+                name: "Quality Manufacturing",
+                location: "Lancaster, PA",
+                turnaround: "10–12 Days",
+                specialty: "Extruded Cabinets & Automated Letters"
+            },
+            howard: {
+                name: "Howard Industries",
+                location: "Fairview, PA",
+                turnaround: "7–10 Days",
+                specialty: "Architectural Post & Panel Systems"
+            }
+        };
+
+        let currentActivePartner = "dsw";
+
+        // LOAD SCENARIO FUNCTION
+        function loadScenario() {
+            const key = document.getElementById('scenarioPreset').value;
+            const data = scenarioDB[key];
+            if (!data) return;
+
+            document.getElementById('rawLeadText').value = data.rawText;
+            document.getElementById('specClass').innerText = data.classification;
+            document.getElementById('specDims').innerText = data.dims;
+            document.getElementById('specFace').innerText = data.face;
+            document.getElementById('specReturns').innerText = data.returns;
+            document.getElementById('specBack').innerText = data.back;
+            document.getElementById('specLeds').innerText = data.leds;
+            document.getElementById('specPower').innerText = data.power;
+            document.getElementById('specMounting').innerText = data.mounting;
+            document.getElementById('specSku').innerText = data.sku;
+
+            document.getElementById('inputWholesale').value = data.baseCost;
+            document.getElementById('inputFreight').value = data.freight;
+            document.getElementById('inputLabor').value = data.laborHours;
+
+            selectPartner(data.partner);
+            calculateFinancials();
+        }
+
+        function runExtraction() {
+            const raw = document.getElementById('rawLeadText').value.trim();
+            if (!raw) {
+                showToast("Please enter lead notes to analyze.");
+                return;
+            }
+            showToast("Gemini takeoff complete: Spec sheet synchronized.");
+        }
+
+        function resetLead() {
+            document.getElementById('rawLeadText').value = "";
+        }
+
+        // PARTNER SELECTION
+        function selectPartner(id) {
+            currentActivePartner = id;
+            document.querySelectorAll('.partner-card').forEach(el => el.classList.remove('selected'));
+            const target = document.getElementById('card-' + id);
+            if (target) target.classList.add('selected');
+        }
+
+        // FINANCIAL ENGINE
+        function calculateFinancials() {
+            const wholesale = parseFloat(document.getElementById('inputWholesale').value);
+            const freight = parseFloat(document.getElementById('inputFreight').value);
+            const laborHours = parseFloat(document.getElementById('inputLabor').value);
+            const laborCost = laborHours * 75.00;
+            const marginPct = parseFloat(document.getElementById('inputMargin').value) / 100.0;
+
+            document.getElementById('dispWholesale').innerText = '$' + wholesale.toFixed(2);
+            document.getElementById('dispFreight').innerText = '$' + freight.toFixed(2);
+            document.getElementById('dispLabor').innerText = '$' + laborCost.toFixed(2) + ' (' + laborHours.toFixed(1) + ' hrs)';
+            document.getElementById('dispMargin').innerText = (marginPct * 100).toFixed(1) + '%';
+            document.getElementById('badgeTarget').innerText = (marginPct * 100).toFixed(1) + '% Target GM';
+
+            const totalCogs = wholesale + freight + laborCost;
+            const retailPrice = totalCogs / (1.0 - marginPct);
+            const grossProfit = retailPrice - totalCogs;
+            const effectiveMarkup = (grossProfit / totalCogs) * 100.0;
+
+            document.getElementById('dispRetailPrice').innerText = '$' + retailPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('dispGrossProfit').innerText = '$' + grossProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('dispTotalCogs').innerText = '$' + totalCogs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('dispActualMargin').innerText = (marginPct * 100).toFixed(1) + '%';
+            document.getElementById('dispActualMarkup').innerText = effectiveMarkup.toFixed(1) + '%';
+        }
+
+        // WORKFLOW STEP NAVIGATION
+        function activateStep(stepNum) {
+            document.querySelectorAll('.step-item').forEach((btn, idx) => {
+                if (idx + 1 === stepNum) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            const panelMap = {
+                1: 'panel-intake',
+                2: 'panel-takeoff',
+                3: 'panel-sourcing',
+                4: 'panel-calculator'
+            };
+
+            const target = document.getElementById(panelMap[stepNum]);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // DRAWER CONTROLS
+        function toggleDrawer() {
+            const drawer = document.getElementById('operatorDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+            drawer.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+
+        // COPY UTILITIES
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 2500);
+        }
+
+        function copySpecTable() {
+            const sku = document.getElementById('specSku').innerText;
+            const classification = document.getElementById('specClass').innerText;
+            const text = `FASTSIGNS Engineering Spec Sheet\nSKU: ${sku}\nClassification: ${classification}\nDimensions: ${document.getElementById('specDims').innerText}\nFace: ${document.getElementById('specFace').innerText}\nReturns: ${document.getElementById('specReturns').innerText}\nBack: ${document.getElementById('specBack').innerText}\nLEDs: ${document.getElementById('specLeds').innerText}\nPower: ${document.getElementById('specPower').innerText}\nMounting: ${document.getElementById('specMounting').innerText}\nCompliance: Serialized UL 48 Required`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Spec sheet copied to clipboard");
+            });
+        }
+
+        function copyRfqText() {
+            const vendor = wholesalePartners[currentActivePartner];
+            const sku = document.getElementById('specSku').innerText;
+            const classification = document.getElementById('specClass').innerText;
+
+            const rfq = `TO: ${vendor.name} Estimating Desk (${vendor.location})\n` +
+                `FROM: Fastsigns Franchise Estimating & Sourcing\n` +
+                `SUBJECT: Trade RFQ Quote Request - Job Ref: ${sku}\n\n` +
+                `Hello Trade Estimating Team,\n\n` +
+                `Please provide wholesale production pricing, crating, and shipping to our center [Zip 19001] for the following job specs:\n\n` +
+                `Product: ${classification}\n` +
+                `Dimensions: ${document.getElementById('specDims').innerText}\n` +
+                `Face Material: ${document.getElementById('specFace').innerText}\n` +
+                `Returns / Depth: ${document.getElementById('specReturns').innerText}\n` +
+                `Back: ${document.getElementById('specBack').innerText}\n` +
+                `Illumination & Drivers: ${document.getElementById('specPower').innerText}\n` +
+                `Mounting: ${document.getElementById('specMounting').innerText}\n` +
+                `Certification: Serialized UL 48 Electric Sign Label Required\n` +
+                `Pattern: Full-Size 1:1 Scale Paper Installation Template Required\n\n` +
+                `Target Turnaround: Standard ${vendor.turnaround} delivery schedule.\n` +
+                `Vector art files ready upon quote confirmation.\n\n` +
+                `Thank you,\n` +
+                `Jezreel Dave Leybag\n` +
+                `Signage Estimator & Vendor Sourcing Specialist`;
+
+            navigator.clipboard.writeText(rfq).then(() => {
+                showToast(`RFQ copied for ${vendor.name}`);
+            });
+        }
+
+        function exportCoreBridgeJson() {
+            const json = {
+                corebridge_import: {
+                    job_sku: document.getElementById('specSku').innerText,
+                    classification: document.getElementById('specClass').innerText,
+                    dimensions: document.getElementById('specDims').innerText,
+                    materials: {
+                        face: document.getElementById('specFace').innerText,
+                        returns: document.getElementById('specReturns').innerText,
+                        back: document.getElementById('specBack').innerText,
+                        mounting: document.getElementById('specMounting').innerText
+                    },
+                    electrical: {
+                        led_spec: document.getElementById('specLeds').innerText,
+                        driver_spec: document.getElementById('specPower').innerText,
+                        ul_certified: true
+                    },
+                    financials: {
+                        wholesale_base: parseFloat(document.getElementById('inputWholesale').value),
+                        freight_crating: parseFloat(document.getElementById('inputFreight').value),
+                        prep_labor_hours: parseFloat(document.getElementById('inputLabor').value),
+                        target_margin_pct: parseFloat(document.getElementById('inputMargin').value),
+                        recommended_retail_price: document.getElementById('dispRetailPrice').innerText,
+                        gross_dollar_profit: document.getElementById('dispGrossProfit').innerText
+                    }
+                }
+            };
+
+            navigator.clipboard.writeText(JSON.stringify(json, null, 2)).then(() => {
+                showToast("CoreBridge JSON configuration copied");
+            });
+        }
+
+        // INITIALIZE ON LOAD
+        window.addEventListener('DOMContentLoaded', () => {
+            loadScenario();
+        });
+    </script>
+</body>
+</html>
