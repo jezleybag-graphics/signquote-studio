@@ -4,6 +4,7 @@ import {
   ShieldAlert, Zap, Search, Eye, Sparkles, Shield, ShieldCheck, Box, 
   Maximize2, Cpu, CircleDot, LayoutGrid, Droplets 
 } from 'lucide-react';
+import SignAssembly3D from './SignAssembly3D';
 
 // COMPONENT SCHEMATIC THUMBNAIL RENDERER
 function ComponentVisualThumbnail({ item }) {
@@ -254,10 +255,10 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
           <div className="px-6 py-4 border-b border-gray-200/80 bg-gray-50/70 flex flex-wrap items-center justify-between gap-4">
             
             {/* VIEW MODE TABS */}
-            <div className="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-gray-200 shadow-sm">
+            <div className="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-gray-200 shadow-sm flex-wrap sm:flex-nowrap">
               <button
                 onClick={() => setViewMode('elev')}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   viewMode === 'elev' 
                     ? 'bg-[#111213] text-white shadow-sm' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -266,8 +267,22 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                 <span>Storefront Elevation</span>
               </button>
               <button
+                onClick={() => setViewMode('3d')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  viewMode === '3d' 
+                    ? 'bg-[#111213] text-white shadow-sm ring-1 ring-[#F79223]/50' 
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                }`}
+              >
+                <Box className={`w-3.5 h-3.5 ${viewMode === '3d' ? 'text-[#F79223]' : 'text-[#F79223]'}`} />
+                <span>3D Exploded Assembly</span>
+                <span className="text-[8.5px] px-1.5 py-0.5 rounded font-mono font-black uppercase bg-[#F79223]/20 text-[#F79223] leading-none">
+                  WebGL
+                </span>
+              </button>
+              <button
                 onClick={() => setViewMode('cad')}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   viewMode === 'cad' 
                     ? 'bg-[#111213] text-white shadow-sm' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -277,7 +292,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
               </button>
               <button
                 onClick={() => setViewMode('elec')}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   viewMode === 'elec' 
                     ? 'bg-[#111213] text-white shadow-sm' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -287,7 +302,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
               </button>
               <button
                 onClick={() => setViewMode('cb')}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   viewMode === 'cb' 
                     ? 'bg-[#111213] text-white shadow-sm' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -336,6 +351,16 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
           {/* VIEWPORT CANVAS */}
           <div className="relative p-4 sm:p-8 bg-white flex flex-col items-center justify-center min-h-[420px]">
+
+            {/* VIEW 0: 3D EXPLODED ASSEMBLY VIEW */}
+            {viewMode === '3d' && (
+              <SignAssembly3D 
+                project={project} 
+                isNightMode={isNightMode} 
+                activeInspector={activeInspector} 
+                setActiveInspector={setActiveInspector} 
+              />
+            )}
 
             {/* VIEW 1: ELEVATION VIEW */}
             {viewMode === 'elev' && (
