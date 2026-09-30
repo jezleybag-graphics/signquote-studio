@@ -136,19 +136,19 @@ export default function CandidateDrawer({ isOpen, onClose, onOpenCertificate }) 
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-gray-900">Commercial Printing Business Owner (2023–2024):</strong> Managed direct substrate inventory, wholesale sheet nesting (ACM/Acrylic/Vinyl), plotter calibration, and customer quote delivery.
+                    <strong className="text-gray-900">Co-Owner &amp; Operations Lead — Morpho Cafe and Studio (2024–Present):</strong> Manage business operations, vendor purchasing, budget discipline, supply logistics, and 30%+ digital growth.
                   </div>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-gray-900">SPXI Wholesale Supplier Management:</strong> Coordinated factory-direct merchandise production, wholesale proof approvals, MOQ pricing tiers, and delivery tracking.
+                    <strong className="text-gray-900">International Remote Work (2021–Present):</strong> 4+ years track record delivering creative and production assets for clients across Canada, UAE, and Italy with strict revision deadlines and proactive English communication.
                   </div>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-gray-900">International Remote Work:</strong> Track record delivering creative and production assets for clients across Canada, UAE, and Italy with strict revision deadlines.
+                    <strong className="text-gray-900">Creator of SignQuote Studio Workbench (2024):</strong> Architected this live platform to demonstrate commercial sign estimating math, CoreBridge logic, 50% gross margin defense, and Gemini AI RFP takeoff.
                   </div>
                 </li>
                 <li className="flex items-start gap-2.5">
