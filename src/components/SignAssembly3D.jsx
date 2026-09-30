@@ -327,6 +327,439 @@ function createSubtitleTexture() {
 }
 
 // ============================================================================
+// HIGH-PRECISION PROCEDURAL CHANNEL LETTER GEOMETRY GENERATOR
+// Architectural Bold Sans-Serif font outlines (Helvetica/Gotham Bold standard)
+// Normalized with standard height = 10 units, centered at (0, 0)
+// ============================================================================
+function getChannelLetterShape(char) {
+  const s = new THREE.Shape();
+  switch (char.toUpperCase()) {
+    case 'A': {
+      s.moveTo(-3.2, -5.0);
+      s.lineTo(-1.1, 5.0);
+      s.lineTo(1.1, 5.0);
+      s.lineTo(3.2, -5.0);
+      s.lineTo(1.6, -5.0);
+      s.lineTo(1.0, -2.0);
+      s.lineTo(-1.0, -2.0);
+      s.lineTo(-1.6, -5.0);
+      s.closePath();
+
+      const h = new THREE.Path();
+      h.moveTo(-0.7, -0.6);
+      h.lineTo(0.7, -0.6);
+      h.lineTo(0.0, 2.8);
+      h.closePath();
+      s.holes.push(h);
+      return s;
+    }
+
+    case 'P': {
+      s.moveTo(-2.8, -5.0);
+      s.lineTo(-2.8, 5.0);
+      s.lineTo(0.6, 5.0);
+      s.absarc(0.6, 2.5, 2.5, Math.PI / 2, -Math.PI / 2, true);
+      s.lineTo(-1.2, 0.0);
+      s.lineTo(-1.2, -5.0);
+      s.closePath();
+
+      const h = new THREE.Path();
+      h.moveTo(-1.2, 1.4);
+      h.lineTo(0.4, 1.4);
+      h.absarc(0.4, 2.5, 1.1, -Math.PI / 2, Math.PI / 2, false);
+      h.lineTo(-1.2, 3.6);
+      h.closePath();
+      s.holes.push(h);
+      return s;
+    }
+
+    case 'E': {
+      s.moveTo(-2.8, -5.0);
+      s.lineTo(-2.8, 5.0);
+      s.lineTo(2.7, 5.0);
+      s.lineTo(2.7, 3.5);
+      s.lineTo(-1.2, 3.5);
+      s.lineTo(-1.2, 0.8);
+      s.lineTo(2.0, 0.8);
+      s.lineTo(2.0, -0.7);
+      s.lineTo(-1.2, -0.7);
+      s.lineTo(-1.2, -3.5);
+      s.lineTo(2.7, -3.5);
+      s.lineTo(2.7, -5.0);
+      s.closePath();
+      return s;
+    }
+
+    case 'X': {
+      const w = 2.8, h = 5.0, t = 1.4;
+      s.moveTo(-w, -h);
+      s.lineTo(-w + t, -h);
+      s.lineTo(0, -1.2);
+      s.lineTo(w - t, -h);
+      s.lineTo(w, -h);
+      s.lineTo(0.8, 0);
+      s.lineTo(w, h);
+      s.lineTo(w - t, h);
+      s.lineTo(0, 1.2);
+      s.lineTo(-w + t, h);
+      s.lineTo(-w, h);
+      s.lineTo(-0.8, 0);
+      s.closePath();
+      return s;
+    }
+
+    case 'D': {
+      s.moveTo(-2.8, -5.0);
+      s.lineTo(-2.8, 5.0);
+      s.lineTo(0.2, 5.0);
+      s.absarc(0.2, 0.0, 5.0, Math.PI / 2, -Math.PI / 2, true);
+      s.closePath();
+
+      const h = new THREE.Path();
+      h.moveTo(-1.2, -3.5);
+      h.lineTo(0.2, -3.5);
+      h.absarc(0.2, 0.0, 3.5, -Math.PI / 2, Math.PI / 2, false);
+      h.lineTo(-1.2, 3.5);
+      h.closePath();
+      s.holes.push(h);
+      return s;
+    }
+
+    case 'N': {
+      s.moveTo(-2.8, -5.0);
+      s.lineTo(-2.8, 5.0);
+      s.lineTo(-1.2, 5.0);
+      s.lineTo(1.2, -1.5);
+      s.lineTo(1.2, 5.0);
+      s.lineTo(2.8, 5.0);
+      s.lineTo(2.8, -5.0);
+      s.lineTo(1.2, -5.0);
+      s.lineTo(-1.2, 1.5);
+      s.lineTo(-1.2, -5.0);
+      s.closePath();
+      return s;
+    }
+
+    case 'T': {
+      s.moveTo(-3.0, 5.0);
+      s.lineTo(3.0, 5.0);
+      s.lineTo(3.0, 3.5);
+      s.lineTo(0.8, 3.5);
+      s.lineTo(0.8, -5.0);
+      s.lineTo(-0.8, -5.0);
+      s.lineTo(-0.8, 3.5);
+      s.lineTo(-3.0, 3.5);
+      s.closePath();
+      return s;
+    }
+
+    case 'L': {
+      s.moveTo(-2.6, 5.0);
+      s.lineTo(-1.1, 5.0);
+      s.lineTo(-1.1, -3.5);
+      s.lineTo(2.6, -3.5);
+      s.lineTo(2.6, -5.0);
+      s.lineTo(-2.6, -5.0);
+      s.closePath();
+      return s;
+    }
+
+    case 'M': {
+      s.moveTo(-3.4, -5.0);
+      s.lineTo(-3.4, 5.0);
+      s.lineTo(-1.8, 5.0);
+      s.lineTo(0.0, 1.2);
+      s.lineTo(1.8, 5.0);
+      s.lineTo(3.4, 5.0);
+      s.lineTo(3.4, -5.0);
+      s.lineTo(2.0, -5.0);
+      s.lineTo(2.0, 2.2);
+      s.lineTo(0.0, -1.8);
+      s.lineTo(-2.0, 2.2);
+      s.lineTo(-2.0, -5.0);
+      s.closePath();
+      return s;
+    }
+
+    case 'R': {
+      s.moveTo(-2.8, -5.0);
+      s.lineTo(-2.8, 5.0);
+      s.lineTo(0.5, 5.0);
+      s.absarc(0.5, 2.5, 2.5, Math.PI / 2, -Math.PI / 2, true);
+      s.lineTo(0.8, 0.0);
+      s.lineTo(2.8, -5.0);
+      s.lineTo(1.1, -5.0);
+      s.lineTo(-0.7, -0.2);
+      s.lineTo(-1.2, -0.2);
+      s.lineTo(-1.2, -5.0);
+      s.closePath();
+
+      const h = new THREE.Path();
+      h.moveTo(-1.2, 1.4);
+      h.lineTo(0.4, 1.4);
+      h.absarc(0.4, 2.5, 1.1, -Math.PI / 2, Math.PI / 2, false);
+      h.lineTo(-1.2, 3.6);
+      h.closePath();
+      s.holes.push(h);
+      return s;
+    }
+
+    case 'O': {
+      s.absellipse(0, 0, 3.0, 5.0, 0, Math.PI * 2, false, 0);
+      const h = new THREE.Path();
+      h.absellipse(0, 0, 1.5, 3.5, 0, Math.PI * 2, true, 0);
+      s.holes.push(h);
+      return s;
+    }
+
+    case 'B': {
+      s.moveTo(-2.8, -5.0);
+      s.lineTo(-2.8, 5.0);
+      s.lineTo(0.4, 5.0);
+      s.absarc(0.4, 2.6, 2.4, Math.PI / 2, -Math.PI / 2, true);
+      s.lineTo(0.6, 0.2);
+      s.absarc(0.6, -2.4, 2.6, Math.PI / 2, -Math.PI / 2, true);
+      s.lineTo(-2.8, -5.0);
+      s.closePath();
+
+      const h1 = new THREE.Path();
+      h1.moveTo(-1.2, 1.5);
+      h1.lineTo(0.3, 1.5);
+      h1.absarc(0.3, 2.6, 1.1, -Math.PI / 2, Math.PI / 2, false);
+      h1.lineTo(-1.2, 3.7);
+      h1.closePath();
+      s.holes.push(h1);
+
+      const h2 = new THREE.Path();
+      h2.moveTo(-1.2, -3.7);
+      h2.lineTo(0.5, -3.7);
+      h2.absarc(0.5, -2.4, 1.3, -Math.PI / 2, Math.PI / 2, false);
+      h2.lineTo(-1.2, -1.1);
+      h2.closePath();
+      s.holes.push(h2);
+      return s;
+    }
+
+    case 'U': {
+      s.moveTo(-2.8, 5.0);
+      s.lineTo(-1.2, 5.0);
+      s.lineTo(-1.2, -1.8);
+      s.absarc(0, -1.8, 1.2, Math.PI, 0, true);
+      s.lineTo(1.2, 5.0);
+      s.lineTo(2.8, 5.0);
+      s.lineTo(2.8, -1.8);
+      s.absarc(0, -1.8, 2.8, 0, Math.PI, false);
+      s.closePath();
+      return s;
+    }
+
+    case 'G': {
+      s.moveTo(2.6, 3.5);
+      s.lineTo(1.4, 4.3);
+      s.absarc(0, 0, 5.0, Math.PI / 4, -Math.PI / 6, false);
+      s.lineTo(2.8, 0.0);
+      s.lineTo(0.6, 0.0);
+      s.lineTo(0.6, -1.4);
+      s.lineTo(1.5, -1.4);
+      s.absarc(0, 0, 3.5, -Math.PI / 6, Math.PI / 4, true);
+      s.closePath();
+      return s;
+    }
+
+    default:
+      s.moveTo(-2, -5);
+      s.lineTo(2, -5);
+      s.lineTo(2, 5);
+      s.lineTo(-2, 5);
+      s.closePath();
+      return s;
+  }
+}
+
+// Medical Cross Logo Badge for Apex Dental
+function getDentalEmblemShapes() {
+  const badge = new THREE.Shape();
+  const w = 4.8, h = 4.8, r = 1.4;
+  badge.moveTo(-w + r, -h);
+  badge.lineTo(w - r, -h);
+  badge.absarc(w - r, -h + r, r, -Math.PI / 2, 0, false);
+  badge.lineTo(w, h - r);
+  badge.absarc(w - r, h - r, r, 0, Math.PI / 2, false);
+  badge.lineTo(-w + r, h);
+  badge.absarc(-w + r, h - r, r, Math.PI / 2, Math.PI, false);
+  badge.lineTo(-w, -h + r);
+  badge.absarc(-w + r, -h + r, r, Math.PI, Math.PI * 1.5, false);
+  badge.closePath();
+
+  const cross = new THREE.Shape();
+  const cw = 3.2, ch = 1.0;
+  cross.moveTo(-ch, -cw);
+  cross.lineTo(ch, -cw);
+  cross.lineTo(ch, -ch);
+  cross.lineTo(cw, -ch);
+  cross.lineTo(cw, ch);
+  cross.lineTo(ch, ch);
+  cross.lineTo(ch, cw);
+  cross.lineTo(-ch, cw);
+  cross.lineTo(-ch, ch);
+  cross.lineTo(-cw, ch);
+  cross.lineTo(-cw, -ch);
+  cross.lineTo(-ch, -ch);
+  cross.closePath();
+
+  return { badge, cross };
+}
+
+// Procedural Running-Bond Charcoal Brick Facade Texture for Apex Dental
+function createBrickWallTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 512;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = '#1E293B';
+  ctx.fillRect(0, 0, 1024, 512);
+
+  const brickW = 64, brickH = 24, mortar = 4;
+  const colors = ['#334155', '#38475C', '#2D3A4D', '#3B4A60', '#313F53'];
+
+  for (let row = 0; row < 512 / (brickH + mortar); row++) {
+    const y = row * (brickH + mortar);
+    const offsetX = (row % 2 === 0) ? 0 : -(brickW + mortar) / 2;
+    for (let col = -1; col < 1024 / (brickW + mortar) + 2; col++) {
+      const x = col * (brickW + mortar) + offsetX;
+      const color = colors[(row * 7 + col * 13) % colors.length];
+      ctx.fillStyle = color;
+      ctx.fillRect(x + mortar, y + mortar, brickW - mortar, brickH - mortar);
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+      ctx.fillRect(x + mortar + 2, y + mortar + 2, brickW - mortar - 4, 3);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.14)';
+      ctx.fillRect(x + mortar, y + brickH - 2, brickW - mortar, 2);
+    }
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(2, 2);
+  texture.anisotropy = 8;
+  return texture;
+}
+
+// Procedural Horizontal Timber Cladding Facade Texture for Metro Burger
+function createTimberWallTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 512;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = '#1A0C06';
+  ctx.fillRect(0, 0, 1024, 512);
+
+  const plankH = 36, reveal = 4;
+  const plankColors = ['#78350F', '#854D0E', '#6B2C0D', '#92400E', '#713F12'];
+
+  for (let row = 0; row < 512 / (plankH + reveal); row++) {
+    const y = row * (plankH + reveal);
+    const color = plankColors[row % plankColors.length];
+    ctx.fillStyle = color;
+    ctx.fillRect(0, y + reveal, 1024, plankH - reveal);
+
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+    for (let g = 0; g < 4; g++) {
+      ctx.fillRect(0, y + reveal + 6 + g * 7, 1024, 1.5);
+    }
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+    ctx.fillRect(0, y + reveal + 1, 1024, 2);
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(1.5, 1.5);
+  texture.anisotropy = 8;
+  return texture;
+}
+
+// High-Resolution Subtitle Texture for Apex Dental ACM Backer
+function createApexSubtitleTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 160;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, 1024, 160);
+
+  ctx.textAlign = 'center';
+  ctx.font = '800 36px "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillStyle = '#38BDF8';
+  ctx.letterSpacing = '10px';
+  ctx.fillText('FAMILY & COSMETIC DENTISTRY', 512, 65);
+
+  ctx.font = '600 20px "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  ctx.fillStyle = '#94A3B8';
+  ctx.letterSpacing = '4px';
+  ctx.fillText('DR. RACHEL VANCE, DDS • SUITE 104 • NORTH ENTRANCE', 512, 120);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.anisotropy = 8;
+  return texture;
+}
+
+// Industrial Raceway Specification Texture for Metro Burger
+function createMetroRacewayTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 128;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, 1024, 128);
+
+  ctx.textAlign = 'left';
+  ctx.font = '800 20px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#57534E';
+  ctx.letterSpacing = '2px';
+  ctx.fillText('7" x 4.5" EXTRUDED WIREWAY • UL 48 ENCLOSURE', 36, 52);
+
+  ctx.font = '600 16px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#78716C';
+  ctx.fillText('QUALITY MANUFACTURING (LANCASTER, PA) • 120V 60Hz 1.2A', 36, 90);
+
+  ctx.textAlign = 'right';
+  ctx.font = '800 22px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#D97706';
+  ctx.fillText('JOB #FS-2026-119', 988, 70);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.anisotropy = 8;
+  return texture;
+}
+
+// Retail Storefront Glass Transom Texture
+function createStorefrontGlassTexture(unitText) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 160;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, 1024, 160);
+
+  ctx.textAlign = 'center';
+  ctx.font = '700 24px "Inter", -apple-system, sans-serif';
+  ctx.fillStyle = '#94A3B8';
+  ctx.letterSpacing = '5px';
+  ctx.fillText(unitText, 512, 95);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.anisotropy = 8;
+  return texture;
+}
+
+// ============================================================================
 // LAYER POSITION DEFINITIONS
 // BaseZ = exact attached contact position at 0% (zero spacing).
 // DeltaZ = physical explosion translation offset at 100%.
@@ -504,17 +937,27 @@ export default function SignAssembly3D({
         (activeInspector.id === 'metal-face' && key === 'face') ||
         (activeInspector.id === 'acrylic-face' && key === 'face') ||
         (activeInspector.id === 'logo' && (key === 'logo' || key === 'logoFace' || key === 'logoCore')) ||
-        (activeInspector.id === 'standoffs' && (key === 'standoffBarrels' || key === 'standoffCaps' || key === 'standoffs'));
+        (activeInspector.id === 'standoffs' && (key === 'standoffBarrels' || key === 'standoffCaps' || key === 'standoffs')) ||
+        (activeInspector.id === 'weep' && (key === 'return' || key === 'backer')) ||
+        (activeInspector.id === 'polycarb' && key === 'polycarb') ||
+        (activeInspector.id === 'trim' && key === 'trim') ||
+        (activeInspector.id === 'drivers' && key === 'drivers') ||
+        (activeInspector.id === 'raceway' && key === 'raceway');
 
       group.traverse((child) => {
-        if (child.isMesh && child.material && child.material.isMeshStandardMaterial) {
+        if (child.isMesh && child.material) {
           if (!child.userData.origMaterial) {
             child.userData.origMaterial = child.material;
           }
           if (isMatch) {
-            child.material = child.material.clone();
-            child.material.emissive = new THREE.Color(0xF79223);
-            child.material.emissiveIntensity = 0.55;
+            if (child.material.isMeshStandardMaterial) {
+              child.material = child.material.clone();
+              child.material.emissive = new THREE.Color(0xF79223);
+              child.material.emissiveIntensity = 0.65;
+            } else if (child.material.isMeshBasicMaterial) {
+              child.material = child.material.clone();
+              child.material.color = new THREE.Color(0xF79223);
+            }
           } else {
             child.material = child.userData.origMaterial;
           }
@@ -876,101 +1319,305 @@ function buildSignLayers(scene, project, layers) {
   // CASE 1: APEX DENTAL REVERSE HALO CHANNEL LETTERS
   // --------------------------------------------------------------------------
   else if (project.id === 'case1') {
-    // 1. MASONRY WALL (Front face at Z = 0.0)
+    // 1. SPLIT-FACE CHARCOAL BRICK FACADE WALL (Front face sits exactly at Z = 0.0)
     const wallGroup = new THREE.Group();
-    const wallGeo = new THREE.BoxGeometry(120, 65, 1.0);
-    const wallMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.95 });
+    const wallGeo = new THREE.BoxGeometry(125, 70, 1.0);
+    const brickTexture = createBrickWallTexture();
+    const wallMat = new THREE.MeshStandardMaterial({ 
+      map: brickTexture,
+      roughness: 0.92, 
+      metalness: 0.06 
+    });
     const wallMesh = new THREE.Mesh(wallGeo, wallMat);
     wallMesh.position.set(0, 0, -0.5);
+    wallMesh.receiveShadow = true;
     wallGroup.add(wallMesh);
+
+    // Architectural parapet coping cap along top edge
+    const copingGeo = new THREE.BoxGeometry(127, 2.4, 1.8);
+    const copingMat = new THREE.MeshStandardMaterial({ color: 0x1E293B, metalness: 0.85, roughness: 0.3 });
+    const coping = new THREE.Mesh(copingGeo, copingMat);
+    coping.position.set(0, 34, 0.4);
+    wallGroup.add(coping);
+
+    // Lower entrance vestibule glass transom windows at bottom
+    const transomGeo = new THREE.PlaneGeometry(112, 12);
+    const glassTexture = createStorefrontGlassTexture('SUITE 104 • ENTRANCE VESTIBULE GLASS');
+    const transomMat = new THREE.MeshStandardMaterial({ 
+      map: glassTexture, 
+      color: 0x0F172A,
+      roughness: 0.1, 
+      metalness: 0.9 
+    });
+    const transom = new THREE.Mesh(transomGeo, transomMat);
+    transom.position.set(0, -28, 0.02);
+    wallGroup.add(transom);
+
     scene.add(wallGroup);
     layers.wall = wallGroup;
 
-    // 2. 3MM BLACK MATTE ACM BACKER PANEL (Z = 0.0 to 0.3, sits flush on wall)
+    // 2. 3MM SATIN BLACK ACM BACKER PANEL (Z = 0.0 to 0.3)
     const backerGroup = new THREE.Group();
-    const backerGeo = new THREE.BoxGeometry(100, 32, 0.3);
-    const backerMat = new THREE.MeshStandardMaterial({ color: 0x090D16, roughness: 0.35, metalness: 0.7 });
+    const backerGeo = new THREE.BoxGeometry(104, 30, 0.3);
+    const backerMat = new THREE.MeshStandardMaterial({ 
+      color: 0x090D16, 
+      roughness: 0.32, 
+      metalness: 0.75 
+    });
     const backerMesh = new THREE.Mesh(backerGeo, backerMat);
     backerMesh.position.set(0, 0, 0.15);
+    backerMesh.receiveShadow = true;
     backerGroup.add(backerMesh);
+
+    // Subtle 3mm perimeter tray flange edge
+    const flangeMat = new THREE.MeshStandardMaterial({ color: 0x1E293B, metalness: 0.8, roughness: 0.3 });
+    const flangeTop = new THREE.Mesh(new THREE.BoxGeometry(104.4, 0.6, 0.5), flangeMat);
+    flangeTop.position.set(0, 15, 0.25);
+    backerGroup.add(flangeTop);
+    const flangeBot = new THREE.Mesh(new THREE.BoxGeometry(104.4, 0.6, 0.5), flangeMat);
+    flangeBot.position.set(0, -15, 0.25);
+    backerGroup.add(flangeBot);
+
+    // Baffled weep slots along bottom edge
+    const weepMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+    [-40, -20, 0, 20, 40].forEach((wx) => {
+      const weep = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.4, 0.32), weepMat);
+      weep.position.set(wx, -14.6, 0.16);
+      backerGroup.add(weep);
+    });
+
+    // UV-Printed Secondary Subtitle ("FAMILY & COSMETIC DENTISTRY")
+    const subGeo = new THREE.PlaneGeometry(64, 8.5);
+    const subTexture = createApexSubtitleTexture();
+    const subMat = new THREE.MeshBasicMaterial({ 
+      map: subTexture, 
+      transparent: true, 
+      depthWrite: false 
+    });
+    const subMesh = new THREE.Mesh(subGeo, subMat);
+    subMesh.position.set(8.5, -7.5, 0.31);
+    backerGroup.add(subMesh);
+
     scene.add(backerGroup);
     layers.backer = backerGroup;
 
-    // 3. 1.50" MACHINED THREADED STANDOFFS (Z = 0.3 to 2.8, sits on backer)
+    // 3. 1.50" MACHINED THREADED STANDOFF SPACERS (Z = 0.3 to 2.8, length = 2.5)
     const standoffsGroup = new THREE.Group();
-    const standoffGeo = new THREE.CylinderGeometry(0.9, 0.9, 2.5, 24);
+    const standoffGeo = new THREE.CylinderGeometry(0.7, 0.7, 2.5, 24);
     standoffGeo.rotateX(Math.PI / 2);
-    const ssMat = new THREE.MeshStandardMaterial({ color: 0xCBD5E1, metalness: 0.9, roughness: 0.2 });
+    const standoffMat = new THREE.MeshStandardMaterial({ 
+      color: 0xCBD5E1, 
+      metalness: 0.92, 
+      roughness: 0.22 
+    });
 
-    const standoffPositions = [-38, -25, -12, 0, 12, 25, 38];
-    standoffPositions.forEach((x) => {
-      const st1 = new THREE.Mesh(standoffGeo, ssMat);
-      st1.position.set(x, 4, 1.25);
-      const st2 = new THREE.Mesh(standoffGeo, ssMat);
-      st2.position.set(x, -4, 1.25);
-      standoffsGroup.add(st1);
-      standoffsGroup.add(st2);
+    // Standoff anchor coordinates: behind emblem (4x) and letters
+    const apexStandoffCoords = [
+      [-41.5, 4.5], [-34.5, 4.5], [-41.5, -1.5], [-34.5, -1.5], // Dental emblem
+      [-26.5, -1.0], [-23.5, 3.5], [-23.5, -1.0], // A
+      [-19.5, 3.5], [-19.5, -1.0], // P
+      [-12.5, 3.5], [-12.5, -1.0], // E
+      [-5.5, 3.5], [-2.5, -1.0], // X
+      [4.0, 3.5], [4.0, -1.0], [7.5, 1.5], // D
+      [11.0, 3.5], [11.0, -1.0], // E
+      [18.0, 3.5], [21.0, -1.0], // N
+      [26.5, 3.5], [26.5, -1.0], // T
+      [32.0, -1.0], [35.0, 3.5], [35.0, -1.0], // A
+      [39.0, 3.5], [42.0, -1.0] // L
+    ];
+
+    apexStandoffCoords.forEach(([sx, sy]) => {
+      const st = new THREE.Mesh(standoffGeo, standoffMat);
+      st.position.set(sx, sy, 1.25);
+      st.castShadow = true;
+      standoffsGroup.add(st);
     });
     scene.add(standoffsGroup);
     layers.standoffs = standoffsGroup;
 
     // 4. 3/16" CLEAR LEXAN POLYCARBONATE BACKS (Z = 2.8 to 3.1)
     const polyGroup = new THREE.Group();
-    const polyGeo = new THREE.BoxGeometry(90, 16, 0.3);
     const polyMat = new THREE.MeshStandardMaterial({
       color: 0xBAE6FD,
       transparent: true,
-      opacity: 0.5,
-      roughness: 0.2,
+      opacity: 0.55,
+      roughness: 0.15,
       metalness: 0.1
     });
-    const polyMesh = new THREE.Mesh(polyGeo, polyMat);
-    polyMesh.position.set(0, 0, 0.15);
-    polyGroup.add(polyMesh);
+
+    // 5. 12V HIGH-OUTPUT LED MODULES & HALO BACKLIGHT GLOW (Z = 3.2)
+    const ledsGroup = new THREE.Group();
+    const ledMat = new THREE.MeshBasicMaterial({ color: 0xFFF9C4 });
+    const haloGlowMat = new THREE.MeshBasicMaterial({ 
+      color: 0xFEF08A, 
+      transparent: true, 
+      opacity: 0.28, 
+      blending: THREE.AdditiveBlending, 
+      depthWrite: false 
+    });
+
+    // 6. 3.5" FABRICATED SATIN BLACK ALUMINUM RETURNS (Z = 3.1 to 6.6)
+    const returnGroup = new THREE.Group();
+    const returnMat = new THREE.MeshStandardMaterial({ 
+      color: 0x111827, 
+      metalness: 0.85, 
+      roughness: 0.28 
+    });
+
+    // 7. 0.063" ROUTER-CUT SATIN BLACK ALUMINUM FACE (Z = 6.6 to 6.8)
+    const faceGroup = new THREE.Group();
+    const faceMat = new THREE.MeshStandardMaterial({ 
+      color: 0x0A0F1D, 
+      roughness: 0.22, 
+      metalness: 0.88 
+    });
+
+    // A. PROCEDURAL DENTAL EMBLEM (Badge + Medical Cross)
+    const { badge: emblemBadgeShape, cross: emblemCrossShape } = getDentalEmblemShapes();
+    const emblemScale = 0.95;
+    const emblemPos = { x: -38.0, y: 1.5 };
+
+    // Emblem Polycarbonate back
+    const emblemPolyGeo = new THREE.ExtrudeGeometry(emblemBadgeShape, { depth: 0.3, bevelEnabled: false });
+    const emblemPolyMesh = new THREE.Mesh(emblemPolyGeo, polyMat);
+    emblemPolyMesh.scale.set(emblemScale, emblemScale, 1.0);
+    emblemPolyMesh.position.set(emblemPos.x, emblemPos.y, 0.15);
+    polyGroup.add(emblemPolyMesh);
+
+    // Emblem LED modules & halo wash
+    const emblemHaloGeo = new THREE.CircleGeometry(5.8, 32);
+    const emblemHaloMesh = new THREE.Mesh(emblemHaloGeo, haloGlowMat);
+    emblemHaloMesh.position.set(emblemPos.x, emblemPos.y, -2.8);
+    ledsGroup.add(emblemHaloMesh);
+
+    [-2, 2].forEach(lx => {
+      [-2, 2].forEach(ly => {
+        const ledMesh = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.4), ledMat);
+        ledMesh.position.set(emblemPos.x + lx, emblemPos.y + ly, 0.2);
+        ledsGroup.add(ledMesh);
+      });
+    });
+
+    // Emblem Return can (depth 3.5)
+    const emblemRetGeo = new THREE.ExtrudeGeometry(emblemBadgeShape, {
+      depth: 3.5,
+      bevelEnabled: true,
+      bevelThickness: 0.06,
+      bevelSize: 0.06,
+      bevelSegments: 2
+    });
+    const emblemRetMesh = new THREE.Mesh(emblemRetGeo, returnMat);
+    emblemRetMesh.scale.set(emblemScale, emblemScale, 1.0);
+    emblemRetMesh.position.set(emblemPos.x, emblemPos.y, 0);
+    emblemRetMesh.castShadow = true;
+    returnGroup.add(emblemRetMesh);
+
+    // Emblem Face (satin black plate + electric cyan medical cross)
+    const emblemFaceGeo = new THREE.ExtrudeGeometry(emblemBadgeShape, {
+      depth: 0.2,
+      bevelEnabled: true,
+      bevelThickness: 0.04,
+      bevelSize: 0.04,
+      bevelSegments: 2
+    });
+    const emblemFaceMesh = new THREE.Mesh(emblemFaceGeo, faceMat);
+    emblemFaceMesh.scale.set(emblemScale, emblemScale, 1.0);
+    emblemFaceMesh.position.set(emblemPos.x, emblemPos.y, 0);
+    emblemFaceMesh.castShadow = true;
+    faceGroup.add(emblemFaceMesh);
+
+    // Medical Cross '+' relief in vibrant cyan (#38BDF8)
+    const crossMat = new THREE.MeshStandardMaterial({ color: 0x38BDF8, metalness: 0.7, roughness: 0.25 });
+    const crossGeo = new THREE.ExtrudeGeometry(emblemCrossShape, {
+      depth: 0.35,
+      bevelEnabled: true,
+      bevelThickness: 0.04,
+      bevelSize: 0.04,
+      bevelSegments: 2
+    });
+    const crossMesh = new THREE.Mesh(crossGeo, crossMat);
+    crossMesh.scale.set(emblemScale, emblemScale, 1.0);
+    crossMesh.position.set(emblemPos.x, emblemPos.y, 0.18);
+    crossMesh.castShadow = true;
+    faceGroup.add(crossMesh);
+
+    // B. PROCEDURAL INDIVIDUAL CHANNEL LETTERS FOR "APEX DENTAL"
+    const apexLettersData = [
+      { char: 'A', x: -25.0, y: 1.5 },
+      { char: 'P', x: -18.0, y: 1.5 },
+      { char: 'E', x: -11.0, y: 1.5 },
+      { char: 'X', x:  -4.0, y: 1.5 },
+      { char: 'D', x:   5.5, y: 1.5 },
+      { char: 'E', x:  12.5, y: 1.5 },
+      { char: 'N', x:  19.5, y: 1.5 },
+      { char: 'T', x:  26.5, y: 1.5 },
+      { char: 'A', x:  33.5, y: 1.5 },
+      { char: 'L', x:  40.5, y: 1.5 }
+    ];
+
+    const letterScale = 0.90;
+
+    apexLettersData.forEach((item) => {
+      const shape = getChannelLetterShape(item.char);
+
+      // Polycarb back
+      const pGeo = new THREE.ExtrudeGeometry(shape, { depth: 0.3, bevelEnabled: false });
+      const pMesh = new THREE.Mesh(pGeo, polyMat);
+      pMesh.scale.set(letterScale, letterScale, 1.0);
+      pMesh.position.set(item.x, item.y, 0.15);
+      polyGroup.add(pMesh);
+
+      // LEDs & halo backlight disk
+      const haloGeo = new THREE.CircleGeometry(4.8, 24);
+      const haloMesh = new THREE.Mesh(haloGeo, haloGlowMat);
+      haloMesh.position.set(item.x, item.y, -2.8);
+      ledsGroup.add(haloMesh);
+
+      const ledMesh1 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.35), ledMat);
+      ledMesh1.position.set(item.x, item.y + 2.0, 0.2);
+      const ledMesh2 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.35), ledMat);
+      ledMesh2.position.set(item.x, item.y - 2.0, 0.2);
+      ledsGroup.add(ledMesh1);
+      ledsGroup.add(ledMesh2);
+
+      // 3.5" Formed Aluminum Return
+      const rGeo = new THREE.ExtrudeGeometry(shape, {
+        depth: 3.5,
+        bevelEnabled: true,
+        bevelThickness: 0.06,
+        bevelSize: 0.06,
+        bevelSegments: 2
+      });
+      const rMesh = new THREE.Mesh(rGeo, returnMat);
+      rMesh.scale.set(letterScale, letterScale, 1.0);
+      rMesh.position.set(item.x, item.y, 0);
+      rMesh.castShadow = true;
+      returnGroup.add(rMesh);
+
+      // 0.063" Router-cut Face
+      const fGeo = new THREE.ExtrudeGeometry(shape, {
+        depth: 0.2,
+        bevelEnabled: true,
+        bevelThickness: 0.04,
+        bevelSize: 0.04,
+        bevelSegments: 2
+      });
+      const fMesh = new THREE.Mesh(fGeo, faceMat);
+      fMesh.scale.set(letterScale, letterScale, 1.0);
+      fMesh.position.set(item.x, item.y, 0);
+      fMesh.castShadow = true;
+      faceGroup.add(fMesh);
+    });
+
     scene.add(polyGroup);
     layers.polycarb = polyGroup;
 
-    // 5. 12V IP67 HALO LED MODULES (inside return cans at Z = 3.2)
-    const ledsGroup = new THREE.Group();
-    const ledMat = new THREE.MeshBasicMaterial({ color: 0xFEF08A });
-    const ledGeo = new THREE.BoxGeometry(2.0, 1.0, 0.3);
-
-    standoffPositions.forEach((x) => {
-      const led1 = new THREE.Mesh(ledGeo, ledMat);
-      led1.position.set(x, 4, 0.15);
-      const led2 = new THREE.Mesh(ledGeo, ledMat);
-      led2.position.set(x, -4, 0.15);
-      ledsGroup.add(led1);
-      ledsGroup.add(led2);
-    });
     scene.add(ledsGroup);
     layers.leds = ledsGroup;
 
-    // 6. .063" FABRICATED ALUMINUM RETURNS (can walls: Z = 3.1 to 6.6, depth = 3.5)
-    const returnGroup = new THREE.Group();
-    const returnGeo = new THREE.BoxGeometry(90, 16, 3.5);
-    const returnMat = new THREE.MeshStandardMaterial({ 
-      color: 0x1E293B, 
-      metalness: 0.8, 
-      roughness: 0.3 
-    });
-    const returnMesh = new THREE.Mesh(returnGeo, returnMat);
-    returnMesh.position.set(0, 0, 1.75);
-    returnGroup.add(returnMesh);
     scene.add(returnGroup);
     layers.return = returnGroup;
 
-    // 7. .090" ROUTER-CUT SATIN BLACK ALUMINUM FACE (Z = 6.6 to 6.8)
-    const faceGroup = new THREE.Group();
-    const faceGeo = new THREE.BoxGeometry(90, 16, 0.2);
-    const faceMat = new THREE.MeshStandardMaterial({ 
-      color: 0x090D16, 
-      roughness: 0.25, 
-      metalness: 0.85 
-    });
-    const faceMesh = new THREE.Mesh(faceGeo, faceMat);
-    faceMesh.position.set(0, 0, 0.1);
-    faceGroup.add(faceMesh);
     scene.add(faceGroup);
     layers.face = faceGroup;
   }
@@ -979,80 +1626,242 @@ function buildSignLayers(scene, project, layers) {
   // CASE 2: METRO BURGER FRONT-LIT ON RACEWAY
   // --------------------------------------------------------------------------
   else if (project.id === 'case2') {
-    // 1. STOREFRONT WALL (Front face at Z = 0.0)
+    // 1. STOREFRONT WALL (Front face sits exactly at Z = 0.0)
     const wallGroup = new THREE.Group();
-    const wallGeo = new THREE.BoxGeometry(130, 65, 1.0);
-    const wallMat = new THREE.MeshStandardMaterial({ color: 0x78350F, roughness: 0.9 });
+    const wallGeo = new THREE.BoxGeometry(135, 70, 1.0);
+    const timberTexture = createTimberWallTexture();
+    const wallMat = new THREE.MeshStandardMaterial({ 
+      map: timberTexture, 
+      roughness: 0.88, 
+      metalness: 0.05 
+    });
     const wallMesh = new THREE.Mesh(wallGeo, wallMat);
     wallMesh.position.set(0, 0, -0.5);
+    wallMesh.receiveShadow = true;
     wallGroup.add(wallMesh);
+
+    // Architectural parapet coping bar
+    const copingGeo = new THREE.BoxGeometry(137, 2.4, 1.8);
+    const copingMat = new THREE.MeshStandardMaterial({ color: 0x1C1917, metalness: 0.8, roughness: 0.3 });
+    const coping = new THREE.Mesh(copingGeo, copingMat);
+    coping.position.set(0, 34, 0.4);
+    wallGroup.add(coping);
+
+    // Lower retail storefront window
+    const glassGeo = new THREE.PlaneGeometry(120, 12);
+    const glassTexture = createStorefrontGlassTexture('UNIT 12 • SHOPPES AT LEGACY CREEK');
+    const glassMat = new THREE.MeshStandardMaterial({ 
+      map: glassTexture, 
+      color: 0x0F172A,
+      roughness: 0.1, 
+      metalness: 0.9 
+    });
+    const glass = new THREE.Mesh(glassGeo, glassMat);
+    glass.position.set(0, -28, 0.02);
+    wallGroup.add(glass);
+
     scene.add(wallGroup);
     layers.wall = wallGroup;
 
-    // 2. 7" x 4.5" EXTRUDED ALUMINUM RACEWAY (Z = 0.0 to 4.5, mounted flush to wall)
+    // 2. 7" x 4.5" EXTRUDED ALUMINUM RACEWAY (Z = 0.0 to 4.5)
     const racewayGroup = new THREE.Group();
-    const racewayGeo = new THREE.BoxGeometry(105, 12, 4.5);
-    const racewayMat = new THREE.MeshStandardMaterial({ color: 0xD6CEBE, metalness: 0.75, roughness: 0.35 });
+    const racewayGeo = new THREE.BoxGeometry(112, 12, 4.5);
+    const racewayMat = new THREE.MeshStandardMaterial({ 
+      color: 0xD6CEBE, 
+      metalness: 0.72, 
+      roughness: 0.38 
+    });
     const racewayMesh = new THREE.Mesh(racewayGeo, racewayMat);
-    racewayMesh.position.set(0, 0, 2.25);
+    racewayMesh.position.set(3.5, -3.0, 2.25);
+    racewayMesh.receiveShadow = true;
+    racewayMesh.castShadow = true;
     racewayGroup.add(racewayMesh);
+
+    // Industrial label on raceway front face
+    const labelGeo = new THREE.PlaneGeometry(108, 10);
+    const labelTexture = createMetroRacewayTexture();
+    const labelMat = new THREE.MeshBasicMaterial({ 
+      map: labelTexture, 
+      transparent: true, 
+      depthWrite: false 
+    });
+    const labelMesh = new THREE.Mesh(labelGeo, labelMat);
+    labelMesh.position.set(3.5, -3.0, 4.52);
+    racewayGroup.add(labelMesh);
+
+    // Commercial mounting angle brackets (3x heavy steel brackets securing raceway to wall studs)
+    const bracketGeo = new THREE.BoxGeometry(2.4, 14, 0.4);
+    const bracketMat = new THREE.MeshStandardMaterial({ color: 0x44403C, metalness: 0.9, roughness: 0.3 });
+    [-45, 3.5, 52].forEach(bx => {
+      const bTop = new THREE.Mesh(bracketGeo, bracketMat);
+      bTop.position.set(bx, 3.5, 0.2);
+      racewayGroup.add(bTop);
+    });
+
+    // 1/2" watertight conduit feed fitting on raceway top
+    const conduitGeo = new THREE.CylinderGeometry(0.8, 0.8, 4.0, 16);
+    const conduitMat = new THREE.MeshStandardMaterial({ color: 0x78716C, metalness: 0.85 });
+    const conduit = new THREE.Mesh(conduitGeo, conduitMat);
+    conduit.position.set(-48, 4.5, 2.25);
+    racewayGroup.add(conduit);
+
     scene.add(racewayGroup);
     layers.raceway = racewayGroup;
 
-    // 3. INTERNAL CLASS 2 DRIVERS (Inside raceway at Z = 2.2)
+    // 3. INTERNAL UL CLASS 2 DRIVERS (Inside raceway at Z = 2.2)
     const driversGroup = new THREE.Group();
-    const driverGeo = new THREE.BoxGeometry(10, 4.0, 2.0);
-    const driverMat = new THREE.MeshStandardMaterial({ color: 0x0F172A, metalness: 0.6 });
-    [-30, 0, 30].forEach((dx) => {
-      const driver = new THREE.Mesh(driverGeo, driverMat);
-      driver.position.set(dx, 0, 0);
-      driversGroup.add(driver);
+    const driverGeo = new THREE.BoxGeometry(14, 4.8, 2.2);
+    const driverMat = new THREE.MeshStandardMaterial({ 
+      color: 0x0F172A, 
+      metalness: 0.75, 
+      roughness: 0.3 
     });
+
+    [-28, 4.0, 36].forEach((dx) => {
+      const driver = new THREE.Mesh(driverGeo, driverMat);
+      driver.position.set(dx, -3.0, 0);
+      driver.castShadow = true;
+      driversGroup.add(driver);
+
+      // Driver spec label plate
+      const specPlate = new THREE.Mesh(
+        new THREE.PlaneGeometry(12, 3.6),
+        new THREE.MeshBasicMaterial({ color: 0x38BDF8, transparent: true, opacity: 0.85 })
+      );
+      specPlate.position.set(dx, -3.0, 1.12);
+      driversGroup.add(specPlate);
+    });
+
+    // Toggle disconnect switch inside raceway
+    const toggleGeo = new THREE.BoxGeometry(3.0, 4.0, 1.5);
+    const toggleMat = new THREE.MeshStandardMaterial({ color: 0xDC2626 });
+    const toggle = new THREE.Mesh(toggleGeo, toggleMat);
+    toggle.position.set(-48, -3.0, 0);
+    driversGroup.add(toggle);
+
     scene.add(driversGroup);
     layers.drivers = driversGroup;
 
-    // 4. 5" WELDED CHANNEL LETTER RETURN CANS (Z = 4.5 to 8.0, welded to raceway face)
+    // 4. 5" WELDED CHANNEL LETTER RETURN CANS (Z = 4.5 to 8.0, depth = 3.5)
     const returnGroup = new THREE.Group();
-    const returnGeo = new THREE.BoxGeometry(92, 18, 3.5);
-    const returnMat = new THREE.MeshStandardMaterial({ color: 0x1E293B, metalness: 0.85, roughness: 0.3 });
-    const returnMesh = new THREE.Mesh(returnGeo, returnMat);
-    returnMesh.position.set(0, 0, 1.75);
-    returnGroup.add(returnMesh);
-    scene.add(returnGroup);
-    layers.return = returnGroup;
+    const returnMat = new THREE.MeshStandardMaterial({ 
+      color: 0x1E293B, 
+      metalness: 0.85, 
+      roughness: 0.28 
+    });
 
     // 5. INTERNAL RED LED MODULES (inside return cans at Z = 6.0)
     const ledsGroup = new THREE.Group();
-    const ledMat = new THREE.MeshBasicMaterial({ color: 0xFF4D4D });
-    const ledGeo = new THREE.BoxGeometry(1.8, 1.0, 0.3);
-    [-35, -20, -5, 10, 25, 40].forEach((lx) => {
-      const led = new THREE.Mesh(ledGeo, ledMat);
-      led.position.set(lx, 0, 0);
-      ledsGroup.add(led);
+    const ledMat = new THREE.MeshBasicMaterial({ color: 0xFF2222 });
+    const ledGlowMat = new THREE.MeshBasicMaterial({ 
+      color: 0xEF4444, 
+      transparent: true, 
+      opacity: 0.3, 
+      blending: THREE.AdditiveBlending, 
+      depthWrite: false 
     });
-    scene.add(ledsGroup);
-    layers.leds = ledsGroup;
 
     // 6. 3/16" TRANSLUCENT 2793 RED ACRYLIC FACE (Z = 8.0 to 8.3)
     const faceGroup = new THREE.Group();
-    const faceGeo = new THREE.BoxGeometry(92, 18, 0.3);
     const faceMat = new THREE.MeshStandardMaterial({ 
       color: 0xEF4444, 
-      roughness: 0.2 
+      roughness: 0.18, 
+      metalness: 0.15 
     });
-    const faceMesh = new THREE.Mesh(faceGeo, faceMat);
-    faceMesh.position.set(0, 0, 0.15);
-    faceGroup.add(faceMesh);
-    scene.add(faceGroup);
-    layers.face = faceGroup;
 
     // 7. 1" JEWELITE TRIM CAP (wrapped around face at Z = 7.9 to 8.5)
     const trimGroup = new THREE.Group();
-    const trimGeo = new THREE.BoxGeometry(93.6, 19.6, 0.6);
-    const trimMat = new THREE.MeshStandardMaterial({ color: 0x0F172A, roughness: 0.4, metalness: 0.6 });
-    const trimMesh = new THREE.Mesh(trimGeo, trimMat);
-    trimMesh.position.set(0, 0, 0.3);
-    trimGroup.add(trimMesh);
+    const trimMat = new THREE.MeshStandardMaterial({ 
+      color: 0x090D16, 
+      roughness: 0.35, 
+      metalness: 0.75 
+    });
+
+    // INDIVIDUAL CHANNEL LETTERS FOR "METRO BURGER"
+    const metroLettersData = [
+      { char: 'M', x: -43.0, y: 3.2 },
+      { char: 'E', x: -33.5, y: 3.2 },
+      { char: 'T', x: -24.5, y: 3.2 },
+      { char: 'R', x: -15.5, y: 3.2 },
+      { char: 'O', x:  -6.5, y: 3.2 },
+      { char: 'B', x:   5.5, y: 3.2 },
+      { char: 'U', x:  14.5, y: 3.2 },
+      { char: 'R', x:  23.5, y: 3.2 },
+      { char: 'G', x:  32.5, y: 3.2 },
+      { char: 'E', x:  41.5, y: 3.2 },
+      { char: 'R', x:  50.5, y: 3.2 }
+    ];
+
+    const metroScale = 1.15;
+
+    metroLettersData.forEach((item) => {
+      const shape = getChannelLetterShape(item.char);
+
+      // Return Can (depth 3.5)
+      const rGeo = new THREE.ExtrudeGeometry(shape, {
+        depth: 3.5,
+        bevelEnabled: true,
+        bevelThickness: 0.08,
+        bevelSize: 0.08,
+        bevelSegments: 2
+      });
+      const rMesh = new THREE.Mesh(rGeo, returnMat);
+      rMesh.scale.set(metroScale, metroScale, 1.0);
+      rMesh.position.set(item.x, item.y, 0);
+      rMesh.castShadow = true;
+      returnGroup.add(rMesh);
+
+      // Internal LED Modules & Red glow
+      const glowGeo = new THREE.CircleGeometry(4.5, 20);
+      const glowMesh = new THREE.Mesh(glowGeo, ledGlowMat);
+      glowMesh.position.set(item.x, item.y, -1.2);
+      ledsGroup.add(glowMesh);
+
+      const l1 = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.4), ledMat);
+      l1.position.set(item.x, item.y + 2.5, 0);
+      const l2 = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.4), ledMat);
+      l2.position.set(item.x, item.y - 2.5, 0);
+      ledsGroup.add(l1);
+      ledsGroup.add(l2);
+
+      // 3/16" Red Acrylic Face
+      const fGeo = new THREE.ExtrudeGeometry(shape, {
+        depth: 0.3,
+        bevelEnabled: true,
+        bevelThickness: 0.04,
+        bevelSize: 0.04,
+        bevelSegments: 2
+      });
+      const fMesh = new THREE.Mesh(fGeo, faceMat);
+      fMesh.scale.set(metroScale, metroScale, 1.0);
+      fMesh.position.set(item.x, item.y, 0);
+      fMesh.castShadow = true;
+      faceGroup.add(fMesh);
+
+      // 1" Jewelite Trim Cap (slightly larger frame contour)
+      const tGeo = new THREE.ExtrudeGeometry(shape, {
+        depth: 0.6,
+        bevelEnabled: true,
+        bevelThickness: 0.06,
+        bevelSize: 0.08,
+        bevelSegments: 2
+      });
+      const tMesh = new THREE.Mesh(tGeo, trimMat);
+      tMesh.scale.set(metroScale * 1.025, metroScale * 1.025, 1.0);
+      tMesh.position.set(item.x, item.y, 0);
+      tMesh.castShadow = true;
+      trimGroup.add(tMesh);
+    });
+
+    scene.add(returnGroup);
+    layers.return = returnGroup;
+
+    scene.add(ledsGroup);
+    layers.leds = ledsGroup;
+
+    scene.add(faceGroup);
+    layers.face = faceGroup;
+
     scene.add(trimGroup);
     layers.trim = trimGroup;
   }
