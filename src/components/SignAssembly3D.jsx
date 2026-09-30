@@ -266,7 +266,7 @@ export default function SignAssembly3D({
         (activeInspector.id === 'standoffs' && (key === 'standoffBarrels' || key === 'standoffCaps' || key === 'standoffs'));
 
       group.traverse((child) => {
-        if (child.isMesh && child.material) {
+        if (child.isMesh && child.material && child.material.isMeshStandardMaterial) {
           if (!child.userData.origMaterial) {
             child.userData.origMaterial = child.material;
           }
