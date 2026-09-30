@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Layers, Printer, FileText, CheckCircle2, Info, Compass, 
+  Layers, Sun, Moon, Printer, FileText, CheckCircle2, Info, Compass, 
   ShieldAlert, Zap, Search, Eye, Sparkles, Shield, ShieldCheck, Box, 
   Maximize2, Cpu, CircleDot, LayoutGrid, Droplets 
 } from 'lucide-react';
@@ -23,16 +23,10 @@ function ComponentVisualThumbnail({ item }) {
 
   if (type === 'logo') {
     return (
-      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#111213] border border-[#F79223]/50 p-1 shrink-0 shadow-sm">
-        <path d="M 18,24 L 18,34 C 15.5,34 14,32 14,29 C 14,26 15.5,24 18,24 Z" fill="#F79223" />
-        <rect x="20" y="19" width="3.5" height="17" rx="1.75" fill="#F79223" />
-        <rect x="25.5" y="11" width="3.5" height="25" rx="1.75" fill="#FFFFFF" />
-        <path d="M 31,17 L 31,31 C 33.5,31 35,28.5 35,24 C 35,19.5 33.5,17 31,17 Z" fill="#FFFFFF" />
-        <text x="27" y="45" fontSize="6.5" fontWeight="900" textAnchor="middle" letterSpacing="0.8">
-          <tspan fill="#F79223">J.</tspan>
-          <tspan fill="#FFFFFF">STUDIO</tspan>
-        </text>
-      </svg>
+      <div className="w-12 h-12 rounded-xl bg-[#111213] border border-[#F79223]/50 p-1 shrink-0 shadow-sm flex flex-col items-center justify-center gap-0.5">
+        <img src="/branding/logo-mark.png" alt="J.STUDIO Logo" className="w-7 h-7 object-contain" />
+        <span className="text-[7.5px] font-black tracking-wider text-[#F79223] font-mono leading-none">J.STUDIO</span>
+      </div>
     );
   }
 
@@ -213,6 +207,7 @@ function renderToggleIcon(iconType, isSelected) {
 
 export default function ArchitecturalStudio({ project, letterHeight, returnDepth }) {
   const [viewMode, setViewMode] = useState('elev'); // 'elev' | 'cad' | 'elec' | 'cb'
+  const [isNightMode, setIsNightMode] = useState(false);
   const [activeInspector, setActiveInspector] = useState(project.inspectorItems[0]);
 
   // When project changes, update default active inspector
@@ -302,7 +297,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
               </button>
             </div>
 
-            {/* RIGHT CONTROLS: ACTIVE INSPECTOR FOCUS HUD */}
+            {/* RIGHT CONTROLS: ACTIVE INSPECTOR FOCUS HUD + ILLUMINATION TOGGLE */}
             <div className="flex items-center gap-3">
               {activeInspector && (
                 <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-[#F79223]/30 text-xs font-mono font-bold text-gray-800 shadow-xs">
@@ -314,6 +309,27 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                   <span className="text-[#F79223] uppercase font-extrabold tracking-wide">{activeInspector?.name}</span>
                 </div>
               )}
+
+              <button
+                onClick={() => setIsNightMode(!isNightMode)}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                  isNightMode 
+                    ? 'bg-[#111213] border-[#111213] text-[#FEF08A] shadow-md shadow-black/10' 
+                    : 'bg-white border-gray-300 text-gray-700 hover:border-gray-900'
+                }`}
+              >
+                {isNightMode ? (
+                  <>
+                    <Moon className="w-3.5 h-3.5 text-[#FEF08A]" />
+                    <span>Night Illumination Active</span>
+                  </>
+                ) : (
+                  <>
+                    <Sun className="w-3.5 h-3.5 text-[#F79223]" />
+                    <span>Daylight View</span>
+                  </>
+                )}
+              </button>
             </div>
 
           </div>
@@ -329,9 +345,9 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                   <svg viewBox="0 0 880 340" className="w-full h-auto block select-none">
                     <defs>
                       <pattern id="brick-pat-elev" width="44" height="22" patternUnits="userSpaceOnUse">
-                        <rect width="44" height="22" fill="#334155" />
-                        <rect x="0" y="0" width="42" height="10" fill="#475569" rx="1" />
-                        <rect x="22" y="11" width="42" height="10" fill="#475569" rx="1" />
+                        <rect width="44" height="22" fill={isNightMode ? "#0F172A" : "#334155"} />
+                        <rect x="0" y="0" width="42" height="10" fill={isNightMode ? "#1E293B" : "#475569"} rx="1" />
+                        <rect x="22" y="11" width="42" height="10" fill={isNightMode ? "#1E293B" : "#475569"} rx="1" />
                       </pattern>
                       <filter id="halo-glow-fx" x="-20%" y="-20%" width="140%" height="140%">
                         <feGaussianBlur in="SourceAlpha" stdDeviation="14" result="blur" />
@@ -348,7 +364,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     <rect width="880" height="340" fill="url(#brick-pat-elev)" />
                     
                     {/* ARCHITECTURAL COPING */}
-                    <rect x="0" y="0" width="880" height="30" fill="#1E293B" />
+                    <rect x="0" y="0" width="880" height="30" fill={isNightMode ? "#090D16" : "#1E293B"} />
                     <text x="24" y="20" fontSize="9.5" fill="#94A3B8" fontWeight="700" letterSpacing="1.5">
                       NORTH ELEVATION • LEVEL 2 MAIN RETAIL ENTRANCE
                     </text>
@@ -361,8 +377,8 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       strokeWidth={activeInspector?.id === 'backer' ? '3' : '2'} 
                     />
                     
-                    {/* HALO GLOW LAYER (ACTIVE ON LED INSPECTION) */}
-                    {activeInspector?.id === 'leds' && (
+                    {/* HALO GLOW LAYER (NIGHT MODE OR LED INSPECT) */}
+                    {(isNightMode || activeInspector?.id === 'leds') && (
                       <g>
                         <text x="470" y="152" fontSize="52" fontWeight="800" fill="#FEF08A" textAnchor="middle" letterSpacing="14" filter="url(#halo-glow-fx)" opacity="0.95">
                           APEX DENTAL
@@ -391,9 +407,11 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </g>
 
                     {/* CHANNEL LETTERS */}
-                    <text x="472" y="154" fontSize="50" fontWeight="800" fill="#000000" textAnchor="middle" letterSpacing="14" opacity="0.65">
-                      APEX DENTAL
-                    </text>
+                    {!isNightMode && (
+                      <text x="472" y="154" fontSize="50" fontWeight="800" fill="#000000" textAnchor="middle" letterSpacing="14" opacity="0.65">
+                        APEX DENTAL
+                      </text>
+                    )}
                     <text 
                       x="470" y="152" fontSize="50" fontWeight="800" 
                       fill="#0F172A" 
@@ -432,10 +450,10 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                 {/* CASE 2: METRO BURGER ELEVATION */}
                 {project.id === 'case2' && (
                   <svg viewBox="0 0 880 340" className="w-full h-auto block select-none">
-                    <rect width="880" height="340" fill="#E2E8F0" />
+                    <rect width="880" height="340" fill={isNightMode ? "#0F172A" : "#E2E8F0"} />
                     
                     {/* Horizontal Timber Cladding */}
-                    <g opacity="0.3">
+                    <g opacity={isNightMode ? "0.1" : "0.3"}>
                       {[40, 60, 80, 100, 120, 140, 160, 180].map(y => (
                         <line key={y} x1="0" y1={y} x2="880" y2={y} stroke="#78350F" strokeWidth="14" />
                       ))}
@@ -477,11 +495,11 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </text>
                     <text 
                       x="440" y="150" fontSize="64" fontWeight="900" 
-                      fill={activeInspector?.id === 'face' ? '#EF4444' : '#DC2626'} 
+                      fill={isNightMode ? "#FF4D4D" : (activeInspector?.id === 'face' ? '#EF4444' : '#DC2626')} 
                       textAnchor="middle" letterSpacing="8"
                       stroke={activeInspector?.id === 'face' ? '#FEF08A' : 'none'}
                       strokeWidth={activeInspector?.id === 'face' ? '2' : '0'}
-                      style={{ filter: activeInspector?.id === 'face' ? 'drop-shadow(0 0 18px rgba(239, 68, 68, 0.95))' : 'none' }}
+                      style={{ filter: (isNightMode || activeInspector?.id === 'face') ? 'drop-shadow(0 0 18px rgba(239, 68, 68, 0.95))' : 'none' }}
                     >
                       METRO BURGER
                     </text>
@@ -504,7 +522,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                 {/* CASE 3: J.STUDIO ARCHITECTURAL ELEVATION (WITH JEZREEL'S BRANDING) */}
                 {project.id === 'case3' && (
                   <svg viewBox="0 0 880 340" className="w-full h-auto block select-none">
-                    <rect width="880" height="340" fill="#F8FAFC" />
+                    <rect width="880" height="340" fill={isNightMode ? "#090D16" : "#F8FAFC"} />
                     
                     {/* ACOUSTIC WOOD SLATS */}
                     <g opacity="0.15">
@@ -512,28 +530,24 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </g>
 
                     {/* OVERHEAD GALLERY SPOTLIGHT WASH */}
-                    {activeInspector?.id === 'lighting' && (
-                      <polygon points="320,0 560,0 700,320 180,320" fill="#FEF08A" opacity="0.32" />
+                    {(isNightMode || activeInspector?.id === 'lighting') && (
+                      <polygon points="320,0 560,0 700,320 180,320" fill="#FEF08A" opacity={activeInspector?.id === 'lighting' ? "0.32" : "0.18"} />
                     )}
 
                     {/* 48" x 72" CLEAR ACRYLIC PLAQUE */}
                     <rect x="200" y="55" width="480" height="230" rx="8" fill="#0F172A" opacity="0.08" />
                     <rect 
                       x="190" y="45" width="480" height="230" rx="8" 
-                      fill="#F1F5F9" fillOpacity="0.55"
+                      fill="#E0F2FE" opacity="0.5" 
                       stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#38BDF8'} 
-                      strokeWidth={activeInspector?.id === 'plaque' ? '3' : '1.5'} 
-                    />
-                    {/* Flame-polished bevel inner highlight */}
-                    <rect 
-                      x="194" y="49" width="472" height="222" rx="6" 
-                      fill="none" stroke="#FFFFFF" strokeWidth="1" opacity="0.75" 
+                      strokeWidth={activeInspector?.id === 'plaque' ? '3' : '2'} 
                     />
                     
-                    {/* 6x GYFORD MACHINED STAINLESS STANDOFFS */}
+                    {/* 6x GYFORD MACHINED STAINLESS STANDOFFS (4 CORNERS + 2 MID PERIMETER) */}
                     {[
-                      [220, 65], [430, 65], [640, 65],
-                      [220, 255], [430, 255], [640, 255]
+                      [220, 65], [640, 65],
+                      [220, 160], [640, 160],
+                      [220, 255], [640, 255]
                     ].map(([cx, cy], i) => (
                       <g key={i}>
                         {activeInspector?.id === 'standoffs' && (
@@ -544,69 +558,53 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       </g>
                     ))}
 
-                    {/* J.STUDIO ARCHITECTURAL BRAND EMBLEM & TYPOGRAPHY (OPTICALLY BALANCED) */}
-                    <g transform="translate(430, 144)">
-                      {/* CHEMETAL BRUSHED BRONZE & CHARCOAL SOUNDWAVE MOTIF (AUTHENTIC LOGO MARK) */}
-                      <g>
-                        {/* Shape 1 (Left crescent, brand orange) */}
-                        <path 
-                          d="M -13,-4 L -13,14 C -17.5,14 -20.5,10.5 -20.5,5 C -20.5,-0.5 -17.5,-4 -13,-4 Z" 
-                          fill={activeInspector?.id === 'logo' ? '#F79223' : '#F59223'} 
-                          stroke={activeInspector?.id === 'logo' ? '#FEF08A' : 'none'}
-                          strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
-                        />
-                        {/* Shape 2 (Mid-left vertical capsule, brand orange) */}
+                    {/* J.STUDIO ARCHITECTURAL BRAND EMBLEM & TYPOGRAPHY */}
+                    <g transform="translate(430, 160)">
+                      {/* ACTIVE SELECTION GLOW / FOCUS RING */}
+                      {activeInspector?.id === 'logo' && (
                         <rect 
-                          x="-9" y="-10" width="7" height="28" rx="3.5" 
-                          fill={activeInspector?.id === 'logo' ? '#F79223' : '#F59223'} 
-                          stroke={activeInspector?.id === 'logo' ? '#FEF08A' : 'none'}
-                          strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
+                          x="-135" y="-72" width="270" height="142" rx="14" 
+                          fill="rgba(247, 146, 35, 0.07)" 
+                          stroke="#F79223" strokeWidth="1.5" strokeDasharray="4 3" 
                         />
-                        {/* Shape 3 (Tall vertical capsule, obsidian black/charcoal) */}
-                        <rect 
-                          x="2" y="-26" width="7" height="44" rx="3.5" 
-                          fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#111213'} 
-                          stroke={activeInspector?.id === 'logo' ? '#FFFFFF' : 'none'}
-                          strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
-                        />
-                        {/* Shape 4 (Right crescent, obsidian black/charcoal) */}
-                        <path 
-                          d="M 13,-15 L 13,13 C 17.5,13 20.5,8 20.5,-1 C 20.5,-10 17.5,-15 13,-15 Z" 
-                          fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#111213'} 
-                          stroke={activeInspector?.id === 'logo' ? '#FFFFFF' : 'none'}
-                          strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
-                        />
-                      </g>
+                      )}
 
-                      {/* J.STUDIO TYPOGRAPHY */}
+                      {/* AUTHENTIC BRAND EMBLEM (JEZREEL DAVE LEYBAG OFFICIAL MARK) */}
+                      <image 
+                        href={isNightMode ? "/branding/logo-mark-light.png" : "/branding/logo-mark.png"} 
+                        x="-27" y="-64" width="54" height="57" 
+                        preserveAspectRatio="xMidYMid meet"
+                        style={{ filter: isNightMode ? 'drop-shadow(0 0 12px rgba(254, 240, 138, 0.8))' : 'drop-shadow(0 2px 4px rgba(0,0,0,0.12))' }}
+                      />
+
+                      {/* J.STUDIO TYPOGRAPHY - REFINED DUAL-TONE ORANGE/OBSIDIAN */}
                       <text 
-                        x="0" y="38" fontSize="21" fontWeight="900" 
-                        textAnchor="middle" letterSpacing="2"
-                        fontFamily="'Montserrat', 'Inter', -apple-system, sans-serif"
+                        x="0" y="26" fontSize="24" fontWeight="900" 
+                        textAnchor="middle" letterSpacing="2.5"
+                        fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
                       >
-                        <tspan fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#F79223'}>J.</tspan>
-                        <tspan fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#111213'}>STUDIO</tspan>
+                        <tspan fill="#F79223">J.</tspan>
+                        <tspan fill={activeInspector?.id === 'logo' ? '#D97706' : (isNightMode ? '#F8FAFC' : '#111213')}>STUDIO</tspan>
                       </text>
 
-                      {/* SUB-TITLE: ARCHITECTURAL & SIGNAGE DESIGN */}
+                      {/* PRIMARY ARCHITECTURAL TAGLINE */}
                       <text 
-                        x="0" y="52" fontSize="7" fontWeight="800" 
-                        fill={activeInspector?.id === 'logo' ? '#F79223' : '#475569'} 
+                        x="0" y="44" fontSize="8" fontWeight="700" 
+                        fill={isNightMode ? "#94A3B8" : "#475569"} 
                         textAnchor="middle" letterSpacing="3.5"
-                        fontFamily="'Inter', sans-serif"
+                        fontFamily="'Inter', -apple-system, sans-serif"
                       >
-                        ARCHITECTURAL &amp; SIGNAGE DESIGN
+                        ARCHITECTURAL DESIGN &amp; SIGNAGE
                       </text>
 
-                      {/* SIGNATURE SUB-TITLE: JEZREEL DAVE LEYBAG • EXECUTIVE SUITE */}
+                      {/* SECONDARY EXECUTIVE SUITE IDENTIFIER */}
                       <text 
-                        x="0" y="65" fontSize="6" fontWeight="700" 
-                        textAnchor="middle" letterSpacing="2"
-                        fontFamily="'Inter', sans-serif"
+                        x="0" y="58" fontSize="6.5" fontWeight="600" 
+                        fill={isNightMode ? "#64748B" : "#64748B"} 
+                        textAnchor="middle" letterSpacing="1.8"
+                        fontFamily="'Inter', -apple-system, sans-serif"
                       >
-                        <tspan fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#64748B'}>JEZREEL DAVE LEYBAG</tspan>
-                        <tspan fill="#F79223" fontWeight="900"> • </tspan>
-                        <tspan fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#64748B'}>EXECUTIVE SUITE 400</tspan>
+                        JEZREEL DAVE LEYBAG • EXECUTIVE SUITE 400
                       </text>
                     </g>
 
