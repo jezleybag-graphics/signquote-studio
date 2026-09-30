@@ -124,8 +124,8 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
             
             {/* LIVE CANVAS FOCUS HUD BADGE */}
             <div className="absolute top-6 right-8 z-10 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 border border-gray-300 shadow-md backdrop-blur-md">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#F79223] animate-ping" />
-              <span className="w-2 h-2 rounded-full bg-[#F79223] absolute left-3.5" />
+              <span className="w-2 h-2 rounded-full bg-[#F79223] animate-ping" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F79223] absolute left-3.5" />
               <span className="text-[11px] font-bold text-gray-800 font-mono">
                 FOCUS: <span className="text-[#F79223] uppercase">{activeInspector?.name}</span>
               </span>
@@ -159,7 +159,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     
                     {/* ARCHITECTURAL COPING */}
                     <rect x="0" y="0" width="880" height="30" fill={isNightMode ? "#090D16" : "#1E293B"} />
-                    <text x="24" y="20" fontSize="10" fill="#94A3B8" fontWeight="700" letterSpacing="1.5">
+                    <text x="24" y="20" fontSize="9.5" fill="#94A3B8" fontWeight="700" letterSpacing="1.5">
                       NORTH ELEVATION • LEVEL 2 MAIN RETAIL ENTRANCE
                     </text>
 
@@ -217,7 +217,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </text>
 
                     {/* SUB-TITLE ON BACKER */}
-                    <text x="470" y="185" fontSize="11" fontWeight="700" fill="#38BDF8" textAnchor="middle" letterSpacing="5">
+                    <text x="470" y="185" fontSize="10.5" fontWeight="700" fill="#38BDF8" textAnchor="middle" letterSpacing="5">
                       FAMILY &amp; COSMETIC DENTISTRY
                     </text>
 
@@ -226,16 +226,16 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     <rect x="70" y="270" width="220" height="70" fill="#1E293B" stroke="#475569" strokeWidth="2" />
                     <rect x="330" y="270" width="220" height="70" fill="#1E293B" stroke="#475569" strokeWidth="2" />
                     <rect x="590" y="270" width="220" height="70" fill="#1E293B" stroke="#475569" strokeWidth="2" />
-                    <text x="440" y="305" fontSize="11" fill="#64748B" textAnchor="middle" fontWeight="600">
+                    <text x="440" y="305" fontSize="10" fill="#64748B" textAnchor="middle" fontWeight="600">
                       SUITE 104 • ENTRANCE VESTIBULE GLASS
                     </text>
 
                     {/* CAD DIMENSIONS */}
-                    <line x1="70" y1="45" x2="810" y2="45" stroke="#38BDF8" strokeWidth="1.5" />
-                    <line x1="70" y1="40" x2="70" y2="50" stroke="#38BDF8" strokeWidth="1.5" />
-                    <line x1="810" y1="40" x2="810" y2="50" stroke="#38BDF8" strokeWidth="1.5" />
-                    <rect x="350" y="34" width="180" height="22" fill="#0F172A" rx="4" />
-                    <text x="440" y="49" fontSize="11" fill="#38BDF8" textAnchor="middle" fontWeight="700" fontFamily="'JetBrains Mono', monospace">
+                    <line x1="70" y1="45" x2="810" y2="45" stroke="#38BDF8" strokeWidth="1.2" />
+                    <line x1="70" y1="40" x2="70" y2="50" stroke="#38BDF8" strokeWidth="1.2" />
+                    <line x1="810" y1="40" x2="810" y2="50" stroke="#38BDF8" strokeWidth="1.2" />
+                    <rect x="355" y="35" width="170" height="20" fill="#0F172A" rx="4" />
+                    <text x="440" y="49" fontSize="10" fill="#38BDF8" textAnchor="middle" fontWeight="700" fontFamily="'JetBrains Mono', monospace">
                       14'-0" [168.0"] OVERALL SPAN
                     </text>
                   </svg>
@@ -261,7 +261,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       strokeWidth={activeInspector?.id === 'raceway' ? '3' : '2'} 
                       rx="2" 
                     />
-                    <text x="75" y="152" fontSize="10" fill={activeInspector?.id === 'raceway' ? '#D97706' : '#57534E'} fontWeight="700">
+                    <text x="75" y="152" fontSize="9.5" fill={activeInspector?.id === 'raceway' ? '#D97706' : '#57534E'} fontWeight="700">
                       7" x 4.5" EXTRUDED ALUMINUM RACEWAY (PAINTED KHAKI BEIGE)
                     </text>
 
@@ -271,7 +271,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                         {[160, 430, 700].map((dx, i) => (
                           <g key={i}>
                             <rect x={dx} y="166" width="60" height="30" rx="4" fill="#0F172A" stroke="#F79223" strokeWidth="2" />
-                            <text x={dx + 30} y="184" fontSize="8" fill="#FEF08A" fontWeight="bold" textAnchor="middle">60W UL</text>
+                            <text x={dx + 30} y="184" fontSize="7.5" fill="#FEF08A" fontWeight="bold" textAnchor="middle">60W UL</text>
                           </g>
                         ))}
                       </g>
@@ -299,15 +299,15 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </text>
 
                     {/* DIMENSION CHAINS */}
-                    <line x1="60" y1="40" x2="820" y2="40" stroke="#0284C7" strokeWidth="1.5" />
-                    <rect x="340" y="28" width="200" height="24" fill="#0F172A" rx="4" />
-                    <text x="440" y="44" fontSize="11" fill="#38BDF8" textAnchor="middle" fontWeight="700" fontFamily="'JetBrains Mono', monospace">
+                    <line x1="60" y1="40" x2="820" y2="40" stroke="#0284C7" strokeWidth="1.2" />
+                    <rect x="350" y="29" width="180" height="22" fill="#0F172A" rx="4" />
+                    <text x="440" y="44" fontSize="10" fill="#38BDF8" textAnchor="middle" fontWeight="700" fontFamily="'JetBrains Mono', monospace">
                       18'-0" [216.0"] OVERALL SPAN
                     </text>
 
                     {/* STOREFRONT WINDOWS */}
                     <rect x="40" y="240" width="800" height="100" fill="#1E293B" opacity="0.9" />
-                    <text x="440" y="290" fontSize="12" fill="#94A3B8" textAnchor="middle" fontWeight="600">
+                    <text x="440" y="290" fontSize="11" fill="#94A3B8" textAnchor="middle" fontWeight="600">
                       UNIT 12 • SHOPPES AT LEGACY CREEK
                     </text>
                   </svg>
@@ -323,7 +323,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       <rect x="640" y="0" width="240" height="340" fill="#475569" />
                     </g>
 
-                    {/* OVERHEAD GALLERY SPOTLIGHT WASH (ACTIVE ON NIGHT OR LIGHTING INSPECTION) */}
+                    {/* OVERHEAD GALLERY SPOTLIGHT WASH */}
                     {(isNightMode || activeInspector?.id === 'lighting') && (
                       <polygon points="320,0 560,0 700,320 180,320" fill="#FEF08A" opacity={activeInspector?.id === 'lighting' ? "0.32" : "0.18"} />
                     )}
@@ -344,7 +344,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     ].map(([cx, cy], i) => (
                       <g key={i}>
                         {activeInspector?.id === 'standoffs' && (
-                          <circle cx={cx} cy={cy} r="18" fill="none" stroke="#F79223" strokeWidth="2.5" strokeDasharray="3 3" />
+                          <circle cx={cx} cy={cy} r="18" fill="none" stroke="#F79223" strokeWidth="2" strokeDasharray="3 3" />
                         )}
                         <circle cx={cx} cy={cy} r="10" fill={activeInspector?.id === 'standoffs' ? "#F79223" : "#94A3B8"} stroke="#475569" strokeWidth="2" />
                         <circle cx={cx} cy={cy} r="4" fill="#CBD5E1" />
@@ -357,7 +357,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                         cx="0" cy="-15" r="32" 
                         fill="#78350F" 
                         stroke={activeInspector?.id === 'logo' ? '#F79223' : '#B45309'} 
-                        strokeWidth={activeInspector?.id === 'logo' ? '5' : '3'} 
+                        strokeWidth={activeInspector?.id === 'logo' ? '4' : '3'} 
                       />
                       <path d="M -16 -15 L 16 -15 M 0 -31 L 0 1" stroke="#FEF08A" strokeWidth="4" strokeLinecap="round" />
                       <text 
@@ -367,14 +367,15 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       >
                         LUMINA BIOTECH
                       </text>
-                      <text x="0" y="56" fontSize="11" fontWeight="700" fill="#0284C7" textAnchor="middle" letterSpacing="3">
+                      <text x="0" y="56" fontSize="10.5" fontWeight="700" fill="#0284C7" textAnchor="middle" letterSpacing="3">
                         LIFE SCIENCE INNOVATION LABS
                       </text>
                     </g>
 
                     {/* DIMENSION STRINGS */}
-                    <line x1="190" y1="30" x2="670" y2="30" stroke="#0284C7" strokeWidth="1.5" />
-                    <text x="430" y="24" fontSize="11" fill="#0284C7" textAnchor="middle" fontWeight="700" fontFamily="'JetBrains Mono', monospace">
+                    <line x1="190" y1="30" x2="670" y2="30" stroke="#0284C7" strokeWidth="1.2" />
+                    <rect x="350" y="19" width="160" height="20" fill="#0F172A" rx="4" />
+                    <text x="430" y="33" fontSize="10" fill="#38BDF8" textAnchor="middle" fontWeight="700" fontFamily="'JetBrains Mono', monospace">
                       72.0" [6'-0"] PLAQUE WIDTH
                     </text>
                   </svg>
@@ -406,17 +407,17 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
                     {/* DRAWING HEADER */}
                     <g transform="translate(30, 24)">
-                      <text x="0" y="18" fontSize="13" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
+                      <text x="0" y="16" fontSize="11.5" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
                         SECTION A-A: REVERSE HALO-LIT CHANNEL LETTER PROFILE
                       </text>
-                      <text x="0" y="34" fontSize="10.5" fill="#64748B" fontWeight="600">
+                      <text x="0" y="30" fontSize="9" fill="#64748B" fontWeight="600">
                         SCALE: 3" = 1'-0" [HALF SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-01
                       </text>
                     </g>
 
                     {/* 1. FACADE BRICK WALL */}
                     <rect x="780" y="65" width="130" height="280" fill="url(#brick-hatch-cad-1)" stroke="#475569" strokeWidth="2" />
-                    <text x="845" y="365" fontSize="10" fontWeight="700" fill="#475569" textAnchor="middle">
+                    <text x="845" y="362" fontSize="9" fontWeight="700" fill="#475569" textAnchor="middle">
                       SPLIT-FACE BRICK
                     </text>
 
@@ -446,14 +447,14 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#334155'} 
                       strokeWidth={activeInspector?.id === 'standoffs' ? '3' : '1.5'} 
                     />
-                    <line x1="585" y1="126" x2="730" y2="126" stroke="#0F172A" strokeWidth="3" strokeDasharray="4 2" />
+                    <line x1="585" y1="126" x2="730" y2="126" stroke="#0F172A" strokeWidth="2.5" strokeDasharray="4 2" />
                     <rect 
                       x="595" y="245" width="80" height="22" 
                       fill="#CBD5E1" 
                       stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#334155'} 
                       strokeWidth={activeInspector?.id === 'standoffs' ? '3' : '1.5'} 
                     />
-                    <line x1="585" y1="256" x2="730" y2="256" stroke="#0F172A" strokeWidth="3" strokeDasharray="4 2" />
+                    <line x1="585" y1="256" x2="730" y2="256" stroke="#0F172A" strokeWidth="2.5" strokeDasharray="4 2" />
 
                     {/* 5. POLYCARBONATE BACK */}
                     <rect 
@@ -484,7 +485,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       x="280" y="85" width="15" height="220" 
                       fill="#0F172A" 
                       stroke={activeInspector?.id === 'face' ? '#F79223' : '#0F172A'} 
-                      strokeWidth={activeInspector?.id === 'face' ? '3.5' : '2'} 
+                      strokeWidth={activeInspector?.id === 'face' ? '3' : '2'} 
                       rx="1" 
                     />
 
@@ -495,77 +496,103 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                           x="435" y={y} width="30" height="18" rx="3" 
                           fill="#F59E0B" 
                           stroke={activeInspector?.id === 'leds' ? '#F79223' : '#D97706'} 
-                          strokeWidth={activeInspector?.id === 'leds' ? '3' : '1.5'} 
+                          strokeWidth={activeInspector?.id === 'leds' ? '2.5' : '1.5'} 
                         />
                         <circle cx="450" cy={y + 9} r="4" fill="#FEF08A" />
                       </g>
                     ))}
 
-                    {/* 9. WEEP HOLE */}
-                    <circle cx="355" cy="296" r="4" fill="#FFFFFF" stroke={activeInspector?.id === 'weep' ? '#F79223' : '#EF4444'} strokeWidth="2" />
+                    {/* 9. WEEP HOLE WITH DEDICATED LEADER LINE (POINTING LEFT, NO COLLISION) */}
+                    <circle cx="340" cy="296" r="3.5" fill="#FFFFFF" stroke={activeInspector?.id === 'weep' ? '#F79223' : '#EF4444'} strokeWidth="2" />
+                    <line x1="340" y1="300" x2="315" y2="326" stroke="#EF4444" strokeWidth="1" />
+                    <line x1="315" y1="326" x2="240" y2="326" stroke="#EF4444" strokeWidth="1" />
+                    <text x="235" y="324" fontSize="7.5" fill="#EF4444" fontWeight="800" textAnchor="end">
+                      1/4" WEEP HOLE {activeInspector?.id === 'weep' && '★'}
+                    </text>
+                    <text x="235" y="334" fontSize="6.5" fill="#64748B" textAnchor="end">
+                      Condensation Drainage
+                    </text>
 
-                    {/* CALLOUT LABELS */}
+                    {/* RETURN DEPTH DIMENSION LINE (HORIZONTAL, SPACED DOWN AT Y=348) */}
+                    <line x1="295" y1="348" x2="583" y2="348" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="295" y1="342" x2="295" y2="354" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="583" y1="342" x2="583" y2="354" stroke="#475569" strokeWidth="1.2" />
+                    <rect x="384" y="341" width="110" height="14" fill="#F8FAFC" rx="2" />
+                    <text x="439" y="352" fontSize="8" fontWeight="800" fill="#0F172A" textAnchor="middle" fontFamily="'JetBrains Mono', monospace">
+                      3.50" RETURN DEPTH
+                    </text>
+
+                    {/* STANDOFF PROJECTION DIMENSION LINE */}
+                    <line x1="595" y1="190" x2="675" y2="190" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="595" y1="184" x2="595" y2="196" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="675" y1="184" x2="675" y2="196" stroke="#475569" strokeWidth="1.2" />
+                    <rect x="617" y="183" width="36" height="14" fill="#F8FAFC" rx="2" />
+                    <text x="635" y="193" fontSize="7.5" fontWeight="800" fill="#0F172A" textAnchor="middle" fontFamily="'JetBrains Mono', monospace">
+                      1.50"
+                    </text>
+
+                    {/* CALLOUT LABELS (COMPACT & AIRY) */}
                     {/* Face Callout */}
-                    <line x1="285" y1="120" x2="160" y2="100" stroke={activeInspector?.id === 'face' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'face' ? '2' : '1'} />
-                    <rect x="10" y="86" width="150" height="30" rx="4" fill={activeInspector?.id === 'face' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'face' ? '#F79223' : '#CBD5E1'} />
-                    <text x="155" y="100" fontSize="8.5" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
+                    <line x1="285" y1="120" x2="160" y2="100" stroke={activeInspector?.id === 'face' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'face' ? '1.5' : '1'} />
+                    <rect x="15" y="88" width="140" height="26" rx="4" fill={activeInspector?.id === 'face' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'face' ? '#F79223' : '#CBD5E1'} />
+                    <text x="150" y="100" fontSize="8" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
                       0.063" 5052-H32 FACE {activeInspector?.id === 'face' && '★'}
                     </text>
-                    <text x="155" y="111" fontSize="7.5" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#64748B'} textAnchor="end">
+                    <text x="150" y="109" fontSize="6.5" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#64748B'} textAnchor="end">
                       Satin Black Polyurethane
                     </text>
 
                     {/* Return Callout */}
-                    <line x1="390" y1="90" x2="480" y2="65" stroke={activeInspector?.id === 'return' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'return' ? '2' : '1'} />
-                    <rect x="480" y="52" width="170" height="28" rx="4" fill={activeInspector?.id === 'return' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'return' ? '#F79223' : '#CBD5E1'} />
-                    <text x="488" y="66" fontSize="8.5" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="390" y1="90" x2="480" y2="65" stroke={activeInspector?.id === 'return' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'return' ? '1.5' : '1'} />
+                    <rect x="480" y="52" width="160" height="26" rx="4" fill={activeInspector?.id === 'return' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'return' ? '#F79223' : '#CBD5E1'} />
+                    <text x="488" y="64" fontSize="8" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       3.50" DEPTH ALUM RETURN {activeInspector?.id === 'return' && '★'}
                     </text>
-                    <text x="488" y="76" fontSize="7.5" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#64748B'}>
+                    <text x="488" y="73" fontSize="6.5" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#64748B'}>
                       0.040" Flanged Sidewalls
                     </text>
 
                     {/* LEDs Callout */}
-                    <line x1="465" y1="194" x2="540" y2="175" stroke={activeInspector?.id === 'leds' ? '#F79223' : '#D97706'} strokeWidth={activeInspector?.id === 'leds' ? '2' : '1'} />
-                    <rect x="540" y="162" width="150" height="28" rx="4" fill={activeInspector?.id === 'leds' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'leds' ? '#F79223' : '#CBD5E1'} />
-                    <text x="548" y="176" fontSize="8.5" fill={activeInspector?.id === 'leds' ? '#FFFFFF' : '#D97706'} fontWeight="800">
+                    <line x1="465" y1="194" x2="540" y2="175" stroke={activeInspector?.id === 'leds' ? '#F79223' : '#D97706'} strokeWidth={activeInspector?.id === 'leds' ? '1.5' : '1'} />
+                    <rect x="540" y="162" width="140" height="26" rx="4" fill={activeInspector?.id === 'leds' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'leds' ? '#F79223' : '#CBD5E1'} />
+                    <text x="548" y="174" fontSize="8" fill={activeInspector?.id === 'leds' ? '#FFFFFF' : '#D97706'} fontWeight="800">
                       12V IP67 LED MODULES {activeInspector?.id === 'leds' && '★'}
                     </text>
-                    <text x="548" y="186" fontSize="7.5" fill={activeInspector?.id === 'leds' ? '#FFFFFF' : '#64748B'}>
+                    <text x="548" y="183" fontSize="6.5" fill={activeInspector?.id === 'leds' ? '#FFFFFF' : '#64748B'}>
                       6500K Halo Illumination
                     </text>
 
                     {/* Standoff Callout */}
-                    <line x1="635" y1="137" x2="680" y2="140" stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'standoffs' ? '2' : '1'} />
-                    <rect x="680" y="126" width="160" height="28" rx="4" fill={activeInspector?.id === 'standoffs' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#CBD5E1'} />
-                    <text x="688" y="140" fontSize="8.5" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="635" y1="137" x2="680" y2="140" stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'standoffs' ? '1.5' : '1'} />
+                    <rect x="680" y="126" width="150" height="26" rx="4" fill={activeInspector?.id === 'standoffs' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#CBD5E1'} />
+                    <text x="688" y="138" fontSize="8" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       1.50" MACHINED STANDOFF {activeInspector?.id === 'standoffs' && '★'}
                     </text>
-                    <text x="688" y="150" fontSize="7.5" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#64748B'}>
+                    <text x="688" y="147" fontSize="6.5" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#64748B'}>
                       6061-T6 Aluminum Barrel
                     </text>
 
                     {/* FASTSIGNS TITLE BLOCK */}
-                    <g transform="translate(490, 375)">
-                      <rect x="0" y="0" width="430" height="75" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.5" />
-                      <line x1="140" y1="0" x2="140" y2="75" stroke="#0F172A" strokeWidth="1" />
-                      <line x1="300" y1="0" x2="300" y2="75" stroke="#0F172A" strokeWidth="1" />
-                      <line x1="140" y1="38" x2="430" y2="38" stroke="#0F172A" strokeWidth="1" />
+                    <g transform="translate(500, 380)">
+                      <rect x="0" y="0" width="420" height="70" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.2" />
+                      <line x1="135" y1="0" x2="135" y2="70" stroke="#0F172A" strokeWidth="1" />
+                      <line x1="290" y1="0" x2="290" y2="70" stroke="#0F172A" strokeWidth="1" />
+                      <line x1="135" y1="35" x2="420" y2="35" stroke="#0F172A" strokeWidth="1" />
                       
-                      <text x="12" y="22" fontSize="12" fontWeight="900" fill="#C5221F" letterSpacing="1">FASTSIGNS®</text>
-                      <text x="12" y="37" fontSize="8.5" fontWeight="700" fill="#0F172A">COMMERCIAL OPS #2041</text>
-                      <text x="12" y="50" fontSize="8" fill="#64748B">12+ YRS FASTSIGNS FRANCHISE</text>
-                      <text x="12" y="64" fontSize="8" fill="#059669" fontWeight="700">UL 48 LISTED ENCLOSURE</text>
+                      <text x="10" y="20" fontSize="11" fontWeight="900" fill="#C5221F" letterSpacing="1">FASTSIGNS®</text>
+                      <text x="10" y="34" fontSize="7.5" fontWeight="700" fill="#0F172A">COMMERCIAL OPS #2041</text>
+                      <text x="10" y="47" fontSize="7.5" fill="#64748B">12+ YRS FASTSIGNS FRANCHISE</text>
+                      <text x="10" y="60" fontSize="7.5" fill="#059669" fontWeight="700">UL 48 LISTED ENCLOSURE</text>
 
-                      <text x="150" y="16" fontSize="7.5" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>
-                      <text x="150" y="30" fontSize="9" fontWeight="800" fill="#0F172A">{project.client.split('—')[0]}</text>
-                      <text x="150" y="52" fontSize="7.5" fill="#64748B" fontWeight="700">PRE-FLIGHT ESTIMATOR</text>
-                      <text x="150" y="65" fontSize="8.5" fontWeight="800" fill="#0369A1">Jezreel Dave Leybag (Gemini Cert)</text>
+                      <text x="145" y="15" fontSize="7" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>
+                      <text x="145" y="28" fontSize="8" fontWeight="800" fill="#0F172A">{project.client.split('—')[0]}</text>
+                      <text x="145" y="49" fontSize="7" fill="#64748B" fontWeight="700">PRE-FLIGHT ESTIMATOR</text>
+                      <text x="145" y="62" fontSize="7.5" fontWeight="800" fill="#0369A1">Jezreel Dave Leybag (Gemini Cert)</text>
 
-                      <text x="310" y="16" fontSize="7.5" fill="#64748B" fontWeight="700">DWG NO. / REV</text>
-                      <text x="310" y="30" fontSize="9" fontWeight="800" fill="#0F172A">CAD-01 • REV B</text>
-                      <text x="310" y="52" fontSize="7.5" fill="#64748B" fontWeight="700">PERMIT STATUS</text>
-                      <text x="310" y="65" fontSize="8.5" fontWeight="800" fill="#059669">APPROVED FOR PERMIT</text>
+                      <text x="300" y="15" fontSize="7" fill="#64748B" fontWeight="700">DWG NO. / REV</text>
+                      <text x="300" y="28" fontSize="8" fontWeight="800" fill="#0F172A">CAD-01 • REV B</text>
+                      <text x="300" y="49" fontSize="7" fill="#64748B" fontWeight="700">PERMIT STATUS</text>
+                      <text x="300" y="62" fontSize="8" fontWeight="800" fill="#059669">APPROVED FOR PERMIT</text>
                     </g>
                   </svg>
                 )}
@@ -587,32 +614,32 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
                     {/* DRAWING HEADER */}
                     <g transform="translate(30, 24)">
-                      <text x="0" y="18" fontSize="13" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
+                      <text x="0" y="16" fontSize="11.5" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
                         SECTION B-B: FRONT-LIT CHANNEL LETTER ON EXTRUDED RACEWAY
                       </text>
-                      <text x="0" y="34" fontSize="10.5" fill="#64748B" fontWeight="600">
+                      <text x="0" y="30" fontSize="9" fill="#64748B" fontWeight="600">
                         SCALE: 3" = 1'-0" [HALF SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-02
                       </text>
                     </g>
 
                     {/* 1. STOREFRONT BUILDING FASCIA */}
                     <rect x="800" y="65" width="110" height="280" fill="url(#timber-hatch)" stroke="#475569" strokeWidth="2" />
-                    <text x="855" y="365" fontSize="10" fontWeight="700" fill="#475569" textAnchor="middle">
+                    <text x="855" y="362" fontSize="9" fontWeight="700" fill="#475569" textAnchor="middle">
                       BUILDING FASCIA
                     </text>
 
                     {/* Fascia Lag Bolts */}
-                    <rect x="740" y="140" width="70" height="14" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
-                    <rect x="740" y="230" width="70" height="14" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
+                    <rect x="740" y="140" width="70" height="12" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
+                    <rect x="740" y="230" width="70" height="12" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
 
                     {/* 2. 7" x 4.5" EXTRUDED ALUMINUM RACEWAY WIREWAY */}
                     <rect 
                       x="610" y="105" width="140" height="180" rx="4"
                       fill="#D6CEBE" 
                       stroke={activeInspector?.id === 'raceway' ? '#F79223' : '#78716C'} 
-                      strokeWidth={activeInspector?.id === 'raceway' ? '3.5' : '2'} 
+                      strokeWidth={activeInspector?.id === 'raceway' ? '3' : '2'} 
                     />
-                    <text x="680" y="130" fontSize="9.5" fill="#44403C" fontWeight="800" textAnchor="middle">
+                    <text x="680" y="128" fontSize="9" fill="#44403C" fontWeight="800" textAnchor="middle">
                       7" x 4.5" WIREWAY
                     </text>
 
@@ -621,21 +648,20 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       x="635" y="145" width="90" height="50" rx="4"
                       fill="#0F172A" 
                       stroke={activeInspector?.id === 'drivers' ? '#F79223' : '#38BDF8'} 
-                      strokeWidth={activeInspector?.id === 'drivers' ? '3' : '1.5'} 
+                      strokeWidth={activeInspector?.id === 'drivers' ? '2.5' : '1.5'} 
                     />
-                    <text x="680" y="168" fontSize="8.5" fill="#FEF08A" fontWeight="800" textAnchor="middle">
+                    <text x="680" y="166" fontSize="8" fill="#FEF08A" fontWeight="800" textAnchor="middle">
                       60W UL DRIVER
                     </text>
-                    <text x="680" y="182" fontSize="7.5" fill="#94A3B8" textAnchor="middle">
+                    <text x="680" y="178" fontSize="7" fill="#94A3B8" textAnchor="middle">
                       12V DC Constant V
                     </text>
 
                     {/* Disconnect Toggle */}
-                    <circle cx="680" cy="245" r="8" fill="#EF4444" stroke="#991B1B" strokeWidth="1.5" />
-                    <text x="680" y="270" fontSize="7" fill="#57534E" textAnchor="middle" fontWeight="bold">UL TOGGLE</text>
+                    <circle cx="680" cy="245" r="7" fill="#EF4444" stroke="#991B1B" strokeWidth="1.5" />
+                    <text x="680" y="268" fontSize="6.5" fill="#57534E" textAnchor="middle" fontWeight="bold">UL TOGGLE</text>
 
-                    {/* 4. CHANNEL LETTER CAN (MOUNTED TO RACEWAY FACE) */}
-                    {/* Aluminum Back Plate */}
+                    {/* 4. CHANNEL LETTER CAN */}
                     <rect x="590" y="90" width="14" height="210" fill="#64748B" stroke="#334155" strokeWidth="1.5" />
                     
                     {/* 5" Return Sidewalls */}
@@ -643,13 +669,13 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       x="230" y="90" width="360" height="10" 
                       fill="#0F172A" 
                       stroke={activeInspector?.id === 'return' ? '#F79223' : '#1E293B'} 
-                      strokeWidth={activeInspector?.id === 'return' ? '2.5' : '0'} 
+                      strokeWidth={activeInspector?.id === 'return' ? '2' : '0'} 
                     />
                     <rect 
                       x="230" y="290" width="360" height="10" 
                       fill="#0F172A" 
                       stroke={activeInspector?.id === 'return' ? '#F79223' : '#1E293B'} 
-                      strokeWidth={activeInspector?.id === 'return' ? '2.5' : '0'} 
+                      strokeWidth={activeInspector?.id === 'return' ? '2' : '0'} 
                     />
 
                     {/* 5. 3/16" SIGN WHITE ACRYLIC FACE */}
@@ -657,7 +683,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       x="215" y="86" width="16" height="218" rx="1"
                       fill="#FFFFFF" 
                       stroke={activeInspector?.id === 'face' ? '#F79223' : '#EF4444'} 
-                      strokeWidth={activeInspector?.id === 'face' ? '3.5' : '2'} 
+                      strokeWidth={activeInspector?.id === 'face' ? '3' : '2'} 
                     />
                     <rect x="215" y="86" width="4" height="218" fill="#DC2626" />
 
@@ -666,13 +692,13 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       x="208" y="82" width="30" height="16" rx="2"
                       fill="#1E293B" 
                       stroke={activeInspector?.id === 'trim' ? '#F79223' : '#0F172A'} 
-                      strokeWidth={activeInspector?.id === 'trim' ? '3' : '1.5'} 
+                      strokeWidth={activeInspector?.id === 'trim' ? '2.5' : '1.5'} 
                     />
                     <rect 
                       x="208" y="292" width="30" height="16" rx="2"
                       fill="#1E293B" 
                       stroke={activeInspector?.id === 'trim' ? '#F79223' : '#0F172A'} 
-                      strokeWidth={activeInspector?.id === 'trim' ? '3' : '1.5'} 
+                      strokeWidth={activeInspector?.id === 'trim' ? '2.5' : '1.5'} 
                     />
 
                     {/* Dual-Row High Output LEDs */}
@@ -684,68 +710,97 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       </g>
                     ))}
 
+                    {/* WEEP HOLE WITH DEDICATED LEADER LINE (POINTING LEFT, NO COLLISION) */}
+                    <circle cx="280" cy="296" r="3.5" fill="#FFFFFF" stroke="#EF4444" strokeWidth="2" />
+                    <line x1="280" y1="300" x2="255" y2="326" stroke="#EF4444" strokeWidth="1" />
+                    <line x1="255" y1="326" x2="180" y2="326" stroke="#EF4444" strokeWidth="1" />
+                    <text x="175" y="324" fontSize="7.5" fill="#EF4444" fontWeight="800" textAnchor="end">
+                      1/4" WEEP HOLE
+                    </text>
+                    <text x="175" y="334" fontSize="6.5" fill="#64748B" textAnchor="end">
+                      Condensation Baffle
+                    </text>
+
+                    {/* RETURN DEPTH DIMENSION LINE (HORIZONTAL, SPACED DOWN AT Y=348) */}
+                    <line x1="230" y1="348" x2="590" y2="348" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="230" y1="342" x2="230" y2="354" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="590" y1="342" x2="590" y2="354" stroke="#475569" strokeWidth="1.2" />
+                    <rect x="350" y="341" width="120" height="14" fill="#F8FAFC" rx="2" />
+                    <text x="410" y="352" fontSize="8" fontWeight="800" fill="#0F172A" textAnchor="middle" fontFamily="'JetBrains Mono', monospace">
+                      5.00" RETURN DEPTH
+                    </text>
+
+                    {/* 7.0" RACEWAY DEPTH DIMENSION LINE */}
+                    <line x1="610" y1="315" x2="750" y2="315" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="610" y1="309" x2="610" y2="321" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="750" y1="309" x2="750" y2="321" stroke="#475569" strokeWidth="1.2" />
+                    <rect x="640" y="308" width="80" height="14" fill="#F8FAFC" rx="2" />
+                    <text x="680" y="319" fontSize="7.5" fontWeight="800" fill="#0F172A" textAnchor="middle" fontFamily="'JetBrains Mono', monospace">
+                      7.0" WIREWAY
+                    </text>
+
                     {/* CALLOUT LABELS */}
                     {/* Face Callout */}
-                    <line x1="215" y1="120" x2="140" y2="100" stroke={activeInspector?.id === 'face' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'face' ? '2' : '1'} />
-                    <rect x="10" y="86" width="140" height="30" rx="4" fill={activeInspector?.id === 'face' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'face' ? '#F79223' : '#CBD5E1'} />
-                    <text x="145" y="100" fontSize="8.5" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
+                    <line x1="215" y1="120" x2="140" y2="100" stroke={activeInspector?.id === 'face' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'face' ? '1.5' : '1'} />
+                    <rect x="15" y="88" width="130" height="26" rx="4" fill={activeInspector?.id === 'face' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'face' ? '#F79223' : '#CBD5E1'} />
+                    <text x="140" y="100" fontSize="8" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
                       3/16" ACRYLIC FACE {activeInspector?.id === 'face' && '★'}
                     </text>
-                    <text x="145" y="111" fontSize="7.5" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#64748B'} textAnchor="end">
+                    <text x="140" y="109" fontSize="6.5" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#64748B'} textAnchor="end">
                       #7328 White + 3M Red
                     </text>
 
                     {/* Trim Cap Callout */}
-                    <line x1="230" y1="82" x2="310" y2="60" stroke={activeInspector?.id === 'trim' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'trim' ? '2' : '1'} />
-                    <rect x="310" y="46" width="150" height="28" rx="4" fill={activeInspector?.id === 'trim' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'trim' ? '#F79223' : '#CBD5E1'} />
-                    <text x="318" y="60" fontSize="8.5" fill={activeInspector?.id === 'trim' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="230" y1="82" x2="310" y2="60" stroke={activeInspector?.id === 'trim' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'trim' ? '1.5' : '1'} />
+                    <rect x="310" y="48" width="140" height="26" rx="4" fill={activeInspector?.id === 'trim' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'trim' ? '#F79223' : '#CBD5E1'} />
+                    <text x="318" y="60" fontSize="8" fill={activeInspector?.id === 'trim' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       1.0" JEWELITE TRIM CAP {activeInspector?.id === 'trim' && '★'}
                     </text>
-                    <text x="318" y="70" fontSize="7.5" fill={activeInspector?.id === 'trim' ? '#FFFFFF' : '#64748B'}>
+                    <text x="318" y="69" fontSize="6.5" fill={activeInspector?.id === 'trim' ? '#FFFFFF' : '#64748B'}>
                       Bonded CAB Butyrate
                     </text>
 
                     {/* Return Callout */}
-                    <line x1="410" y1="90" x2="490" y2="60" stroke={activeInspector?.id === 'return' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'return' ? '2' : '1'} />
-                    <rect x="490" y="46" width="140" height="28" rx="4" fill={activeInspector?.id === 'return' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'return' ? '#F79223' : '#CBD5E1'} />
-                    <text x="498" y="60" fontSize="8.5" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="410" y1="90" x2="490" y2="60" stroke={activeInspector?.id === 'return' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'return' ? '1.5' : '1'} />
+                    <rect x="490" y="48" width="140" height="26" rx="4" fill={activeInspector?.id === 'return' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'return' ? '#F79223' : '#CBD5E1'} />
+                    <text x="498" y="60" fontSize="8" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       5.0" RETURN DEPTH {activeInspector?.id === 'return' && '★'}
                     </text>
-                    <text x="498" y="70" fontSize="7.5" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#64748B'}>
+                    <text x="498" y="69" fontSize="6.5" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#64748B'}>
                       0.040" Pre-Coated Black
                     </text>
 
                     {/* Raceway Callout */}
-                    <line x1="680" y1="105" x2="680" y2="60" stroke={activeInspector?.id === 'raceway' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'raceway' ? '2' : '1'} />
-                    <rect x="650" y="36" width="160" height="28" rx="4" fill={activeInspector?.id === 'raceway' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'raceway' ? '#F79223' : '#CBD5E1'} />
-                    <text x="658" y="50" fontSize="8.5" fill={activeInspector?.id === 'raceway' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="680" y1="105" x2="680" y2="60" stroke={activeInspector?.id === 'raceway' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'raceway' ? '1.5' : '1'} />
+                    <rect x="650" y="38" width="150" height="26" rx="4" fill={activeInspector?.id === 'raceway' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'raceway' ? '#F79223' : '#CBD5E1'} />
+                    <text x="658" y="50" fontSize="8" fill={activeInspector?.id === 'raceway' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       7" x 4.5" ALUM RACEWAY {activeInspector?.id === 'raceway' && '★'}
                     </text>
-                    <text x="658" y="60" fontSize="7.5" fill={activeInspector?.id === 'raceway' ? '#FFFFFF' : '#64748B'}>
+                    <text x="658" y="59" fontSize="6.5" fill={activeInspector?.id === 'raceway' ? '#FFFFFF' : '#64748B'}>
                       Landlord Spec Painted
                     </text>
 
                     {/* FASTSIGNS TITLE BLOCK */}
-                    <g transform="translate(490, 375)">
-                      <rect x="0" y="0" width="430" height="75" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.5" />
-                      <line x1="140" y1="0" x2="140" y2="75" stroke="#0F172A" strokeWidth="1" />
-                      <line x1="300" y1="0" x2="300" y2="75" stroke="#0F172A" strokeWidth="1" />
-                      <line x1="140" y1="38" x2="430" y2="38" stroke="#0F172A" strokeWidth="1" />
+                    <g transform="translate(500, 380)">
+                      <rect x="0" y="0" width="420" height="70" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.2" />
+                      <line x1="135" y1="0" x2="135" y2="70" stroke="#0F172A" strokeWidth="1" />
+                      <line x1="290" y1="0" x2="290" y2="70" stroke="#0F172A" strokeWidth="1" />
+                      <line x1="135" y1="35" x2="420" y2="35" stroke="#0F172A" strokeWidth="1" />
                       
-                      <text x="12" y="22" fontSize="12" fontWeight="900" fill="#C5221F" letterSpacing="1">FASTSIGNS®</text>
-                      <text x="12" y="37" fontSize="8.5" fontWeight="700" fill="#0F172A">COMMERCIAL OPS #2041</text>
-                      <text x="12" y="50" fontSize="8" fill="#64748B">12+ YRS FASTSIGNS FRANCHISE</text>
-                      <text x="12" y="64" fontSize="8" fill="#059669" fontWeight="700">UL 48 LISTED ENCLOSURE</text>
+                      <text x="10" y="20" fontSize="11" fontWeight="900" fill="#C5221F" letterSpacing="1">FASTSIGNS®</text>
+                      <text x="10" y="34" fontSize="7.5" fontWeight="700" fill="#0F172A">COMMERCIAL OPS #2041</text>
+                      <text x="10" y="47" fontSize="7.5" fill="#64748B">12+ YRS FASTSIGNS FRANCHISE</text>
+                      <text x="10" y="60" fontSize="7.5" fill="#059669" fontWeight="700">UL 48 LISTED ENCLOSURE</text>
 
-                      <text x="150" y="16" fontSize="7.5" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>
-                      <text x="150" y="30" fontSize="9" fontWeight="800" fill="#0F172A">{project.client.split('—')[0]}</text>
-                      <text x="150" y="52" fontSize="7.5" fill="#64748B" fontWeight="700">PRE-FLIGHT ESTIMATOR</text>
-                      <text x="150" y="65" fontSize="8.5" fontWeight="800" fill="#0369A1">Jezreel Dave Leybag (Gemini Cert)</text>
+                      <text x="145" y="15" fontSize="7" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>
+                      <text x="145" y="28" fontSize="8" fontWeight="800" fill="#0F172A">{project.client.split('—')[0]}</text>
+                      <text x="145" y="49" fontSize="7" fill="#64748B" fontWeight="700">PRE-FLIGHT ESTIMATOR</text>
+                      <text x="145" y="62" fontSize="7.5" fontWeight="800" fill="#0369A1">Jezreel Dave Leybag (Gemini Cert)</text>
 
-                      <text x="310" y="16" fontSize="7.5" fill="#64748B" fontWeight="700">DWG NO. / REV</text>
-                      <text x="310" y="30" fontSize="9" fontWeight="800" fill="#0F172A">CAD-02 • REV A</text>
-                      <text x="310" y="52" fontSize="7.5" fill="#64748B" fontWeight="700">PERMIT STATUS</text>
-                      <text x="310" y="65" fontSize="8.5" fontWeight="800" fill="#059669">APPROVED FOR PERMIT</text>
+                      <text x="300" y="15" fontSize="7" fill="#64748B" fontWeight="700">DWG NO. / REV</text>
+                      <text x="300" y="28" fontSize="8" fontWeight="800" fill="#0F172A">CAD-02 • REV A</text>
+                      <text x="300" y="49" fontSize="7" fill="#64748B" fontWeight="700">PERMIT STATUS</text>
+                      <text x="300" y="62" fontSize="8" fontWeight="800" fill="#059669">APPROVED FOR PERMIT</text>
                     </g>
                   </svg>
                 )}
@@ -767,10 +822,10 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
                     {/* DRAWING HEADER */}
                     <g transform="translate(30, 24)">
-                      <text x="0" y="18" fontSize="13" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
+                      <text x="0" y="16" fontSize="11.5" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
                         SECTION C-C: INTERIOR ARCHITECTURAL STANDOFF PLAQUE DETAIL
                       </text>
-                      <text x="0" y="34" fontSize="10.5" fill="#64748B" fontWeight="600">
+                      <text x="0" y="30" fontSize="9" fill="#64748B" fontWeight="600">
                         SCALE: 6" = 1'-0" [QUARTER SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-03
                       </text>
                     </g>
@@ -785,11 +840,11 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
                     {/* 1. 5/8" COMMERCIAL DRYWALL & METAL STUD WALL */}
                     <rect x="680" y="65" width="22" height="290" fill="url(#drywall-hatch)" stroke="#475569" strokeWidth="1.5" />
-                    <text x="735" y="365" fontSize="10" fontWeight="700" fill="#475569" textAnchor="middle">
+                    <text x="735" y="362" fontSize="9" fontWeight="700" fill="#475569" textAnchor="middle">
                       5/8" TYPE X DRYWALL
                     </text>
                     <rect x="702" y="65" width="40" height="290" fill="#E2E8F0" stroke="#94A3B8" strokeWidth="1" opacity="0.4" />
-                    <text x="722" y="150" fontSize="8" fill="#64748B" transform="rotate(90 722 150)">25GA STEEL STUD</text>
+                    <text x="722" y="150" fontSize="7.5" fill="#64748B" transform="rotate(90 722 150)">25GA STEEL STUD</text>
 
                     {/* Toggle Bolt Anchor through Wall */}
                     <rect x="580" y="127" width="130" height="6" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
@@ -798,34 +853,31 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     <path d="M 706 240 L 720 250 L 706 260 Z" fill="#475569" />
 
                     {/* 2. 1.0" OD x 1.0" PROJECTION GYFORD STAINLESS STANDOFFS */}
-                    {/* Top Standoff Barrel */}
                     <rect 
                       x="580" y="115" width="100" height="30" rx="3"
                       fill="#CBD5E1" 
                       stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#334155'} 
-                      strokeWidth={activeInspector?.id === 'standoffs' ? '3.5' : '1.5'} 
+                      strokeWidth={activeInspector?.id === 'standoffs' ? '3' : '1.5'} 
                     />
                     <circle cx="560" cy="130" r="10" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
-                    <text x="630" y="134" fontSize="8" fill="#0F172A" fontWeight="bold" textAnchor="middle">GYFORD 1"x1"</text>
+                    <text x="630" y="133" fontSize="7.5" fill="#0F172A" fontWeight="bold" textAnchor="middle">GYFORD 1"x1"</text>
 
-                    {/* Bottom Standoff Barrel */}
                     <rect 
                       x="580" y="235" width="100" height="30" rx="3"
                       fill="#CBD5E1" 
                       stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#334155'} 
-                      strokeWidth={activeInspector?.id === 'standoffs' ? '3.5' : '1.5'} 
+                      strokeWidth={activeInspector?.id === 'standoffs' ? '3' : '1.5'} 
                     />
                     <circle cx="560" cy="250" r="10" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
-                    <text x="630" y="254" fontSize="8" fill="#0F172A" fontWeight="bold" textAnchor="middle">GYFORD 1"x1"</text>
+                    <text x="630" y="253" fontSize="7.5" fill="#0F172A" fontWeight="bold" textAnchor="middle">GYFORD 1"x1"</text>
 
                     {/* 3. 1/4" CLEAR CAST ACRYLIC BACKER PLAQUE */}
                     <rect 
                       x="550" y="80" width="20" height="230" rx="2"
                       fill="#BAE6FD" opacity="0.6" 
                       stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#0284C7'} 
-                      strokeWidth={activeInspector?.id === 'plaque' ? '3.5' : '2'} 
+                      strokeWidth={activeInspector?.id === 'plaque' ? '3' : '2'} 
                     />
-                    {/* Flame-Polished Bevel Edge Details */}
                     <polygon points="550,80 570,80 570,85 550,88" fill="#38BDF8" opacity="0.7" />
                     <polygon points="550,310 570,310 570,305 550,302" fill="#38BDF8" opacity="0.7" />
 
@@ -834,78 +886,96 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       x="510" y="110" width="40" height="160" rx="2"
                       fill="#78350F" 
                       stroke={activeInspector?.id === 'logo' ? '#F79223' : '#B45309'} 
-                      strokeWidth={activeInspector?.id === 'logo' ? '3.5' : '2'} 
+                      strokeWidth={activeInspector?.id === 'logo' ? '3' : '2'} 
                     />
-                    {/* Chemetal Bronze Laminate Face Layer */}
                     <rect 
                       x="504" y="110" width="6" height="160" 
                       fill="#D97706" 
                       stroke={activeInspector?.id === 'logo' ? '#F79223' : '#92400E'} 
-                      strokeWidth={activeInspector?.id === 'logo' ? '2' : '1'} 
+                      strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '1'} 
                     />
+
+                    {/* DIMENSION STRINGS */}
+                    {/* Standoff 1.0" Projection */}
+                    <line x1="580" y1="190" x2="680" y2="190" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="580" y1="184" x2="580" y2="196" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="680" y1="184" x2="680" y2="196" stroke="#475569" strokeWidth="1.2" />
+                    <rect x="605" y="183" width="50" height="14" fill="#F8FAFC" rx="2" />
+                    <text x="630" y="193" fontSize="7.5" fontWeight="800" fill="#0F172A" textAnchor="middle" fontFamily="'JetBrains Mono', monospace">
+                      1.00" PROJ
+                    </text>
+
+                    {/* Plaque 1/4" Thickness */}
+                    <line x1="550" y1="335" x2="570" y2="335" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="550" y1="329" x2="550" y2="341" stroke="#475569" strokeWidth="1.2" />
+                    <line x1="570" y1="329" x2="570" y2="341" stroke="#475569" strokeWidth="1.2" />
+                    <rect x="535" y="343" width="50" height="14" fill="#F8FAFC" rx="2" />
+                    <text x="560" y="353" fontSize="7.5" fontWeight="800" fill="#0F172A" textAnchor="middle" fontFamily="'JetBrains Mono', monospace">
+                      1/4" PLAQUE
+                    </text>
 
                     {/* CALLOUT LABELS */}
                     {/* Bronze Logo Callout */}
-                    <line x1="504" y1="140" x2="360" y2="120" stroke={activeInspector?.id === 'logo' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'logo' ? '2' : '1'} />
-                    <rect x="180" y="106" width="180" height="30" rx="4" fill={activeInspector?.id === 'logo' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'logo' ? '#F79223' : '#CBD5E1'} />
-                    <text x="350" y="120" fontSize="8.5" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
+                    <line x1="504" y1="140" x2="360" y2="120" stroke={activeInspector?.id === 'logo' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '1'} />
+                    <rect x="190" y="108" width="165" height="26" rx="4" fill={activeInspector?.id === 'logo' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'logo' ? '#F79223' : '#CBD5E1'} />
+                    <text x="345" y="120" fontSize="8" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
                       BRONZE METAL LAMINATE {activeInspector?.id === 'logo' && '★'}
                     </text>
-                    <text x="350" y="131" fontSize="7.5" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#64748B'} textAnchor="end">
+                    <text x="345" y="129" fontSize="6.5" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#64748B'} textAnchor="end">
                       Chemetal #903 on 1/2" Acrylic
                     </text>
 
                     {/* Acrylic Plaque Callout */}
-                    <line x1="550" y1="95" x2="420" y2="70" stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'plaque' ? '2' : '1'} />
-                    <rect x="250" y="56" width="170" height="30" rx="4" fill={activeInspector?.id === 'plaque' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#CBD5E1'} />
-                    <text x="410" y="70" fontSize="8.5" fill={activeInspector?.id === 'plaque' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
+                    <line x1="550" y1="95" x2="420" y2="70" stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'plaque' ? '1.5' : '1'} />
+                    <rect x="260" y="58" width="155" height="26" rx="4" fill={activeInspector?.id === 'plaque' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#CBD5E1'} />
+                    <text x="405" y="70" fontSize="8" fill={activeInspector?.id === 'plaque' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
                       1/4" CLEAR ACRYLIC PLAQUE {activeInspector?.id === 'plaque' && '★'}
                     </text>
-                    <text x="410" y="81" fontSize="7.5" fill={activeInspector?.id === 'plaque' ? '#FFFFFF' : '#64748B'} textAnchor="end">
+                    <text x="405" y="79" fontSize="6.5" fill={activeInspector?.id === 'plaque' ? '#FFFFFF' : '#64748B'} textAnchor="end">
                       Flame-Polished Beveled Edges
                     </text>
 
                     {/* Gyford Standoff Callout */}
-                    <line x1="630" y1="115" x2="630" y2="70" stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'standoffs' ? '2' : '1'} />
-                    <rect x="540" y="46" width="170" height="28" rx="4" fill={activeInspector?.id === 'standoffs' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#CBD5E1'} />
-                    <text x="548" y="60" fontSize="8.5" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="630" y1="115" x2="630" y2="70" stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'standoffs' ? '1.5' : '1'} />
+                    <rect x="545" y="48" width="160" height="26" rx="4" fill={activeInspector?.id === 'standoffs' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#CBD5E1'} />
+                    <text x="553" y="60" fontSize="8" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       GYFORD STANDOFFS (6x) {activeInspector?.id === 'standoffs' && '★'}
                     </text>
-                    <text x="548" y="70" fontSize="7.5" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#64748B'}>
+                    <text x="553" y="69" fontSize="6.5" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#64748B'}>
                       1.0" OD x 1.0" Projection SS
                     </text>
 
                     {/* Spotlight Callout */}
-                    <line x1="220" y1="40" x2="160" y2="40" stroke={activeInspector?.id === 'lighting' ? '#F79223' : '#EAB308'} strokeWidth={activeInspector?.id === 'lighting' ? '2' : '1'} />
-                    <rect x="20" y="26" width="140" height="28" rx="4" fill={activeInspector?.id === 'lighting' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'lighting' ? '#F79223' : '#CBD5E1'} />
-                    <text x="28" y="40" fontSize="8.5" fill={activeInspector?.id === 'lighting' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="220" y1="40" x2="160" y2="40" stroke={activeInspector?.id === 'lighting' ? '#F79223' : '#EAB308'} strokeWidth={activeInspector?.id === 'lighting' ? '1.5' : '1'} />
+                    <rect x="25" y="28" width="130" height="26" rx="4" fill={activeInspector?.id === 'lighting' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'lighting' ? '#F79223' : '#CBD5E1'} />
+                    <text x="33" y="40" fontSize="8" fill={activeInspector?.id === 'lighting' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       GALLERY SPOTLIGHTS {activeInspector?.id === 'lighting' && '★'}
                     </text>
-                    <text x="28" y="50" fontSize="7.5" fill={activeInspector?.id === 'lighting' ? '#FFFFFF' : '#64748B'}>
+                    <text x="33" y="49" fontSize="6.5" fill={activeInspector?.id === 'lighting' ? '#FFFFFF' : '#64748B'}>
                       3000K Overhead Track Wash
                     </text>
 
                     {/* FASTSIGNS TITLE BLOCK */}
-                    <g transform="translate(490, 375)">
-                      <rect x="0" y="0" width="430" height="75" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.5" />
-                      <line x1="140" y1="0" x2="140" y2="75" stroke="#0F172A" strokeWidth="1" />
-                      <line x1="300" y1="0" x2="300" y2="75" stroke="#0F172A" strokeWidth="1" />
-                      <line x1="140" y1="38" x2="430" y2="38" stroke="#0F172A" strokeWidth="1" />
+                    <g transform="translate(500, 380)">
+                      <rect x="0" y="0" width="420" height="70" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.2" />
+                      <line x1="135" y1="0" x2="135" y2="70" stroke="#0F172A" strokeWidth="1" />
+                      <line x1="290" y1="0" x2="290" y2="70" stroke="#0F172A" strokeWidth="1" />
+                      <line x1="135" y1="35" x2="420" y2="35" stroke="#0F172A" strokeWidth="1" />
                       
-                      <text x="12" y="22" fontSize="12" fontWeight="900" fill="#C5221F" letterSpacing="1">FASTSIGNS®</text>
-                      <text x="12" y="37" fontSize="8.5" fontWeight="700" fill="#0F172A">COMMERCIAL OPS #2041</text>
-                      <text x="12" y="50" fontSize="8" fill="#64748B">12+ YRS FASTSIGNS FRANCHISE</text>
-                      <text x="12" y="64" fontSize="8" fill="#059669" fontWeight="700">ARCHITECTURAL DISPLAY</text>
+                      <text x="10" y="20" fontSize="11" fontWeight="900" fill="#C5221F" letterSpacing="1">FASTSIGNS®</text>
+                      <text x="10" y="34" fontSize="7.5" fontWeight="700" fill="#0F172A">COMMERCIAL OPS #2041</text>
+                      <text x="10" y="47" fontSize="7.5" fill="#64748B">12+ YRS FASTSIGNS FRANCHISE</text>
+                      <text x="10" y="60" fontSize="7.5" fill="#059669" fontWeight="700">ARCHITECTURAL DISPLAY</text>
 
-                      <text x="150" y="16" fontSize="7.5" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>
-                      <text x="150" y="30" fontSize="9" fontWeight="800" fill="#0F172A">{project.client.split('—')[0]}</text>
-                      <text x="150" y="52" fontSize="7.5" fill="#64748B" fontWeight="700">PRE-FLIGHT ESTIMATOR</text>
-                      <text x="150" y="65" fontSize="8.5" fontWeight="800" fill="#0369A1">Jezreel Dave Leybag (Gemini Cert)</text>
+                      <text x="145" y="15" fontSize="7" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>
+                      <text x="145" y="28" fontSize="8" fontWeight="800" fill="#0F172A">{project.client.split('—')[0]}</text>
+                      <text x="145" y="49" fontSize="7" fill="#64748B" fontWeight="700">PRE-FLIGHT ESTIMATOR</text>
+                      <text x="145" y="62" fontSize="7.5" fontWeight="800" fill="#0369A1">Jezreel Dave Leybag (Gemini Cert)</text>
 
-                      <text x="310" y="16" fontSize="7.5" fill="#64748B" fontWeight="700">DWG NO. / REV</text>
-                      <text x="310" y="30" fontSize="9" fontWeight="800" fill="#0F172A">CAD-03 • REV C</text>
-                      <text x="310" y="52" fontSize="7.5" fill="#64748B" fontWeight="700">PERMIT STATUS</text>
-                      <text x="310" y="65" fontSize="8.5" fontWeight="800" fill="#059669">PERMIT EXEMPT (INTERIOR)</text>
+                      <text x="300" y="15" fontSize="7" fill="#64748B" fontWeight="700">DWG NO. / REV</text>
+                      <text x="300" y="28" fontSize="8" fontWeight="800" fill="#0F172A">CAD-03 • REV C</text>
+                      <text x="300" y="49" fontSize="7" fill="#64748B" fontWeight="700">PERMIT STATUS</text>
+                      <text x="300" y="62" fontSize="8" fontWeight="800" fill="#059669">PERMIT EXEMPT (INTERIOR)</text>
                     </g>
                   </svg>
                 )}
