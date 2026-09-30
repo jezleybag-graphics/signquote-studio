@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { 
-  RotateCw, Layers, Compass, Lightbulb
+  RotateCw, Layers, Compass
 } from 'lucide-react';
 
 // ============================================================================
@@ -339,7 +339,6 @@ const LAYER_SCHEMATICS = {
     standoffCaps:    { baseZ:  3.1, deltaZ: 18.0 },
     logoCore:        { baseZ:  3.1, deltaZ: 26.0 },
     logoFace:        { baseZ:  3.5, deltaZ: 36.0 },
-    lighting:        { baseZ:  0.0, deltaZ:  2.0 },
   },
   case1: {
     wall:      { baseZ: -0.5, deltaZ: -3.0 },
@@ -372,7 +371,6 @@ export default function SignAssembly3D({
   const mountRef = useRef(null);
   const [explodeFactor, setExplodeFactor] = useState(0); // 0 = 100% attached altogether
   const [autoRotate, setAutoRotate] = useState(false);
-  const [galleryLightsOn, setGalleryLightsOn] = useState(true);
 
   // References for three.js objects
   const sceneRef = useRef(null);
@@ -381,8 +379,6 @@ export default function SignAssembly3D({
   const controlsRef = useRef(null);
   const animFrameIdRef = useRef(null);
   const layersGroupRef = useRef({});
-  const spotLightsRef = useRef([]);
-  const volumetricConesRef = useRef([]);
 
   // Initialize Three.js Scene (Clean Architectural Daylight Studio)
   useEffect(() => {
@@ -453,13 +449,8 @@ export default function SignAssembly3D({
 
     // 6. BUILD PROCEDURAL 3D SIGN FABRICATION LAYERS
     const layerObjects = {};
-    const spotLightsList = [];
-    const conesList = [];
-
-    buildSignLayers(scene, project, layerObjects, spotLightsList, conesList);
+    buildSignLayers(scene, project, layerObjects);
     layersGroupRef.current = layerObjects;
-    spotLightsRef.current = spotLightsList;
-    volumetricConesRef.current = conesList;
 
     // Set initial attached positions at explodeFactor = 0
     applyExplodeOffsets(layerObjects, project.id, 0);
@@ -496,16 +487,6 @@ export default function SignAssembly3D({
     };
   }, [project.id]);
 
-  // Handle Gallery Spotlight visibility toggle without reloading WebGL scene
-  useEffect(() => {
-    spotLightsRef.current.forEach(spot => {
-      spot.visible = galleryLightsOn;
-    });
-    volumetricConesRef.current.forEach(cone => {
-      cone.visible = galleryLightsOn;
-    });
-  }, [galleryLightsOn]);
-
   // Handle Z-Axis Exploded Assembly Dynamic Offsets
   useEffect(() => {
     const layers = layersGroupRef.current;
@@ -522,6 +503,7 @@ export default function SignAssembly3D({
       const isMatch = activeInspector.id === key || 
         (activeInspector.id === 'metal-face' && key === 'face') ||
         (activeInspector.id === 'acrylic-face' && key === 'face') ||
+        (activeInspector.id === 'logo' && (key === 'logo' || key === 'logoFace' || key === 'logoCore')) ||
         (activeInspector.id === 'standoffs' && (key === 'standoffBarrels' || key === 'standoffCaps' || key === 'standoffs'));
 
       group.traverse((child) => {
@@ -602,22 +584,8 @@ export default function SignAssembly3D({
           </button>
         </div>
 
-        {/* TOP RIGHT CONTROLS: GALLERY SPOTLIGHT TOGGLE & TURNTABLE */}
+        {/* TOP RIGHT CONTROLS: TURNTABLE */}
         <div className="flex items-center gap-2 pointer-events-auto">
-          {project.id === 'case3' && (
-            <button
-              onClick={() => setGalleryLightsOn(!galleryLightsOn)}
-              className={`px-3 py-1.5 rounded-2xl border text-[11px] font-bold backdrop-blur-md shadow-md transition-all cursor-pointer flex items-center gap-1.5 ${
-                galleryLightsOn 
-                  ? 'bg-amber-500/15 border-[#F79223] text-amber-900 bg-white' 
-                  : 'bg-white/90 border-gray-300 text-gray-500'
-              }`}
-            >
-              <Lightbulb className={`w-3.5 h-3.5 ${galleryLightsOn ? 'text-[#F79223] fill-[#F79223]' : 'text-gray-400'}`} />
-              <span>Spotlights: {galleryLightsOn ? 'ON' : 'OFF'}</span>
-            </button>
-          )}
-
           <button
             onClick={() => setAutoRotate(!autoRotate)}
             className={`px-3 py-1.5 rounded-2xl border text-[11px] font-bold backdrop-blur-md shadow-md transition-all cursor-pointer flex items-center gap-1.5 ${
@@ -705,7 +673,7 @@ function applyExplodeOffsets(layers, projectId, factor) {
 // ============================================================================
 // THREE.JS PROCEDURAL FABRICATION GEOMETRIES BUILDER
 // ============================================================================
-function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
+function buildSignLayers(scene, project, layers) {
   
   // --------------------------------------------------------------------------
   // CASE 3: J.STUDIO EXECUTIVE STANDOFF PLAQUE
@@ -902,86 +870,6 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     scene.add(logoFaceGroup);
     layers.logoFace = logoFaceGroup;
     layers.logo = logoFaceGroup;
-
-    // 7. ARCHITECTURAL GALLERY TRACK LIGHTING SYSTEM (3x 12W 3000K Spotlights)
-    const lightGroup = new THREE.Group();
-
-    // Black anodized aluminum ceiling/wall track rail
-    const trackGeo = new THREE.BoxGeometry(64, 1.2, 1.6);
-    const trackMat = new THREE.MeshStandardMaterial({ color: 0x1E293B, metalness: 0.9, roughness: 0.25 });
-    const trackMesh = new THREE.Mesh(trackGeo, trackMat);
-    trackMesh.position.set(0, 26, 7.5);
-    lightGroup.add(trackMesh);
-
-    // 3 Directional Gimbal Track Heads aimed downward at the sign plaque
-    const headPositions = [-18, 0, 18];
-
-    headPositions.forEach((hx) => {
-      const headGroup = new THREE.Group();
-      headGroup.position.set(hx, 26, 7.5);
-
-      // Gimbal arm stem
-      const stemGeo = new THREE.CylinderGeometry(0.3, 0.3, 2.2, 16);
-      const stemMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.8 });
-      const stem = new THREE.Mesh(stemGeo, stemMat);
-      stem.position.set(0, -1.1, 0);
-      headGroup.add(stem);
-
-      // Cylindrical fixture canister angled ~32° down toward sign
-      const canGeo = new THREE.CylinderGeometry(1.5, 2.0, 3.8, 24);
-      canGeo.rotateX(Math.PI / 4.2);
-      const canMat = new THREE.MeshStandardMaterial({ color: 0x0F172A, metalness: 0.85, roughness: 0.2 });
-      const can = new THREE.Mesh(canGeo, canMat);
-      can.position.set(0, -2.4, 1.1);
-      headGroup.add(can);
-
-      // Luminous 3000K warm LED emitter lens
-      const lensGeo = new THREE.CircleGeometry(1.3, 24);
-      lensGeo.rotateX(-Math.PI / 3.2);
-      const lensMat = new THREE.MeshBasicMaterial({ color: 0xFFF3C4 });
-      const lens = new THREE.Mesh(lensGeo, lensMat);
-      lens.position.set(0, -3.5, 2.3);
-      headGroup.add(lens);
-
-      // REAL THREE.JS SPOTLIGHT PROJECTOR
-      const spot = new THREE.SpotLight(0xFFF7ED, 4.0);
-      spot.position.set(hx, 26, 9);
-      spot.angle = 0.55;
-      spot.penumbra = 0.65;
-      spot.distance = 70;
-      spot.decay = 1.0;
-      spot.castShadow = true;
-      spot.shadow.bias = -0.001;
-
-      // Target object anchored on the sign face
-      const target = new THREE.Object3D();
-      target.position.set(hx * 0.6, 1, 3);
-      scene.add(target);
-      spot.target = target;
-      scene.add(spot);
-      spotLightsList.push(spot);
-
-      // Visible volumetric warm light beam cone
-      const coneGeo = new THREE.CylinderGeometry(1.3, 10, 24, 24, 1, true);
-      coneGeo.rotateX(-Math.PI / 3.4);
-      const coneMat = new THREE.MeshBasicMaterial({
-        color: 0xFEF08A,
-        transparent: true,
-        opacity: 0.1,
-        blending: THREE.AdditiveBlending,
-        side: THREE.DoubleSide,
-        depthWrite: false
-      });
-      const cone = new THREE.Mesh(coneGeo, coneMat);
-      cone.position.set(0, -13, 8.5);
-      headGroup.add(cone);
-      conesList.push(cone);
-
-      lightGroup.add(headGroup);
-    });
-
-    scene.add(lightGroup);
-    layers.lighting = lightGroup;
   }
 
   // --------------------------------------------------------------------------
