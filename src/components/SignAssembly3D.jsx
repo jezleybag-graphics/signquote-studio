@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { 
-  Maximize2, RotateCw, Layers, Eye, 
-  Sparkles, Compass, Lightbulb
+  RotateCw, Layers, Compass, Lightbulb
 } from 'lucide-react';
 
 // ============================================================================
@@ -66,21 +65,18 @@ function getBrandLogoShapes() {
   return [s1, s2, s3, s4];
 }
 
-// Create High-Resolution Typographic Texture for J.STUDIO plaque wordmark
+// Create High-Resolution Typographic Texture for J.STUDIO plaque (TRANSPARENT BACKGROUND, NO GREY BOX)
 function createJStudioTextTexture() {
   const canvas = document.createElement('canvas');
   canvas.width = 1024;
-  canvas.height = 256;
+  canvas.height = 300;
   const ctx = canvas.getContext('2d');
 
-  ctx.clearRect(0, 0, 1024, 256);
+  // Completely clear transparent canvas
+  ctx.clearRect(0, 0, 1024, 300);
 
-  // Wordmark: J. (Bronze/Orange) STUDIO (Obsidian)
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = '900 96px "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-
-  // Measure wordmark widths for exact optical dual-tone placement
+  // Wordmark: J. (Bronze/Orange) STUDIO (Obsidian Charcoal)
+  ctx.font = '900 108px "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
   const jWidth = ctx.measureText('J.').width;
   const studioWidth = ctx.measureText('STUDIO').width;
   const totalWidth = jWidth + studioWidth;
@@ -88,17 +84,23 @@ function createJStudioTextTexture() {
 
   ctx.textAlign = 'left';
   ctx.fillStyle = '#F79223';
-  ctx.fillText('J.', startX, 90);
+  ctx.fillText('J.', startX, 110);
 
   ctx.fillStyle = '#111213';
-  ctx.fillText('STUDIO', startX + jWidth, 90);
+  ctx.fillText('STUDIO', startX + jWidth, 110);
 
   // Subtitle: ARCHITECTURAL DESIGN & SIGNAGE
   ctx.textAlign = 'center';
   ctx.font = '700 24px "Inter", -apple-system, sans-serif';
   ctx.fillStyle = '#475569';
-  ctx.letterSpacing = '6px';
-  ctx.fillText('ARCHITECTURAL DESIGN & SIGNAGE', 512, 170);
+  ctx.letterSpacing = '5px';
+  ctx.fillText('ARCHITECTURAL DESIGN & SIGNAGE', 512, 190);
+
+  // Executive Identifier
+  ctx.font = '600 18px "Inter", -apple-system, sans-serif';
+  ctx.fillStyle = '#64748B';
+  ctx.letterSpacing = '3px';
+  ctx.fillText('JEZREEL DAVE LEYBAG • EXECUTIVE SUITE 400', 512, 235);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.minFilter = THREE.LinearFilter;
@@ -106,6 +108,41 @@ function createJStudioTextTexture() {
   texture.anisotropy = 8;
   return texture;
 }
+
+// ============================================================================
+// LAYER POSITION DEFINITIONS
+// BaseZ = exact attached contact position at 0% (zero spacing).
+// DeltaZ = physical explosion translation offset at 100%.
+// ============================================================================
+const LAYER_SCHEMATICS = {
+  case3: {
+    wall:            { baseZ: -0.5, deltaZ: -3.0 },
+    standoffBarrels: { baseZ:  0.0, deltaZ: -1.0 },
+    plaque:          { baseZ:  2.5, deltaZ:  9.0 },
+    standoffCaps:    { baseZ:  3.1, deltaZ: 18.0 },
+    logoCore:        { baseZ:  3.1, deltaZ: 26.0 },
+    logoFace:        { baseZ:  3.5, deltaZ: 36.0 },
+    lighting:        { baseZ:  0.0, deltaZ:  2.0 },
+  },
+  case1: {
+    wall:      { baseZ: -0.5, deltaZ: -3.0 },
+    backer:    { baseZ:  0.0, deltaZ:  0.0 },
+    standoffs: { baseZ:  0.3, deltaZ:  8.0 },
+    polycarb:  { baseZ:  2.8, deltaZ: 18.0 },
+    leds:      { baseZ:  3.2, deltaZ: 28.0 },
+    return:    { baseZ:  3.1, deltaZ: 40.0 },
+    face:      { baseZ:  6.6, deltaZ: 55.0 },
+  },
+  case2: {
+    wall:    { baseZ: -0.5, deltaZ: -3.0 },
+    raceway: { baseZ:  0.0, deltaZ:  0.0 },
+    drivers: { baseZ:  2.2, deltaZ: 10.0 },
+    return:  { baseZ:  4.5, deltaZ: 22.0 },
+    leds:    { baseZ:  6.0, deltaZ: 34.0 },
+    face:    { baseZ:  8.0, deltaZ: 48.0 },
+    trim:    { baseZ:  7.9, deltaZ: 60.0 },
+  }
+};
 
 // ============================================================================
 // MAIN 3D SIGN ASSEMBLY COMPONENT
@@ -143,11 +180,10 @@ export default function SignAssembly3D({
     sceneRef.current = scene;
     const bgColor = 0xF8FAFC;
     scene.background = new THREE.Color(bgColor);
-    scene.fog = new THREE.FogExp2(bgColor, 0.0028);
 
-    // 2. CAMERA
-    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 1000);
-    camera.position.set(65, 32, 115);
+    // 2. CAMERA (Airy framing to fit whole sign and lights comfortably)
+    const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 1000);
+    camera.position.set(50, 26, 125);
     cameraRef.current = camera;
 
     // 3. RENDERER
@@ -161,7 +197,7 @@ export default function SignAssembly3D({
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.1;
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
@@ -170,26 +206,32 @@ export default function SignAssembly3D({
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
-    controls.maxPolarAngle = Math.PI / 2 + 0.12;
-    controls.minDistance = 25;
-    controls.maxDistance = 300;
-    controls.target.set(0, 2, 0);
+    controls.maxPolarAngle = Math.PI / 2 + 0.1;
+    controls.minDistance = 35;
+    controls.maxDistance = 260;
+    controls.target.set(0, 0, 2.5);
     controlsRef.current = controls;
 
-    // 5. CRISP DAYLIGHT ARCHITECTURAL LIGHTING
-    const ambientLight = new THREE.AmbientLight(0xFFFFFF, 1.25);
+    // 5. BALANCED DAYLIGHT LIGHTING (Soft contact shadows directly behind sign)
+    const ambientLight = new THREE.AmbientLight(0xFFFFFF, 1.2);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0xFFFFFF, 1.6);
-    dirLight.position.set(70, 95, 80);
+    const dirLight = new THREE.DirectionalLight(0xFFFFFF, 1.3);
+    dirLight.position.set(25, 45, 70); // Frontal-top key light
     dirLight.castShadow = true;
     dirLight.shadow.mapSize.width = 2048;
     dirLight.shadow.mapSize.height = 2048;
-    dirLight.shadow.bias = -0.0004;
+    dirLight.shadow.camera.near = 10;
+    dirLight.shadow.camera.far = 200;
+    dirLight.shadow.camera.left = -60;
+    dirLight.shadow.camera.right = 60;
+    dirLight.shadow.camera.top = 50;
+    dirLight.shadow.camera.bottom = -50;
+    dirLight.shadow.bias = -0.0003;
     scene.add(dirLight);
 
-    const fillLight = new THREE.DirectionalLight(0xE2E8F0, 0.7);
-    fillLight.position.set(-60, 40, 50);
+    const fillLight = new THREE.DirectionalLight(0xE2E8F0, 0.5);
+    fillLight.position.set(-50, 30, 40);
     scene.add(fillLight);
 
     // 6. BUILD PROCEDURAL 3D SIGN FABRICATION LAYERS
@@ -209,7 +251,7 @@ export default function SignAssembly3D({
     const animate = () => {
       animFrameIdRef.current = requestAnimationFrame(animate);
       controls.autoRotate = autoRotate;
-      controls.autoRotateSpeed = 1.2;
+      controls.autoRotateSpeed = 1.0;
       controls.update();
       renderer.render(scene, camera);
     };
@@ -282,24 +324,24 @@ export default function SignAssembly3D({
     });
   }, [activeInspector]);
 
-  // Camera preset handlers
+  // Camera preset handlers with balanced framing
   const setCameraView = (type) => {
     const camera = cameraRef.current;
     const controls = controlsRef.current;
     if (!camera || !controls) return;
 
     if (type === 'front') {
-      camera.position.set(0, 3, 115);
-      controls.target.set(0, 3, 0);
+      camera.position.set(0, 0, 135);
+      controls.target.set(0, 0, 2.5);
     } else if (type === 'side') {
-      camera.position.set(125, 3, 5);
-      controls.target.set(0, 3, 0);
+      camera.position.set(130, 0, 3);
+      controls.target.set(0, 0, 2.5);
     } else if (type === 'iso') {
-      camera.position.set(65, 32, 115);
-      controls.target.set(0, 2, 0);
+      camera.position.set(50, 26, 125);
+      controls.target.set(0, 0, 2.5);
     } else if (type === 'top') {
-      camera.position.set(0, 130, 15);
-      controls.target.set(0, 0, 0);
+      camera.position.set(0, 130, 10);
+      controls.target.set(0, 0, 2.5);
     }
     controls.update();
   };
@@ -355,7 +397,7 @@ export default function SignAssembly3D({
               }`}
             >
               <Lightbulb className={`w-3.5 h-3.5 ${galleryLightsOn ? 'text-[#F79223] fill-[#F79223]' : 'text-gray-400'}`} />
-              <span>Gallery Spotlights: {galleryLightsOn ? 'ON' : 'OFF'}</span>
+              <span>Spotlights: {galleryLightsOn ? 'ON' : 'OFF'}</span>
             </button>
           )}
 
@@ -407,7 +449,7 @@ export default function SignAssembly3D({
           </span>
 
           <button
-            onClick={() => setExplodeFactor(explodeFactor > 0.05 ? 0 : 0.85)}
+            onClick={() => setExplodeFactor(explodeFactor > 0.05 ? 0 : 0.8)}
             className={`text-[10px] uppercase font-mono font-bold px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
               explodeFactor === 0 
                 ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
@@ -434,42 +476,13 @@ export default function SignAssembly3D({
 // At factor = 0, every single layer is physically attached and flush (spacing = 0)
 // ============================================================================
 function applyExplodeOffsets(layers, projectId, factor) {
-  if (projectId === 'case3') {
-    // Wall: stays firmly at wall plane (slight pushback at full explode)
-    if (layers.wall) layers.wall.position.z = -factor * 5;
-    // Standoff barrels: base sits on the wall at Z = 0
-    if (layers.standoffBarrels) layers.standoffBarrels.position.z = -factor * 2;
-    // Clear frosted acrylic plaque: rests flush on barrel tops (Z = 5.0)
-    if (layers.plaque) layers.plaque.position.z = factor * 16;
-    // Standoff caps: tightened on front face of plaque (Z = 6.2)
-    if (layers.standoffCaps) layers.standoffCaps.position.z = factor * 30;
-    // Acrylic logo substrate core: bonded flush to plaque front face (Z = 6.2)
-    if (layers.logoCore) layers.logoCore.position.z = factor * 46;
-    // Chemetal bronze/obsidian face: laminated flush to acrylic core (Z = 7.0)
-    if (layers.logoFace) layers.logoFace.position.z = factor * 66;
-    // Gallery track lighting fixture: stays above the sign
-    if (layers.lighting) layers.lighting.position.z = factor * 6;
-  } 
-  else if (projectId === 'case1') {
-    // Apex Dental Reverse Halo
-    if (layers.wall) layers.wall.position.z = -factor * 5;
-    if (layers.backer) layers.backer.position.z = 0;
-    if (layers.standoffs) layers.standoffs.position.z = factor * 14;
-    if (layers.polycarb) layers.polycarb.position.z = factor * 30;
-    if (layers.leds) layers.leds.position.z = factor * 48;
-    if (layers.return) layers.return.position.z = factor * 68;
-    if (layers.face) layers.face.position.z = factor * 90;
-  } 
-  else if (projectId === 'case2') {
-    // Metro Burger Front-Lit on Raceway
-    if (layers.wall) layers.wall.position.z = -factor * 5;
-    if (layers.raceway) layers.raceway.position.z = 0;
-    if (layers.drivers) layers.drivers.position.z = factor * 18;
-    if (layers.return) layers.return.position.z = factor * 38;
-    if (layers.leds) layers.leds.position.z = factor * 56;
-    if (layers.face) layers.face.position.z = factor * 76;
-    if (layers.trim) layers.trim.position.z = factor * 96;
-  }
+  const schematics = LAYER_SCHEMATICS[projectId] || LAYER_SCHEMATICS.case3;
+
+  Object.entries(schematics).forEach(([layerKey, cfg]) => {
+    if (layers[layerKey]) {
+      layers[layerKey].position.z = cfg.baseZ + factor * cfg.deltaZ;
+    }
+  });
 }
 
 // ============================================================================
@@ -484,23 +497,23 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     
     // 1. FINISHED INTERIOR DRYWALL (Front face sits exactly at Z = 0.0)
     const wallGroup = new THREE.Group();
-    const wallGeo = new THREE.BoxGeometry(110, 68, 2);
+    const wallGeo = new THREE.BoxGeometry(110, 68, 1.0);
     const wallMat = new THREE.MeshStandardMaterial({ 
       color: 0xF1F5F9, 
       roughness: 0.9, 
       metalness: 0.02 
     });
     const wallMesh = new THREE.Mesh(wallGeo, wallMat);
-    wallMesh.position.set(0, 0, -1.0); // front face = 0.0
+    wallMesh.position.set(0, 0, -0.5); // front face = 0.0
     wallMesh.receiveShadow = true;
     wallGroup.add(wallMesh);
 
     // Acoustic vertical wood slat accent panel on right side
     const slatMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.7 });
     for (let sx = 26; sx <= 48; sx += 4.5) {
-      const slatGeo = new THREE.BoxGeometry(2.4, 66, 0.6);
+      const slatGeo = new THREE.BoxGeometry(2.4, 66, 0.4);
       const slat = new THREE.Mesh(slatGeo, slatMat);
-      slat.position.set(sx, 0, 0.3);
+      slat.position.set(sx, 0, 0.2);
       wallGroup.add(slat);
     }
 
@@ -508,7 +521,7 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     layers.wall = wallGroup;
 
     // 2. GYFORD PRECISION STANDOFF BARRELS (6x Machined Stainless Steel)
-    // Barrel length = 5.0 units. Rests on wall (Z = 0.0 to 5.0)
+    // Barrel length = 2.5 units. Base sits on wall at Z = 0.0, top rim = 2.5
     const barrelsGroup = new THREE.Group();
     const standoffCoords = [
       [-36, 17], [36, 17],    // top corners
@@ -516,7 +529,7 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
       [-36, -17], [36, -17]   // bottom corners
     ];
 
-    const barrelGeo = new THREE.CylinderGeometry(1.5, 1.5, 5.0, 32);
+    const barrelGeo = new THREE.CylinderGeometry(1.2, 1.2, 2.5, 32);
     barrelGeo.rotateX(Math.PI / 2);
     const ssMaterial = new THREE.MeshStandardMaterial({ 
       color: 0xE2E8F0, 
@@ -526,7 +539,7 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
 
     standoffCoords.forEach(([x, y]) => {
       const barrel = new THREE.Mesh(barrelGeo, ssMaterial);
-      barrel.position.set(x, y, 2.5); // base = 0.0, top rim = 5.0
+      barrel.position.set(x, y, 1.25); // base = 0.0, top rim = 2.5
       barrel.castShadow = true;
       barrel.receiveShadow = true;
       barrelsGroup.add(barrel);
@@ -536,18 +549,18 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     layers.standoffs = barrelsGroup;
 
     // 3. 3/8" FROSTED CLEAR ACRYLIC PLAQUE WITH FLAME-POLISHED EDGES
-    // Plaque thickness = 1.2 units. Rests against barrel tops (Z = 5.0 to 6.2)
+    // Plaque thickness = 0.6 units. Rests on barrel rims (Z = 2.5 to 3.1)
     const plaqueGroup = new THREE.Group();
-    const plaqueGeo = new THREE.BoxGeometry(82, 46, 1.2);
+    const plaqueGeo = new THREE.BoxGeometry(82, 46, 0.6);
     const plaqueMat = new THREE.MeshStandardMaterial({
       color: 0xE0F2FE,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.42,
       roughness: 0.15,
-      metalness: 0.1
+      metalness: 0.08
     });
     const plaqueMesh = new THREE.Mesh(plaqueGeo, plaqueMat);
-    plaqueMesh.position.set(0, 0, 5.6); // back = 5.0, front face = 6.2
+    plaqueMesh.position.set(0, 0, 0.3); // local 0.0 to 0.6 (world 2.5 to 3.1)
     plaqueMesh.castShadow = true;
     plaqueMesh.receiveShadow = true;
     plaqueGroup.add(plaqueMesh);
@@ -555,14 +568,14 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     layers.plaque = plaqueGroup;
 
     // 4. STANDOFF THREADED FACE CAPS (6x Clamping Caps)
-    // Cap thickness = 0.6 units. Sits flush on front face of plaque (Z = 6.2 to 6.8)
+    // Cap thickness = 0.3 units. Sits flush on front face of plaque (Z = 3.1 to 3.4)
     const capsGroup = new THREE.Group();
-    const capGeo = new THREE.CylinderGeometry(1.6, 1.6, 0.6, 32);
+    const capGeo = new THREE.CylinderGeometry(1.3, 1.3, 0.3, 32);
     capGeo.rotateX(Math.PI / 2);
 
     standoffCoords.forEach(([x, y]) => {
       const cap = new THREE.Mesh(capGeo, ssMaterial);
-      cap.position.set(x, y, 6.5); // base = 6.2, front = 6.8
+      cap.position.set(x, y, 0.15); // local 0.0 to 0.3 (world 3.1 to 3.4)
       cap.castShadow = true;
       capsGroup.add(cap);
     });
@@ -570,9 +583,8 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     layers.standoffCaps = capsGroup;
 
     // 5. 1/4" LASER-CUT ACRYLIC DIMENSIONAL CORE SUBSTRATE
-    // Mounted flush to front face of plaque (Z = 6.2 to 7.0, thickness = 0.8)
+    // Mounted flush to front face of plaque (Z = 3.1 to 3.5, thickness = 0.4)
     const logoCoreGroup = new THREE.Group();
-    logoCoreGroup.position.set(0, 0, 6.2); // base = 6.2
 
     const coreMat = new THREE.MeshStandardMaterial({ 
       color: 0x1E293B, 
@@ -584,10 +596,10 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     const brandShapes = getBrandLogoShapes();
     const coreExtrudeSettings = {
       steps: 1,
-      depth: 0.8,
+      depth: 0.4,
       bevelEnabled: true,
-      bevelThickness: 0.06,
-      bevelSize: 0.06,
+      bevelThickness: 0.04,
+      bevelSize: 0.04,
       bevelSegments: 3
     };
 
@@ -595,25 +607,17 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     brandShapes.forEach((shape) => {
       const geo = new THREE.ExtrudeGeometry(shape, coreExtrudeSettings);
       const mesh = new THREE.Mesh(geo, coreMat);
-      mesh.position.set(0, 4.5, 0);
+      mesh.position.set(0, 4.5, 0); // local 0.0 to 0.4 (world 3.1 to 3.5)
       mesh.castShadow = true;
       logoCoreGroup.add(mesh);
     });
-
-    // Dimensional base plate for J.STUDIO logotype
-    const textCoreGeo = new THREE.BoxGeometry(40, 9.5, 0.8);
-    const textCoreMesh = new THREE.Mesh(textCoreGeo, coreMat);
-    textCoreMesh.position.set(0, -11.5, 0.4);
-    textCoreMesh.castShadow = true;
-    logoCoreGroup.add(textCoreMesh);
 
     scene.add(logoCoreGroup);
     layers.logoCore = logoCoreGroup;
 
     // 6. CHEMETAL METAL LAMINATE FACE (.030" Brushed Bronze & Satin Obsidian)
-    // Bonded flush directly to front face of acrylic core (Z = 7.0 to 7.15, thickness = 0.15)
+    // Bonded flush directly to front face of acrylic core (Z = 3.5 to 3.58, thickness = 0.08)
     const logoFaceGroup = new THREE.Group();
-    logoFaceGroup.position.set(0, 0, 7.0); // base = 7.0
 
     const bronzeMat = new THREE.MeshStandardMaterial({ 
       color: 0xF79223, 
@@ -628,10 +632,10 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
 
     const faceExtrudeSettings = {
       steps: 1,
-      depth: 0.15,
+      depth: 0.08,
       bevelEnabled: true,
-      bevelThickness: 0.03,
-      bevelSize: 0.03,
+      bevelThickness: 0.02,
+      bevelSize: 0.02,
       bevelSegments: 2
     };
 
@@ -639,21 +643,21 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     brandShapes.forEach((shape, idx) => {
       const geo = new THREE.ExtrudeGeometry(shape, faceExtrudeSettings);
       const mesh = new THREE.Mesh(geo, idx < 2 ? bronzeMat : obsidianMat);
-      mesh.position.set(0, 4.5, 0);
+      mesh.position.set(0, 4.5, 0); // local 0.0 to 0.08 (world 3.5 to 3.58)
       mesh.castShadow = true;
       logoFaceGroup.add(mesh);
     });
 
-    // High-resolution typographic front plate for J.STUDIO logotype
-    const textFaceGeo = new THREE.PlaneGeometry(40, 9.5);
+    // High-resolution typographic lockup (NO GREY BOX - 100% TRANSPARENT BACKGROUND)
+    const textFaceGeo = new THREE.PlaneGeometry(38, 11.2);
     const textTexture = createJStudioTextTexture();
     const textFaceMat = new THREE.MeshBasicMaterial({ 
       map: textTexture, 
       transparent: true,
-      alphaTest: 0.05
+      depthWrite: false
     });
     const textFaceMesh = new THREE.Mesh(textFaceGeo, textFaceMat);
-    textFaceMesh.position.set(0, -11.5, 0.16);
+    textFaceMesh.position.set(0, -9.8, 0.09); // on the face plane
     logoFaceGroup.add(textFaceMesh);
 
     scene.add(logoFaceGroup);
@@ -667,7 +671,7 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     const trackGeo = new THREE.BoxGeometry(64, 1.2, 1.6);
     const trackMat = new THREE.MeshStandardMaterial({ color: 0x1E293B, metalness: 0.9, roughness: 0.25 });
     const trackMesh = new THREE.Mesh(trackGeo, trackMat);
-    trackMesh.position.set(0, 27.5, 9.5);
+    trackMesh.position.set(0, 26, 7.5);
     lightGroup.add(trackMesh);
 
     // 3 Directional Gimbal Track Heads aimed downward at the sign plaque
@@ -675,62 +679,62 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
 
     headPositions.forEach((hx) => {
       const headGroup = new THREE.Group();
-      headGroup.position.set(hx, 27.5, 9.5);
+      headGroup.position.set(hx, 26, 7.5);
 
       // Gimbal arm stem
-      const stemGeo = new THREE.CylinderGeometry(0.35, 0.35, 2.4, 16);
+      const stemGeo = new THREE.CylinderGeometry(0.3, 0.3, 2.2, 16);
       const stemMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.8 });
       const stem = new THREE.Mesh(stemGeo, stemMat);
-      stem.position.set(0, -1.2, 0);
+      stem.position.set(0, -1.1, 0);
       headGroup.add(stem);
 
       // Cylindrical fixture canister angled ~32° down toward sign
-      const canGeo = new THREE.CylinderGeometry(1.6, 2.2, 4.2, 24);
+      const canGeo = new THREE.CylinderGeometry(1.5, 2.0, 3.8, 24);
       canGeo.rotateX(Math.PI / 4.2);
       const canMat = new THREE.MeshStandardMaterial({ color: 0x0F172A, metalness: 0.85, roughness: 0.2 });
       const can = new THREE.Mesh(canGeo, canMat);
-      can.position.set(0, -2.5, 1.2);
+      can.position.set(0, -2.4, 1.1);
       headGroup.add(can);
 
       // Luminous 3000K warm LED emitter lens
-      const lensGeo = new THREE.CircleGeometry(1.5, 24);
+      const lensGeo = new THREE.CircleGeometry(1.3, 24);
       lensGeo.rotateX(-Math.PI / 3.2);
       const lensMat = new THREE.MeshBasicMaterial({ color: 0xFFF3C4 });
       const lens = new THREE.Mesh(lensGeo, lensMat);
-      lens.position.set(0, -3.7, 2.5);
+      lens.position.set(0, -3.5, 2.3);
       headGroup.add(lens);
 
       // REAL THREE.JS SPOTLIGHT PROJECTOR
-      const spot = new THREE.SpotLight(0xFFF7ED, 4.8);
-      spot.position.set(hx, 27.5, 11);
-      spot.angle = 0.58;
+      const spot = new THREE.SpotLight(0xFFF7ED, 4.0);
+      spot.position.set(hx, 26, 9);
+      spot.angle = 0.55;
       spot.penumbra = 0.65;
-      spot.distance = 80;
+      spot.distance = 70;
       spot.decay = 1.0;
       spot.castShadow = true;
       spot.shadow.bias = -0.001;
 
       // Target object anchored on the sign face
       const target = new THREE.Object3D();
-      target.position.set(hx * 0.65, 2, 6.2);
+      target.position.set(hx * 0.6, 1, 3);
       scene.add(target);
       spot.target = target;
       scene.add(spot);
       spotLightsList.push(spot);
 
       // Visible volumetric warm light beam cone
-      const coneGeo = new THREE.CylinderGeometry(1.5, 11, 26, 24, 1, true);
+      const coneGeo = new THREE.CylinderGeometry(1.3, 10, 24, 24, 1, true);
       coneGeo.rotateX(-Math.PI / 3.4);
       const coneMat = new THREE.MeshBasicMaterial({
         color: 0xFEF08A,
         transparent: true,
-        opacity: 0.12,
+        opacity: 0.1,
         blending: THREE.AdditiveBlending,
         side: THREE.DoubleSide,
         depthWrite: false
       });
       const cone = new THREE.Mesh(coneGeo, coneMat);
-      cone.position.set(0, -14, 9.5);
+      cone.position.set(0, -13, 8.5);
       headGroup.add(cone);
       conesList.push(cone);
 
@@ -747,45 +751,45 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
   else if (project.id === 'case1') {
     // 1. MASONRY WALL (Front face at Z = 0.0)
     const wallGroup = new THREE.Group();
-    const wallGeo = new THREE.BoxGeometry(120, 65, 2);
+    const wallGeo = new THREE.BoxGeometry(120, 65, 1.0);
     const wallMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.95 });
     const wallMesh = new THREE.Mesh(wallGeo, wallMat);
-    wallMesh.position.set(0, 0, -1.0);
+    wallMesh.position.set(0, 0, -0.5);
     wallGroup.add(wallMesh);
     scene.add(wallGroup);
     layers.wall = wallGroup;
 
-    // 2. 3MM BLACK MATTE ACM BACKER PANEL (Z = 0.0 to 0.6, sits flush on wall)
+    // 2. 3MM BLACK MATTE ACM BACKER PANEL (Z = 0.0 to 0.3, sits flush on wall)
     const backerGroup = new THREE.Group();
-    const backerGeo = new THREE.BoxGeometry(100, 32, 0.6);
+    const backerGeo = new THREE.BoxGeometry(100, 32, 0.3);
     const backerMat = new THREE.MeshStandardMaterial({ color: 0x090D16, roughness: 0.35, metalness: 0.7 });
     const backerMesh = new THREE.Mesh(backerGeo, backerMat);
-    backerMesh.position.set(0, 0, 0.3);
+    backerMesh.position.set(0, 0, 0.15);
     backerGroup.add(backerMesh);
     scene.add(backerGroup);
     layers.backer = backerGroup;
 
-    // 3. 1.50" MACHINED THREADED STANDOFFS (Z = 0.6 to 4.6, sits on backer)
+    // 3. 1.50" MACHINED THREADED STANDOFFS (Z = 0.3 to 2.8, sits on backer)
     const standoffsGroup = new THREE.Group();
-    const standoffGeo = new THREE.CylinderGeometry(1.1, 1.1, 4.0, 24);
+    const standoffGeo = new THREE.CylinderGeometry(0.9, 0.9, 2.5, 24);
     standoffGeo.rotateX(Math.PI / 2);
     const ssMat = new THREE.MeshStandardMaterial({ color: 0xCBD5E1, metalness: 0.9, roughness: 0.2 });
 
     const standoffPositions = [-38, -25, -12, 0, 12, 25, 38];
     standoffPositions.forEach((x) => {
       const st1 = new THREE.Mesh(standoffGeo, ssMat);
-      st1.position.set(x, 4, 2.6);
+      st1.position.set(x, 4, 1.25);
       const st2 = new THREE.Mesh(standoffGeo, ssMat);
-      st2.position.set(x, -4, 2.6);
+      st2.position.set(x, -4, 1.25);
       standoffsGroup.add(st1);
       standoffsGroup.add(st2);
     });
     scene.add(standoffsGroup);
     layers.standoffs = standoffsGroup;
 
-    // 4. 3/16" CLEAR LEXAN POLYCARBONATE BACKS (Z = 4.6 to 5.1)
+    // 4. 3/16" CLEAR LEXAN POLYCARBONATE BACKS (Z = 2.8 to 3.1)
     const polyGroup = new THREE.Group();
-    const polyGeo = new THREE.BoxGeometry(90, 16, 0.5);
+    const polyGeo = new THREE.BoxGeometry(90, 16, 0.3);
     const polyMat = new THREE.MeshStandardMaterial({
       color: 0xBAE6FD,
       transparent: true,
@@ -794,51 +798,51 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
       metalness: 0.1
     });
     const polyMesh = new THREE.Mesh(polyGeo, polyMat);
-    polyMesh.position.set(0, 0, 4.85);
+    polyMesh.position.set(0, 0, 0.15);
     polyGroup.add(polyMesh);
     scene.add(polyGroup);
     layers.polycarb = polyGroup;
 
-    // 5. 12V IP67 HALO LED MODULES (inside return cans at Z = 5.2)
+    // 5. 12V IP67 HALO LED MODULES (inside return cans at Z = 3.2)
     const ledsGroup = new THREE.Group();
     const ledMat = new THREE.MeshBasicMaterial({ color: 0xFEF08A });
-    const ledGeo = new THREE.BoxGeometry(2.2, 1.2, 0.5);
+    const ledGeo = new THREE.BoxGeometry(2.0, 1.0, 0.3);
 
     standoffPositions.forEach((x) => {
       const led1 = new THREE.Mesh(ledGeo, ledMat);
-      led1.position.set(x, 4, 5.2);
+      led1.position.set(x, 4, 0.15);
       const led2 = new THREE.Mesh(ledGeo, ledMat);
-      led2.position.set(x, -4, 5.2);
+      led2.position.set(x, -4, 0.15);
       ledsGroup.add(led1);
       ledsGroup.add(led2);
     });
     scene.add(ledsGroup);
     layers.leds = ledsGroup;
 
-    // 6. .063" FABRICATED ALUMINUM RETURNS (can walls: Z = 5.1 to 9.6, depth = 4.5)
+    // 6. .063" FABRICATED ALUMINUM RETURNS (can walls: Z = 3.1 to 6.6, depth = 3.5)
     const returnGroup = new THREE.Group();
-    const returnGeo = new THREE.BoxGeometry(90, 16, 4.5);
+    const returnGeo = new THREE.BoxGeometry(90, 16, 3.5);
     const returnMat = new THREE.MeshStandardMaterial({ 
       color: 0x1E293B, 
       metalness: 0.8, 
       roughness: 0.3 
     });
     const returnMesh = new THREE.Mesh(returnGeo, returnMat);
-    returnMesh.position.set(0, 0, 7.35);
+    returnMesh.position.set(0, 0, 1.75);
     returnGroup.add(returnMesh);
     scene.add(returnGroup);
     layers.return = returnGroup;
 
-    // 7. .090" ROUTER-CUT SATIN BLACK ALUMINUM FACE (Z = 9.6 to 10.0)
+    // 7. .090" ROUTER-CUT SATIN BLACK ALUMINUM FACE (Z = 6.6 to 6.8)
     const faceGroup = new THREE.Group();
-    const faceGeo = new THREE.BoxGeometry(90, 16, 0.4);
+    const faceGeo = new THREE.BoxGeometry(90, 16, 0.2);
     const faceMat = new THREE.MeshStandardMaterial({ 
       color: 0x090D16, 
       roughness: 0.25, 
       metalness: 0.85 
     });
     const faceMesh = new THREE.Mesh(faceGeo, faceMat);
-    faceMesh.position.set(0, 0, 9.8);
+    faceMesh.position.set(0, 0, 0.1);
     faceGroup.add(faceMesh);
     scene.add(faceGroup);
     layers.face = faceGroup;
@@ -850,77 +854,77 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
   else if (project.id === 'case2') {
     // 1. STOREFRONT WALL (Front face at Z = 0.0)
     const wallGroup = new THREE.Group();
-    const wallGeo = new THREE.BoxGeometry(130, 65, 2);
+    const wallGeo = new THREE.BoxGeometry(130, 65, 1.0);
     const wallMat = new THREE.MeshStandardMaterial({ color: 0x78350F, roughness: 0.9 });
     const wallMesh = new THREE.Mesh(wallGeo, wallMat);
-    wallMesh.position.set(0, 0, -1.0);
+    wallMesh.position.set(0, 0, -0.5);
     wallGroup.add(wallMesh);
     scene.add(wallGroup);
     layers.wall = wallGroup;
 
-    // 2. 7" x 4.5" EXTRUDED ALUMINUM RACEWAY (Z = 0.0 to 7.0, mounted flush to wall)
+    // 2. 7" x 4.5" EXTRUDED ALUMINUM RACEWAY (Z = 0.0 to 4.5, mounted flush to wall)
     const racewayGroup = new THREE.Group();
-    const racewayGeo = new THREE.BoxGeometry(105, 12, 7.0);
+    const racewayGeo = new THREE.BoxGeometry(105, 12, 4.5);
     const racewayMat = new THREE.MeshStandardMaterial({ color: 0xD6CEBE, metalness: 0.75, roughness: 0.35 });
     const racewayMesh = new THREE.Mesh(racewayGeo, racewayMat);
-    racewayMesh.position.set(0, 0, 3.5);
+    racewayMesh.position.set(0, 0, 2.25);
     racewayGroup.add(racewayMesh);
     scene.add(racewayGroup);
     layers.raceway = racewayGroup;
 
-    // 3. INTERNAL CLASS 2 DRIVERS (Inside raceway at Z = 3.5)
+    // 3. INTERNAL CLASS 2 DRIVERS (Inside raceway at Z = 2.2)
     const driversGroup = new THREE.Group();
-    const driverGeo = new THREE.BoxGeometry(12, 4.5, 3.0);
+    const driverGeo = new THREE.BoxGeometry(10, 4.0, 2.0);
     const driverMat = new THREE.MeshStandardMaterial({ color: 0x0F172A, metalness: 0.6 });
     [-30, 0, 30].forEach((dx) => {
       const driver = new THREE.Mesh(driverGeo, driverMat);
-      driver.position.set(dx, 0, 3.5);
+      driver.position.set(dx, 0, 0);
       driversGroup.add(driver);
     });
     scene.add(driversGroup);
     layers.drivers = driversGroup;
 
-    // 4. 5" WELDED CHANNEL LETTER RETURN CANS (Z = 7.0 to 11.5, welded to raceway face)
+    // 4. 5" WELDED CHANNEL LETTER RETURN CANS (Z = 4.5 to 8.0, welded to raceway face)
     const returnGroup = new THREE.Group();
-    const returnGeo = new THREE.BoxGeometry(92, 18, 4.5);
+    const returnGeo = new THREE.BoxGeometry(92, 18, 3.5);
     const returnMat = new THREE.MeshStandardMaterial({ color: 0x1E293B, metalness: 0.85, roughness: 0.3 });
     const returnMesh = new THREE.Mesh(returnGeo, returnMat);
-    returnMesh.position.set(0, 0, 9.25);
+    returnMesh.position.set(0, 0, 1.75);
     returnGroup.add(returnMesh);
     scene.add(returnGroup);
     layers.return = returnGroup;
 
-    // 5. INTERNAL RED LED MODULES (inside return cans at Z = 8.5)
+    // 5. INTERNAL RED LED MODULES (inside return cans at Z = 6.0)
     const ledsGroup = new THREE.Group();
     const ledMat = new THREE.MeshBasicMaterial({ color: 0xFF4D4D });
-    const ledGeo = new THREE.BoxGeometry(2, 1.2, 0.4);
+    const ledGeo = new THREE.BoxGeometry(1.8, 1.0, 0.3);
     [-35, -20, -5, 10, 25, 40].forEach((lx) => {
       const led = new THREE.Mesh(ledGeo, ledMat);
-      led.position.set(lx, 0, 8.5);
+      led.position.set(lx, 0, 0);
       ledsGroup.add(led);
     });
     scene.add(ledsGroup);
     layers.leds = ledsGroup;
 
-    // 6. 3/16" TRANSLUCENT 2793 RED ACRYLIC FACE (Z = 11.5 to 12.0)
+    // 6. 3/16" TRANSLUCENT 2793 RED ACRYLIC FACE (Z = 8.0 to 8.3)
     const faceGroup = new THREE.Group();
-    const faceGeo = new THREE.BoxGeometry(92, 18, 0.5);
+    const faceGeo = new THREE.BoxGeometry(92, 18, 0.3);
     const faceMat = new THREE.MeshStandardMaterial({ 
       color: 0xEF4444, 
       roughness: 0.2 
     });
     const faceMesh = new THREE.Mesh(faceGeo, faceMat);
-    faceMesh.position.set(0, 0, 11.75);
+    faceMesh.position.set(0, 0, 0.15);
     faceGroup.add(faceMesh);
     scene.add(faceGroup);
     layers.face = faceGroup;
 
-    // 7. 1" JEWELITE TRIM CAP (wrapped around face from Z = 11.2 to 12.2)
+    // 7. 1" JEWELITE TRIM CAP (wrapped around face at Z = 7.9 to 8.5)
     const trimGroup = new THREE.Group();
-    const trimGeo = new THREE.BoxGeometry(94, 20, 1.0);
+    const trimGeo = new THREE.BoxGeometry(93.6, 19.6, 0.6);
     const trimMat = new THREE.MeshStandardMaterial({ color: 0x0F172A, roughness: 0.4, metalness: 0.6 });
     const trimMesh = new THREE.Mesh(trimGeo, trimMat);
-    trimMesh.position.set(0, 0, 11.7);
+    trimMesh.position.set(0, 0, 0.3);
     trimGroup.add(trimMesh);
     scene.add(trimGroup);
     layers.trim = trimGroup;
