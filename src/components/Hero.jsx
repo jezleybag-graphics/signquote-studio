@@ -1,7 +1,7 @@
 import React from 'react';
 import { Clock, ShieldCheck, Building2, Zap, ArrowDown } from 'lucide-react';
 
-export default function Hero({ onExploreClick, onOpenGuide }) {
+export default function Hero({ onExploreClick, onOpenCertificate }) {
   return (
     <section id="overview" className="relative pt-12 pb-16 md:pt-16 md:pb-24 overflow-hidden border-b border-gray-200/70 bg-gradient-to-b from-white to-gray-50/60">
       
@@ -13,18 +13,18 @@ export default function Hero({ onExploreClick, onOpenGuide }) {
         {/* TOP CREDENTIAL BADGE */}
         <div className="flex justify-center mb-6">
           <button 
-            onClick={onOpenGuide}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#FFF6EB] border border-[#F79223]/30 text-[#111213] text-xs font-bold shadow-sm hover:border-[#F79223] transition-all cursor-pointer group"
-            title="Click to view Executive Overview & Guide"
+            onClick={onOpenCertificate}
+            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#FFF6EB] border border-[#F79223]/30 text-[#111213] text-xs font-bold shadow-sm hover:border-[#F79223] transition-all cursor-pointer group active:scale-95"
+            title="Click to view verified Google Gemini Certificate"
           >
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F79223] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F79223]"></span>
             </span>
-            <span>GOOGLE GEMINI CERTIFIED (86%)</span>
+            <span>GOOGLE GEMINI CERTIFIED</span>
             <span className="text-gray-300">•</span>
             <span className="text-gray-600 font-semibold group-hover:text-[#F79223] transition-colors flex items-center gap-1">
-              <span>EXECUTIVE GUIDE</span>
+              <span>VIEW CERTIFICATE</span>
               <span className="text-[10px]">↗</span>
             </span>
           </button>

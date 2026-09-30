@@ -39,7 +39,7 @@ export default function StickyFooter({ onOpenDrawer }) {
               </span>
             </div>
             <p className="text-[11px] text-gray-400">
-              Built &amp; operated by Jezreel Dave Leybag — Google Gemini Certified (86%)
+              Built &amp; operated by Jezreel Dave Leybag — Google Gemini Certified Specialist
             </p>
           </div>
         </div>

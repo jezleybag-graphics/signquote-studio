@@ -2,7 +2,7 @@ import React from 'react';
 import { X, Mail, Phone, ExternalLink, Award, CheckCircle2, ShieldCheck, Briefcase, ArrowUpRight } from 'lucide-react';
 import { getGmailComposeUrl } from '../utils/contact';
 
-export default function CandidateDrawer({ isOpen, onClose }) {
+export default function CandidateDrawer({ isOpen, onClose, onOpenCertificate }) {
   if (!isOpen) return null;
 
   return (
@@ -75,27 +75,28 @@ export default function CandidateDrawer({ isOpen, onClose }) {
                 Verified Credentials &amp; Certifications
               </span>
               <div className="space-y-2.5">
-                <div className="p-3.5 rounded-xl border border-gray-200 bg-gray-50/50 flex items-start gap-3">
-                  <Award className="w-5 h-5 text-[#F79223] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-xs font-bold text-gray-900 block">
-                      Google Gemini AI Certified Specialist
-                    </strong>
-                    <span className="text-[11px] text-gray-500">
-                      Score: 86% • Prompt Architecture &amp; Enterprise Agents
-                    </span>
+                <div 
+                  onClick={() => {
+                    if (onOpenCertificate) onOpenCertificate();
+                  }}
+                  className="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/60 flex items-start justify-between gap-3 cursor-pointer hover:border-emerald-400 hover:bg-emerald-50 transition-all group shadow-2xs"
+                  title="Click to view verified certificate"
+                >
+                  <div className="flex items-start gap-3">
+                    <Award className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-xs font-bold text-gray-900 block group-hover:text-emerald-900 transition-colors">
+                        Generative AI for Educators with Gemini
+                      </strong>
+                      <span className="text-[11px] text-gray-600 block">
+                        Google for Education &amp; MIT RAISE • Score: 100%
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="p-3.5 rounded-xl border border-gray-200 bg-gray-50/50 flex items-start gap-3">
-                  <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-xs font-bold text-gray-900 block">
-                      Google Generative AI for Educators
-                    </strong>
-                    <span className="text-[11px] text-gray-500">
-                      Structured curriculum &amp; systems design certification
-                    </span>
-                  </div>
+                  <span className="text-[10px] font-bold text-emerald-700 bg-white px-2 py-0.5 rounded border border-emerald-200 group-hover:bg-emerald-600 group-hover:text-white transition-colors shrink-0 flex items-center gap-0.5">
+                    <span>View Cert</span>
+                    <ArrowUpRight className="w-3 h-3" />
+                  </span>
                 </div>
               </div>
             </div>

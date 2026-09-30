@@ -7,6 +7,7 @@ import EstimatingWorkbench from './components/EstimatingWorkbench';
 import RoiSection from './components/RoiSection';
 import CandidateDrawer from './components/CandidateDrawer';
 import WelcomeModal from './components/WelcomeModal';
+import CertificateModal from './components/CertificateModal';
 import StickyFooter from './components/StickyFooter';
 import { projectsData, wholesaleVendors } from './data/scenarios';
 import { Check } from 'lucide-react';
@@ -27,6 +28,7 @@ export default function App() {
   const [returnDepth, setReturnDepth] = useState(project.returnDepth);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
+  const [isCertModalOpen, setIsCertModalOpen] = useState(false);
   const [toastMsg, setToastMsg] = useState(null);
 
   // Auto-prompt Welcome Modal on first visit (after smooth initial render)
@@ -98,7 +100,7 @@ export default function App() {
           const el = document.getElementById('projects');
           if (el) el.scrollIntoView({ behavior: 'smooth' });
         }} 
-        onOpenGuide={() => setIsWelcomeModalOpen(true)}
+        onOpenCertificate={() => setIsCertModalOpen(true)}
       />
 
       {/* 3. COMMERCIAL CONTRACT ARCHETYPES */}
@@ -142,6 +144,7 @@ export default function App() {
       <CandidateDrawer 
         isOpen={isDrawerOpen} 
         onClose={() => setIsDrawerOpen(false)} 
+        onOpenCertificate={() => setIsCertModalOpen(true)}
       />
 
       {/* 8. EXECUTIVE WELCOME & ORIENTATION MODAL */}
@@ -151,7 +154,13 @@ export default function App() {
         onOpenDossier={() => setIsDrawerOpen(true)}
       />
 
-      {/* 9. CONVERSION STICKY FOOTER */}
+      {/* 9. GOOGLE GEMINI CERTIFICATE MODAL */}
+      <CertificateModal
+        isOpen={isCertModalOpen}
+        onClose={() => setIsCertModalOpen(false)}
+      />
+
+      {/* 10. CONVERSION STICKY FOOTER */}
       <StickyFooter onOpenDrawer={() => setIsDrawerOpen(true)} />
 
       {/* TOAST NOTIFICATION */}
