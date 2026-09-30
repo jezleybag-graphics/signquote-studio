@@ -825,7 +825,6 @@ const LAYER_SCHEMATICS = {
     polycarb:  { baseZ:  2.8, deltaZ: 18.0 },
     leds:      { baseZ:  3.2, deltaZ: 28.0 },
     return:    { baseZ:  3.1, deltaZ: 40.0 },
-    weep:      { baseZ:  3.1, deltaZ: 40.0 },
     face:      { baseZ:  6.6, deltaZ: 55.0 },
   },
   case2: {
@@ -1031,7 +1030,6 @@ export default function SignAssembly3D({
     const isPoly = inspectedId === 'polycarb';
     const isStandoffs = inspectedId === 'standoffs';
     const isReturn = inspectedId === 'return';
-    const isWeep = inspectedId === 'weep';
     const isFace = inspectedId === 'face' || inspectedId === 'metal-face' || inspectedId === 'acrylic-face';
     const isBacker = inspectedId === 'backer';
     const isRaceway = inspectedId === 'raceway';
@@ -1084,22 +1082,12 @@ export default function SignAssembly3D({
             restoreOrig(child);
           }
         }
-        // 4. Sidewall Return
+        // 4. Sidewall Return (includes flanged returns & weep drainage spec)
         else if (isReturn) {
           if (key === 'return') {
             applyHighlight(child, 0xF79223, 0.85); // 3.5" Return sidewall highlight
           } else if (key === 'face') {
             applyGhost(child, 0.25); // Ghost face to reveal return can depth
-          } else {
-            restoreOrig(child);
-          }
-        }
-        // 5. Baffled Weep Holes
-        else if (isWeep) {
-          if (key === 'weep' || child.userData.isWeep) {
-            applyHighlight(child, 0xF79223, 1.8); // Glowing drainage slots
-          } else if (key === 'face') {
-            applyGhost(child, 0.35); // Slight ghost so letter drain holes stand out
           } else {
             restoreOrig(child);
           }
@@ -1853,43 +1841,6 @@ function buildSignLayers(scene, project, layers) {
 
     scene.add(faceGroup);
     layers.face = faceGroup;
-
-    // 8. BAFFLED WEEP HOLES & CONDENSATION DRAINAGE (UL 48 Wet Location Mandated)
-    const weepGroup = new THREE.Group();
-    const weepMat = new THREE.MeshStandardMaterial({
-      color: 0x0EA5E9,
-      emissive: 0x0284C7,
-      emissiveIntensity: 0.6,
-      roughness: 0.3,
-      metalness: 0.8
-    });
-
-    // Tray perimeter drainage weep slots
-    [-40, -20, 0, 20, 40].forEach((wx) => {
-      const weep = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.45, 0.35), weepMat);
-      weep.position.set(wx, -14.6, 0.22);
-      weep.userData.isWeep = true;
-      backerGroup.add(weep); // backer drainage
-    });
-
-    // Channel letter bottom drainage weep holes (at the low point of every letter)
-    apexLettersData.forEach((item) => {
-      const letterWeep = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.45, 12), weepMat);
-      letterWeep.rotation.x = Math.PI / 2;
-      letterWeep.position.set(item.x, item.y - 4.6, 1.8);
-      letterWeep.userData.isWeep = true;
-      weepGroup.add(letterWeep);
-    });
-
-    // Emblem drainage weep hole
-    const emblemWeep = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.45, 12), weepMat);
-    emblemWeep.rotation.x = Math.PI / 2;
-    emblemWeep.position.set(emblemPos.x, emblemPos.y - 4.4, 1.8);
-    emblemWeep.userData.isWeep = true;
-    weepGroup.add(emblemWeep);
-
-    scene.add(weepGroup);
-    layers.weep = weepGroup;
   }
 
   // --------------------------------------------------------------------------

@@ -739,11 +739,11 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     ))}
 
                     {/* 9. WEEP HOLE WITH DEDICATED LEADER LINE */}
-                    <circle cx="340" cy="296" r="3.5" fill="#FFFFFF" stroke={activeInspector?.id === 'weep' ? '#F79223' : '#EF4444'} strokeWidth="2" />
-                    <line x1="340" y1="300" x2="315" y2="326" stroke="#EF4444" strokeWidth="1" />
-                    <line x1="315" y1="326" x2="240" y2="326" stroke="#EF4444" strokeWidth="1" />
-                    <text x="235" y="324" fontSize="7.5" fill="#EF4444" fontWeight="800" textAnchor="end">
-                      1/4" WEEP HOLE {activeInspector?.id === 'weep' && '★'}
+                    <circle cx="340" cy="296" r="3.5" fill="#FFFFFF" stroke={activeInspector?.id === 'return' ? '#F79223' : '#EF4444'} strokeWidth="2" />
+                    <line x1="340" y1="300" x2="315" y2="326" stroke={activeInspector?.id === 'return' ? '#F79223' : '#EF4444'} strokeWidth="1" />
+                    <line x1="315" y1="326" x2="240" y2="326" stroke={activeInspector?.id === 'return' ? '#F79223' : '#EF4444'} strokeWidth="1" />
+                    <text x="235" y="324" fontSize="7.5" fill={activeInspector?.id === 'return' ? '#D97706' : '#EF4444'} fontWeight="800" textAnchor="end">
+                      1/4" WEEP HOLE {activeInspector?.id === 'return' && '★'}
                     </text>
                     <text x="235" y="334" fontSize="6.5" fill="#64748B" textAnchor="end">
                       Condensation Drainage
