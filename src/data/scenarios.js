@@ -41,13 +41,13 @@ Electrical: 120V primary feed in attic space. Serialized UL 48 listing required.
       "Matched Trade Fabricator: Direct Sign Wholesale (Denver, CO — 8-10 Days)"
     ],
     inspectorItems: [
-      { id: "face", name: "Letter Face", detail: '0.063" 5052-H32 Aluminum, Waterjet/CNC Routed, Satin Black Polyurethane Enamel', code: "PART #CL-FACE-063", vendor: "Direct Sign Wholesale", material: "5052-H32 Aluminum", qc: "Fastsigns Satin Black Enamel Spec" },
-      { id: "return", name: "Sidewall Return", detail: '0.040" 5052-H32 Aluminum, 3.50" Depth, Machine-Bent & Flanged with Weep Holes', code: "PART #CL-RET-040", vendor: "Direct Sign Wholesale", material: "0.040\" Formed Aluminum", qc: "Clinch-Riveted Flange & Drainage" },
-      { id: "leds", name: "12V LED Modules", detail: "Acrovane 12V DC IP67 High-Output Modules, 6500K, 0.72W/mod, 160° Batwing Lens", code: "PART #LED-12V-65K", vendor: "Acrovane / SloanLED", material: "IP67 Weatherproof Silicon", qc: "UL 48 / Class 2 Continuous Duty" },
-      { id: "polycarb", name: "Clear Back Plate", detail: '3/16" Optical-Grade Clear Lexan Polycarbonate Back with Countersunk Fasteners', code: "PART #PC-CLR-316", vendor: "Piedmont Plastics", material: "Lexan Polycarbonate", qc: "UV-Resistant Non-Yellowing" },
-      { id: "standoffs", name: "Standoff Spacers", detail: '1.50" OD x 1.50" Length Machined Aluminum Standoffs with 1/4"-20 Threaded Rod', code: "PART #SO-150-AL", vendor: "Fastenal / Trade Hardware", material: "6061-T6 Machined Aluminum", qc: "Structural Wind-Load Tested" },
-      { id: "backer", name: "ACM Backer Panel", detail: '3mm Alupanel / Dibond Solid PE Core Sandwich Panel, Satin Black Enamel Finish', code: "PART #ACM-3MM-BLK", vendor: "Alupanel / 3A Composites", material: "3mm Aluminum Composite", qc: "Exterior Architectural Grade" },
-      { id: "weep", name: "Baffled Weep Holes", detail: '1/4" Baffled Condensation Drainage Holes at Base of Each Letter with Mesh Screen', code: "SPEC #QC-WEEP-025", vendor: "In-House QA / Center Ops", material: "Baffled Mesh Filter", qc: "UL 48 Wet-Location Mandate" }
+      { id: "face", name: "Letter Face", detail: '0.063" 5052-H32 Aluminum, Waterjet/CNC Routed, Satin Black Polyurethane Enamel', code: "PART #CL-FACE-063", vendor: "Direct Sign Wholesale", material: "5052-H32 Aluminum", qc: "Fastsigns Satin Black Enamel Spec", iconType: "metal-face" },
+      { id: "return", name: "Sidewall Return", detail: '0.040" 5052-H32 Aluminum, 3.50" Depth, Machine-Bent & Flanged with Weep Holes', code: "PART #CL-RET-040", vendor: "Direct Sign Wholesale", material: "0.040\" Formed Aluminum", qc: "Clinch-Riveted Flange & Drainage", iconType: "return" },
+      { id: "leds", name: "12V LED Modules", detail: "Acrovane 12V DC IP67 High-Output Modules, 6500K, 0.72W/mod, 160° Batwing Lens", code: "PART #LED-12V-65K", vendor: "Acrovane / SloanLED", material: "IP67 Weatherproof Silicon", qc: "UL 48 / Class 2 Continuous Duty", iconType: "leds" },
+      { id: "polycarb", name: "Clear Back Plate", detail: '3/16" Optical-Grade Clear Lexan Polycarbonate Back with Countersunk Fasteners', code: "PART #PC-CLR-316", vendor: "Piedmont Plastics", material: "Lexan Polycarbonate", qc: "UV-Resistant Non-Yellowing", iconType: "polycarb" },
+      { id: "standoffs", name: "Standoff Spacers", detail: '1.50" OD x 1.50" Length Machined Aluminum Standoffs with 1/4"-20 Threaded Rod', code: "PART #SO-150-AL", vendor: "Fastenal / Trade Hardware", material: "6061-T6 Machined Aluminum", qc: "Structural Wind-Load Tested", iconType: "standoffs" },
+      { id: "backer", name: "ACM Backer Panel", detail: '3mm Alupanel / Dibond Solid PE Core Sandwich Panel, Satin Black Enamel Finish', code: "PART #ACM-3MM-BLK", vendor: "Alupanel / 3A Composites", material: "3mm Aluminum Composite", qc: "Exterior Architectural Grade", iconType: "backer" },
+      { id: "weep", name: "Baffled Weep Holes", detail: '1/4" Baffled Condensation Drainage Holes at Base of Each Letter with Mesh Screen', code: "SPEC #QC-WEEP-025", vendor: "In-House QA / Center Ops", material: "Baffled Mesh Filter", qc: "UL 48 Wet-Location Mandate", iconType: "weep" }
     ],
     cbItems: [
       { code: "#CL-HALO-18", desc: '18" Reverse Halo-Lit Channel Letter Set (10 Chars, 0.063 Alum, 3.5" Returns)', qty: "1 Set", cost: 1250, retail: 2500 },
@@ -95,11 +95,11 @@ Electrical: Standard 12V LED modules pre-wired inside raceway. UL listed.`,
       "Matched Trade Fabricator: Quality Manufacturing (Lancaster, PA — 10-12 Days)"
     ],
     inspectorItems: [
-      { id: "face", name: "Acrylic Face", detail: '3/16" Cast #7328 Sign-White Acrylic with 3M 3630-33 Red Translucent Vinyl Overlay', code: "PART #ACR-7328-316", vendor: "Piedmont / 3M Commercial", material: "Cast Acrylic + 3M Vinyl", qc: "Even Light Diffusion Tested" },
-      { id: "trim", name: "Jewelite Trim Cap", detail: '1.0" Heavy-Duty Extruded Butyrate Trim Cap, Bonded with Weld-On Solvent', code: "PART #TC-JEW-100", vendor: "Gemini / Jewelite", material: "Extruded CAB Butyrate", qc: "Weld-On #16 Chemical Bond" },
-      { id: "return", name: "5\" Aluminum Return", detail: '5.0" Depth 0.040" Pre-Coated Black Aluminum, Machine-Bent & Clinch-Riveted', code: "PART #CL-RET-050", vendor: "Quality Manufacturing", material: "0.040\" Baked Enamel Coil", qc: "Light-Tight Sealed Seams" },
-      { id: "raceway", name: "Landlord Raceway", detail: '7.0" x 4.5" Extruded Aluminum Wireway Box, Painted Khaki Beige to Match Facade', code: "PART #RACE-7X45", vendor: "Quality Manufacturing", material: "6063-T5 Extruded Aluminum", qc: "Landlord Lease Clause Compliant" },
-      { id: "drivers", name: "UL Class 2 Drivers", detail: "3x 60W 12V DC Constant Voltage Power Supplies Pre-Wired in Raceway with Disconnect", code: "PART #DRV-60W-12V", vendor: "Mean Well / SloanLED", material: "Class 2 Power Supply", qc: "NEC 80% Rule (44W load ≤ 48W)" }
+      { id: "face", name: "Acrylic Face", detail: '3/16" Cast #7328 Sign-White Acrylic with 3M 3630-33 Red Translucent Vinyl Overlay', code: "PART #ACR-7328-316", vendor: "Piedmont / 3M Commercial", material: "Cast Acrylic + 3M Vinyl", qc: "Even Light Diffusion Tested", iconType: "acrylic-face" },
+      { id: "trim", name: "Jewelite Trim Cap", detail: '1.0" Heavy-Duty Extruded Butyrate Trim Cap, Bonded with Weld-On Solvent', code: "PART #TC-JEW-100", vendor: "Gemini / Jewelite", material: "Extruded CAB Butyrate", qc: "Weld-On #16 Chemical Bond", iconType: "trim" },
+      { id: "return", name: "5\" Aluminum Return", detail: '5.0" Depth 0.040" Pre-Coated Black Aluminum, Machine-Bent & Clinch-Riveted', code: "PART #CL-RET-050", vendor: "Quality Manufacturing", material: "0.040\" Baked Enamel Coil", qc: "Light-Tight Sealed Seams", iconType: "return" },
+      { id: "raceway", name: "Landlord Raceway", detail: '7.0" x 4.5" Extruded Aluminum Wireway Box, Painted Khaki Beige to Match Facade', code: "PART #RACE-7X45", vendor: "Quality Manufacturing", material: "6063-T5 Extruded Aluminum", qc: "Landlord Lease Clause Compliant", iconType: "raceway" },
+      { id: "drivers", name: "UL Class 2 Drivers", detail: "3x 60W 12V DC Constant Voltage Power Supplies Pre-Wired in Raceway with Disconnect", code: "PART #DRV-60W-12V", vendor: "Mean Well / SloanLED", material: "Class 2 Power Supply", qc: "NEC 80% Rule (44W load ≤ 48W)", iconType: "drivers" }
     ],
     cbItems: [
       { code: "#CL-FRONT-24", desc: '24" Front-Lit LED Channel Letters (11 Chars, 3/16 Acrylic, 5" Black Returns)', qty: "1 Set", cost: 1650, retail: 3300 },
@@ -112,20 +112,20 @@ Electrical: Standard 12V LED modules pre-wired inside raceway. UL listed.`,
   case3: {
     id: "case3",
     jobId: "JOB #FS-2026-205",
-    client: "Lumina Biotech HQ — Corporate Executive Lobby",
-    subtitle: "Life Science Innovation Campus • 800 Innovation Way, 4th Floor",
+    client: "J.STUDIO — Executive Design Suite",
+    subtitle: "Jezreel Dave Leybag Design & Signage Headquarters • Suite 400",
     contractValue: "$2,180.00",
     model: "In-House Finishing + Wholesale Architectural Blank",
     productionBadge: "Architectural Standoff Plaque",
-    rawRfp: `Client: Lumina Biotech Headquarters
+    rawRfp: `Client: J.STUDIO (Jezreel Dave Leybag Design & Signage Headquarters)
 Location: 800 Innovation Way, Executive 4th Floor
-Scope: Corporate interior lobby directory and logo display.
-Specs: 36-inch circular crest logo in 1/2-inch flat-cut acrylic with brushed bronze metal laminate face.
-Backer: Mounted to a 48" x 72" clear 1/4-inch cast acrylic backer plaque with flame-polished edges.
-Mounting: 6 stainless steel standoff barrels (1-inch diameter, 1-inch offset) anchored to drywall.
-Lighting: Non-illuminated (illuminated via existing ceiling track lighting).`,
+Scope: Corporate interior lobby directory and dimensional brand display.
+Specs: 36-inch J.STUDIO architectural crest logo in 1/2-inch flat-cut acrylic with Chemetal brushed bronze metal laminate face.
+Backer: Mounted to a 48" x 72" clear 1/4-inch cast optical acrylic backer plaque with precision flame-polished beveled edges.
+Mounting: 6 solid machined stainless steel Gyford standoff barrels (1-inch diameter, 1-inch offset) anchored to drywall with spring toggles.
+Lighting: Non-illuminated architectural display (illuminated via existing 3000K museum track spotlights).`,
     classification: "Interior Architectural Standoff Acrylic Plaque",
-    dims: '36" Circular Logo on 48" x 72" Clear Plaque',
+    dims: '36" J.STUDIO Dimensional Bronze Logo on 48" x 72" Clear Plaque',
     letterHeight: "36",
     returnDepth: "0.5",
     face: '1/2" Cast Acrylic with Chemetal Brushed Bronze Laminate Face',
@@ -141,20 +141,20 @@ Lighting: Non-illuminated (illuminated via existing ceiling track lighting).`,
     partnerId: "gemini",
     diagnostic: [
       "Gemini AI NLP Engine: Analysis completed in 0.32s (Confidence 99.8%)",
-      "Extracted: 36\" Circular Bronze Logo on 48\"x72\" Clear Flame-Polished Acrylic",
+      "Extracted: 36\" J.STUDIO Bronze Logo on 48\"x72\" Clear Flame-Polished Acrylic",
       "Calculated: 6x Gyford Stainless Standoffs • Interior Non-Illuminated Specification",
       "Material Spec: Chemetal #903 Brushed Bronze Laminate on 1/2\" Acrylic Core",
       "Matched Trade Fabricator: Gemini Made (Cannon Falls, MN — Lifetime Warranty)"
     ],
     inspectorItems: [
-      { id: "plaque", name: "Clear Acrylic Plaque", detail: '48" x 72" 1/4" Optical Cast Clear Acrylic with Precision Flame-Polished Beveled Edges', code: "PART #ACR-CLR-14", vendor: "Gemini Made (Cannon Falls, MN)", material: "1/4\" Cast Optical Acrylic", qc: "Flame-Polished Optical Finish" },
-      { id: "logo", name: "Bronze Metal Laminate", detail: '1/2" Flat-Cut Acrylic Core with Chemetal Brushed Bronze Anodized Surface', code: "PART #LAM-BRZ-500", vendor: "Gemini / Chemetal", material: "Chemetal #903 on Acrylic", qc: "Precision CNC Routing & Deburred" },
-      { id: "standoffs", name: "Gyford Standoffs", detail: '1.0" OD x 1.0" Projection Solid Machined Stainless Steel Hardware with Tamperproof Caps', code: "PART #GYF-SO-100", vendor: "Gyford Standoff Systems", material: "316 Marine-Grade Stainless", qc: "1/4\"-20 Heavy Drywall Anchors" },
-      { id: "lighting", name: "Gallery Spotlights", detail: "Overhead 3000K Warm Directional Track Spotlights (Existing Building Circuit)", code: "SPEC #LOBBY-LIGHT", vendor: "SORAA / Existing Facility", material: "3000K Warm White CRI 95", qc: "Glaze & Reflection Free Angle" }
+      { id: "plaque", name: "Clear Acrylic Plaque", detail: '48" x 72" 1/4" Optical Cast Clear Acrylic with Precision Flame-Polished Beveled Edges', code: "PART #ACR-CLR-14", vendor: "Gemini Made (Cannon Falls, MN)", material: "1/4\" Cast Optical Acrylic", qc: "Flame-Polished Optical Finish", iconType: "plaque" },
+      { id: "logo", name: "J.STUDIO Bronze Logo", detail: '36" Dimensional 1/2" Acrylic Core with Chemetal Brushed Bronze Anodized Surface & Signature Wave Motif', code: "PART #LAM-BRZ-500", vendor: "Gemini / Chemetal", material: "Chemetal #903 on Acrylic", qc: "Precision CNC Routing & Deburred", iconType: "logo" },
+      { id: "standoffs", name: "Gyford Standoffs", detail: '1.0" OD x 1.0" Projection Solid Machined Stainless Steel Hardware with Tamperproof Caps', code: "PART #GYF-SO-100", vendor: "Gyford Standoff Systems", material: "316 Marine-Grade Stainless", qc: "1/4\"-20 Heavy Drywall Anchors", iconType: "standoffs" },
+      { id: "lighting", name: "Gallery Spotlights", detail: "Overhead 3000K Warm Directional Track Spotlights (Existing Building Circuit)", code: "SPEC #LOBBY-LIGHT", vendor: "SORAA / Existing Facility", material: "3000K Warm White CRI 95", qc: "Glaze & Reflection Free Angle", iconType: "lighting" }
     ],
     cbItems: [
       { code: "#PLAQ-ACR-4872", desc: '48" x 72" 1/4" Cast Clear Acrylic Plaque w/ 6 Pre-Drilled Standoff Holes', qty: "1 Each", cost: 420, retail: 840 },
-      { code: "#LOGO-BRZ-36", desc: '36" Circular Crest Logo (1/2" Acrylic with Chemetal Brushed Bronze Face)', qty: "1 Unit", cost: 360, retail: 720 },
+      { code: "#LOGO-JSTUDIO-36", desc: '36" J.STUDIO Signature Logo (1/2" Acrylic with Chemetal Brushed Bronze Face)', qty: "1 Unit", cost: 360, retail: 720 },
       { code: "#HDW-GYF-SO", desc: '6x Gyford Machined Stainless Steel Standoffs (1" x 1") & Drywall Toggles', qty: "6 Pcs", cost: 90, retail: 180 },
       { code: "#FRT-CRATE", desc: "Freight & Flat-Pack Foam Protective Crating from Cannon Falls, MN", qty: "1 LTL", cost: 160, retail: 320 },
       { code: "#LAB-FINISH", desc: "In-House Solvent Bonding, Flame Edge Polish Inspection & Cleaning", qty: "1.5 Hrs", cost: 112.50, retail: 225 }

@@ -1,5 +1,212 @@
 import React, { useState } from 'react';
-import { Layers, Sun, Moon, Printer, FileText, CheckCircle2, Info, Compass, ShieldAlert, Zap, Search, Eye, Sparkles } from 'lucide-react';
+import { 
+  Layers, Sun, Moon, Printer, FileText, CheckCircle2, Info, Compass, 
+  ShieldAlert, Zap, Search, Eye, Sparkles, Shield, ShieldCheck, Box, 
+  Maximize2, Cpu, CircleDot, LayoutGrid, Droplets 
+} from 'lucide-react';
+
+// COMPONENT SCHEMATIC THUMBNAIL RENDERER
+function ComponentVisualThumbnail({ item }) {
+  const type = item?.iconType || item?.id;
+  
+  if (type === 'plaque') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-cyan-500/40 p-1 shrink-0 shadow-sm">
+        <rect x="6" y="10" width="42" height="34" rx="4" fill="#0284C7" fillOpacity="0.25" stroke="#38BDF8" strokeWidth="1.5" />
+        <rect x="9" y="13" width="36" height="28" rx="2" fill="none" stroke="#7DD3FC" strokeWidth="0.75" strokeDasharray="2 1" />
+        {[[10, 14], [44, 14], [10, 40], [44, 40]].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r="2" fill="#E2E8F0" stroke="#0284C7" strokeWidth="0.75" />
+        ))}
+      </svg>
+    );
+  }
+
+  if (type === 'logo') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#111213] border border-[#F79223]/50 p-1 shrink-0 shadow-sm">
+        <rect x="13" y="24" width="4" height="12" rx="2" fill="#F79223" />
+        <rect x="20" y="18" width="4" height="18" rx="2" fill="#F79223" />
+        <rect x="27" y="10" width="4" height="26" rx="2" fill="#FEF08A" />
+        <rect x="34" y="16" width="4" height="20" rx="2" fill="#EA580C" />
+        <text x="27" y="46" fontSize="6.5" fill="#F79223" fontWeight="900" textAnchor="middle" letterSpacing="1">J.STUDIO</text>
+      </svg>
+    );
+  }
+
+  if (type === 'standoffs') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-slate-600/40 p-1 shrink-0 shadow-sm">
+        <circle cx="27" cy="27" r="14" fill="#64748B" stroke="#94A3B8" strokeWidth="2" />
+        <circle cx="27" cy="27" r="9" fill="#334155" stroke="#CBD5E1" strokeWidth="1" />
+        <circle cx="27" cy="27" r="4" fill="#F8FAFC" />
+        <line x1="27" y1="9" x2="27" y2="45" stroke="#94A3B8" strokeWidth="0.75" strokeDasharray="2 2" opacity="0.6" />
+      </svg>
+    );
+  }
+
+  if (type === 'lighting') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-amber-500/40 p-1 shrink-0 shadow-sm">
+        <rect x="22" y="8" width="10" height="8" rx="2" fill="#94A3B8" />
+        <polygon points="19,16 35,16 46,46 8,46" fill="#FDE047" fillOpacity="0.25" />
+        <circle cx="27" cy="18" r="4" fill="#FEF08A" />
+        <line x1="12" y1="46" x2="42" y2="46" stroke="#FDE047" strokeWidth="1" strokeDasharray="2 1" />
+      </svg>
+    );
+  }
+
+  if (type === 'metal-face') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-slate-700 p-1 shrink-0 shadow-sm">
+        <rect x="8" y="10" width="38" height="34" rx="4" fill="#1E293B" stroke="#0284C7" strokeWidth="1.5" />
+        <text x="27" y="33" fontSize="16" fontWeight="900" fill="#F8FAFC" textAnchor="middle">A</text>
+        <circle cx="12" cy="14" r="1.5" fill="#38BDF8" />
+        <circle cx="42" cy="14" r="1.5" fill="#38BDF8" />
+      </svg>
+    );
+  }
+
+  if (type === 'acrylic-face') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-red-500/40 p-1 shrink-0 shadow-sm">
+        <rect x="8" y="10" width="38" height="34" rx="4" fill="#EF4444" stroke="#DC2626" strokeWidth="1.5" />
+        <rect x="12" y="14" width="30" height="26" rx="2" fill="#FFFFFF" fillOpacity="0.3" />
+        <text x="27" y="34" fontSize="15" fontWeight="900" fill="#FFFFFF" textAnchor="middle">M</text>
+      </svg>
+    );
+  }
+
+  if (type === 'trim') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-gray-600 p-1 shrink-0 shadow-sm">
+        <path d="M 12 14 L 38 14 L 38 20 L 20 20 L 20 40 L 12 40 Z" fill="#334155" stroke="#94A3B8" strokeWidth="1.5" />
+        <rect x="20" y="20" width="22" height="20" fill="#EF4444" fillOpacity="0.7" />
+        <text x="31" y="34" fontSize="7" fill="#FFFFFF" fontWeight="bold" textAnchor="middle">1" TRIM</text>
+      </svg>
+    );
+  }
+
+  if (type === 'return') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-slate-700 p-1 shrink-0 shadow-sm">
+        <path d="M 14 10 L 40 10 L 40 40 L 32 40 L 32 18 L 14 18 Z" fill="#1E293B" stroke="#0284C7" strokeWidth="1.5" />
+        <circle cx="23" cy="14" r="1.5" fill="#38BDF8" />
+        <circle cx="36" cy="29" r="1.5" fill="#38BDF8" />
+        <text x="27" y="48" fontSize="6.5" fill="#94A3B8" fontWeight="bold" textAnchor="middle">ALUM RETURN</text>
+      </svg>
+    );
+  }
+
+  if (type === 'raceway') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-stone-600 p-1 shrink-0 shadow-sm">
+        <rect x="8" y="14" width="38" height="26" rx="3" fill="#D6CEBE" stroke="#A89F8D" strokeWidth="1.5" />
+        <rect x="14" y="20" width="16" height="14" rx="2" fill="#0F172A" />
+        <circle cx="38" cy="27" r="3" fill="#EF4444" />
+        <text x="27" y="47" fontSize="6" fill="#D6CEBE" fontWeight="bold" textAnchor="middle">7"x4.5" RACEWAY</text>
+      </svg>
+    );
+  }
+
+  if (type === 'drivers') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-amber-500/40 p-1 shrink-0 shadow-sm">
+        <rect x="8" y="16" width="38" height="22" rx="3" fill="#1E293B" stroke="#F59E0B" strokeWidth="1.5" />
+        <circle cx="14" cy="27" r="2" fill="#10B981" />
+        <line x1="22" y1="23" x2="38" y2="23" stroke="#94A3B8" strokeWidth="1" />
+        <line x1="22" y1="29" x2="38" y2="29" stroke="#94A3B8" strokeWidth="1" />
+        <text x="27" y="45" fontSize="6.5" fill="#FEF08A" fontWeight="bold" textAnchor="middle">60W CLASS 2</text>
+      </svg>
+    );
+  }
+
+  if (type === 'leds') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-amber-500/40 p-1 shrink-0 shadow-sm">
+        <rect x="12" y="18" width="30" height="18" rx="4" fill="#F59E0B" stroke="#D97706" strokeWidth="1.5" />
+        <circle cx="27" cy="27" r="5" fill="#FEF08A" />
+        <line x1="4" y1="27" x2="12" y2="27" stroke="#EF4444" strokeWidth="1.5" />
+        <line x1="42" y1="27" x2="50" y2="27" stroke="#1E293B" strokeWidth="1.5" />
+        <text x="27" y="45" fontSize="6.5" fill="#FEF08A" fontWeight="bold" textAnchor="middle">12V IP67</text>
+      </svg>
+    );
+  }
+
+  if (type === 'polycarb') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-sky-500/40 p-1 shrink-0 shadow-sm">
+        <rect x="10" y="10" width="34" height="34" rx="3" fill="#BAE6FD" fillOpacity="0.4" stroke="#0284C7" strokeWidth="1.5" />
+        <line x1="12" y1="12" x2="42" y2="42" stroke="#FFFFFF" strokeWidth="1" opacity="0.6" />
+        <circle cx="16" cy="16" r="2" fill="#0F172A" />
+        <circle cx="38" cy="38" r="2" fill="#0F172A" />
+        <text x="27" y="30" fontSize="7" fill="#0284C7" fontWeight="bold" textAnchor="middle">LEXAN</text>
+      </svg>
+    );
+  }
+
+  if (type === 'backer') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-gray-700 p-1 shrink-0 shadow-sm">
+        <rect x="8" y="12" width="38" height="30" rx="3" fill="#090D16" stroke="#475569" strokeWidth="1.5" />
+        <line x1="8" y1="20" x2="46" y2="20" stroke="#334155" strokeWidth="1" strokeDasharray="3 2" />
+        <text x="27" y="32" fontSize="7" fill="#94A3B8" fontWeight="bold" textAnchor="middle">3MM ACM</text>
+      </svg>
+    );
+  }
+
+  if (type === 'weep') {
+    return (
+      <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#0F172A] border border-rose-500/40 p-1 shrink-0 shadow-sm">
+        <circle cx="27" cy="27" r="14" fill="#1E293B" stroke="#EF4444" strokeWidth="1.5" />
+        <path d="M 27 18 C 27 18 20 26 20 30 C 20 34 23 37 27 37 C 31 37 34 34 34 30 C 34 26 27 18 27 18 Z" fill="#38BDF8" />
+        <circle cx="27" cy="27" r="2" fill="#FFFFFF" />
+      </svg>
+    );
+  }
+
+  return (
+    <div className="w-12 h-12 rounded-xl bg-[#FFF6EB] flex items-center justify-center text-[#F79223] shrink-0 border border-[#F79223]/20 shadow-sm">
+      <Info className="w-6 h-6" />
+    </div>
+  );
+}
+
+// TOGGLE BUTTON ICON RENDERER
+function renderToggleIcon(iconType, isSelected) {
+  const iconClass = `w-3.5 h-3.5 ${isSelected ? 'text-[#F79223]' : 'text-gray-500'}`;
+  switch (iconType) {
+    case 'plaque':
+      return <Layers className={iconClass} />;
+    case 'logo':
+      return <Sparkles className={iconClass} />;
+    case 'standoffs':
+      return <CircleDot className={iconClass} />;
+    case 'lighting':
+      return <Sun className={iconClass} />;
+    case 'metal-face':
+      return <Shield className={iconClass} />;
+    case 'acrylic-face':
+      return <Layers className={iconClass} />;
+    case 'trim':
+      return <Maximize2 className={iconClass} />;
+    case 'return':
+      return <Box className={iconClass} />;
+    case 'raceway':
+      return <Cpu className={iconClass} />;
+    case 'drivers':
+      return <Zap className={iconClass} />;
+    case 'leds':
+      return <Zap className={iconClass} />;
+    case 'polycarb':
+      return <ShieldCheck className={iconClass} />;
+    case 'backer':
+      return <LayoutGrid className={iconClass} />;
+    case 'weep':
+      return <Droplets className={iconClass} />;
+    default:
+      return <CheckCircle2 className={iconClass} />;
+  }
+}
 
 export default function ArchitecturalStudio({ project, letterHeight, returnDepth }) {
   const [viewMode, setViewMode] = useState('elev'); // 'elev' | 'cad' | 'elec' | 'cb'
@@ -181,7 +388,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       </g>
                     )}
 
-                    {/* STANDOFF MARKERS (IF STANDOFFS INSPECTED) */}
+                    {/* STANDOFF MARKERS */}
                     {activeInspector?.id === 'standoffs' && (
                       <g>
                         {[160, 260, 360, 470, 580, 680, 770].map((x, i) => (
@@ -313,7 +520,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                   </svg>
                 )}
 
-                {/* CASE 3: LUMINA BIOTECH ELEVATION */}
+                {/* CASE 3: J.STUDIO ARCHITECTURAL ELEVATION (WITH JEZREEL'S BRANDING) */}
                 {project.id === 'case3' && (
                   <svg viewBox="0 0 880 340" className="w-full h-auto block select-none">
                     <rect width="880" height="340" fill={isNightMode ? "#090D16" : "#F8FAFC"} />
@@ -351,24 +558,62 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       </g>
                     ))}
 
-                    {/* 36" CIRCULAR BRONZE LOGO & TYPOGRAPHY */}
-                    <g transform="translate(430, 140)">
-                      <circle 
-                        cx="0" cy="-15" r="32" 
-                        fill="#78350F" 
-                        stroke={activeInspector?.id === 'logo' ? '#F79223' : '#B45309'} 
-                        strokeWidth={activeInspector?.id === 'logo' ? '4' : '3'} 
-                      />
-                      <path d="M -16 -15 L 16 -15 M 0 -31 L 0 1" stroke="#FEF08A" strokeWidth="4" strokeLinecap="round" />
+                    {/* J.STUDIO ARCHITECTURAL BRAND EMBLEM & TYPOGRAPHY */}
+                    <g transform="translate(430, 132)">
+                      {/* CHEMETAL BRUSHED BRONZE SOUNDWAVE MOTIF (JEZREEL'S ICONIC LOGO) */}
+                      <g>
+                        {/* Bar 1 (Short left) */}
+                        <rect 
+                          x="-32" y="-22" width="10" height="24" rx="5" 
+                          fill={activeInspector?.id === 'logo' ? '#F79223' : '#D97706'} 
+                          stroke={activeInspector?.id === 'logo' ? '#FEF08A' : 'none'}
+                          strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
+                        />
+                        {/* Bar 2 (Medium-tall left) */}
+                        <rect 
+                          x="-17" y="-34" width="10" height="36" rx="5" 
+                          fill={activeInspector?.id === 'logo' ? '#F79223' : '#B45309'} 
+                          stroke={activeInspector?.id === 'logo' ? '#FEF08A' : 'none'}
+                          strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
+                        />
+                        {/* Bar 3 (Tall center) */}
+                        <rect 
+                          x="-2" y="-48" width="10" height="58" rx="5" 
+                          fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#78350F'} 
+                          stroke={activeInspector?.id === 'logo' ? '#FFFFFF' : 'none'}
+                          strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
+                        />
+                        {/* Bar 4 (Right crescent/curved pill) */}
+                        <rect 
+                          x="13" y="-36" width="10" height="38" rx="5" 
+                          fill={activeInspector?.id === 'logo' ? '#F79223' : '#92400E'} 
+                          stroke={activeInspector?.id === 'logo' ? '#FEF08A' : 'none'}
+                          strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
+                        />
+                      </g>
+
+                      {/* J.STUDIO TYPOGRAPHY */}
                       <text 
-                        x="0" y="38" fontSize="26" fontWeight="800" 
-                        fill={activeInspector?.id === 'logo' ? '#B45309' : '#78350F'} 
+                        x="0" y="32" fontSize="28" fontWeight="900" 
+                        fill={activeInspector?.id === 'logo' ? '#F79223' : '#78350F'} 
                         textAnchor="middle" letterSpacing="6"
+                        fontFamily="'Inter', sans-serif"
                       >
-                        LUMINA BIOTECH
+                        J.STUDIO
                       </text>
-                      <text x="0" y="56" fontSize="10.5" fontWeight="700" fill="#0284C7" textAnchor="middle" letterSpacing="3">
-                        LIFE SCIENCE INNOVATION LABS
+                      <text 
+                        x="0" y="50" fontSize="9.5" fontWeight="800" 
+                        fill={activeInspector?.id === 'logo' ? '#D97706' : '#B45309'} 
+                        textAnchor="middle" letterSpacing="4"
+                      >
+                        ARCHITECTURAL &amp; SIGNAGE DESIGN
+                      </text>
+                      <text 
+                        x="0" y="64" fontSize="7.5" fontWeight="700" 
+                        fill="#0284C7" 
+                        textAnchor="middle" letterSpacing="2.5"
+                      >
+                        JEZREEL DAVE LEYBAG • EXECUTIVE SUITE
                       </text>
                     </g>
 
@@ -502,7 +747,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       </g>
                     ))}
 
-                    {/* 9. WEEP HOLE WITH DEDICATED LEADER LINE (POINTING LEFT, NO COLLISION) */}
+                    {/* 9. WEEP HOLE WITH DEDICATED LEADER LINE */}
                     <circle cx="340" cy="296" r="3.5" fill="#FFFFFF" stroke={activeInspector?.id === 'weep' ? '#F79223' : '#EF4444'} strokeWidth="2" />
                     <line x1="340" y1="300" x2="315" y2="326" stroke="#EF4444" strokeWidth="1" />
                     <line x1="315" y1="326" x2="240" y2="326" stroke="#EF4444" strokeWidth="1" />
@@ -513,7 +758,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       Condensation Drainage
                     </text>
 
-                    {/* RETURN DEPTH DIMENSION LINE (HORIZONTAL, SPACED DOWN AT Y=348) */}
+                    {/* RETURN DEPTH DIMENSION LINE */}
                     <line x1="295" y1="348" x2="583" y2="348" stroke="#475569" strokeWidth="1.2" />
                     <line x1="295" y1="342" x2="295" y2="354" stroke="#475569" strokeWidth="1.2" />
                     <line x1="583" y1="342" x2="583" y2="354" stroke="#475569" strokeWidth="1.2" />
@@ -531,7 +776,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       1.50"
                     </text>
 
-                    {/* CALLOUT LABELS (COMPACT & AIRY) */}
+                    {/* CALLOUT LABELS */}
                     {/* Face Callout */}
                     <line x1="285" y1="120" x2="160" y2="100" stroke={activeInspector?.id === 'face' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'face' ? '1.5' : '1'} />
                     <rect x="15" y="88" width="140" height="26" rx="4" fill={activeInspector?.id === 'face' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'face' ? '#F79223' : '#CBD5E1'} />
@@ -710,7 +955,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       </g>
                     ))}
 
-                    {/* WEEP HOLE WITH DEDICATED LEADER LINE (POINTING LEFT, NO COLLISION) */}
+                    {/* WEEP HOLE WITH DEDICATED LEADER LINE */}
                     <circle cx="280" cy="296" r="3.5" fill="#FFFFFF" stroke="#EF4444" strokeWidth="2" />
                     <line x1="280" y1="300" x2="255" y2="326" stroke="#EF4444" strokeWidth="1" />
                     <line x1="255" y1="326" x2="180" y2="326" stroke="#EF4444" strokeWidth="1" />
@@ -721,7 +966,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       Condensation Baffle
                     </text>
 
-                    {/* RETURN DEPTH DIMENSION LINE (HORIZONTAL, SPACED DOWN AT Y=348) */}
+                    {/* RETURN DEPTH DIMENSION LINE */}
                     <line x1="230" y1="348" x2="590" y2="348" stroke="#475569" strokeWidth="1.2" />
                     <line x1="230" y1="342" x2="230" y2="354" stroke="#475569" strokeWidth="1.2" />
                     <line x1="590" y1="342" x2="590" y2="354" stroke="#475569" strokeWidth="1.2" />
@@ -805,7 +1050,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                   </svg>
                 )}
 
-                {/* CASE 3: CAD SECTION C-C (LUMINA BIOTECH - INTERIOR STANDOFF PLAQUE) */}
+                {/* CASE 3: CAD SECTION C-C (J.STUDIO - INTERIOR STANDOFF PLAQUE) */}
                 {project.id === 'case3' && (
                   <svg viewBox="0 0 960 480" className="w-full h-auto block select-none font-sans bg-[#F8FAFC]">
                     <defs>
@@ -823,7 +1068,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     {/* DRAWING HEADER */}
                     <g transform="translate(30, 24)">
                       <text x="0" y="16" fontSize="11.5" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
-                        SECTION C-C: INTERIOR ARCHITECTURAL STANDOFF PLAQUE DETAIL
+                        SECTION C-C: J.STUDIO ARCHITECTURAL STANDOFF PLAQUE DETAIL
                       </text>
                       <text x="0" y="30" fontSize="9" fill="#64748B" fontWeight="600">
                         SCALE: 6" = 1'-0" [QUARTER SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-03
@@ -881,7 +1126,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     <polygon points="550,80 570,80 570,85 550,88" fill="#38BDF8" opacity="0.7" />
                     <polygon points="550,310 570,310 570,305 550,302" fill="#38BDF8" opacity="0.7" />
 
-                    {/* 4. 1/2" ACRYLIC LOGO WITH BRONZE CHEMETAL FACE */}
+                    {/* 4. 1/2" ACRYLIC J.STUDIO LOGO WITH BRONZE CHEMETAL FACE */}
                     <rect 
                       x="510" y="110" width="40" height="160" rx="2"
                       fill="#78350F" 
@@ -915,14 +1160,14 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </text>
 
                     {/* CALLOUT LABELS */}
-                    {/* Bronze Logo Callout */}
+                    {/* J.STUDIO Bronze Logo Callout */}
                     <line x1="504" y1="140" x2="360" y2="120" stroke={activeInspector?.id === 'logo' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '1'} />
-                    <rect x="190" y="108" width="165" height="26" rx="4" fill={activeInspector?.id === 'logo' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'logo' ? '#F79223' : '#CBD5E1'} />
-                    <text x="345" y="120" fontSize="8" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
-                      BRONZE METAL LAMINATE {activeInspector?.id === 'logo' && '★'}
+                    <rect x="180" y="108" width="175" height="26" rx="4" fill={activeInspector?.id === 'logo' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'logo' ? '#F79223' : '#CBD5E1'} />
+                    <text x="350" y="120" fontSize="8" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
+                      J.STUDIO BRONZE LOGO {activeInspector?.id === 'logo' && '★'}
                     </text>
-                    <text x="345" y="129" fontSize="6.5" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#64748B'} textAnchor="end">
-                      Chemetal #903 on 1/2" Acrylic
+                    <text x="350" y="129" fontSize="6.5" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#64748B'} textAnchor="end">
+                      Chemetal #903 on 1/2" Acrylic Core
                     </text>
 
                     {/* Acrylic Plaque Callout */}
@@ -1235,11 +1480,10 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
           <div className="px-6 py-5 border-t border-gray-200 bg-gradient-to-r from-gray-50 via-white to-gray-50">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
               
-              {/* COMPONENT INFO CARD */}
-              <div className="flex items-start sm:items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-[#FFF6EB] flex items-center justify-center text-[#F79223] shrink-0 border border-[#F79223]/20 shadow-sm">
-                  <Info className="w-5 h-5" />
-                </div>
+              {/* COMPONENT INFO CARD WITH DEDICATED VISUAL SCHEMATIC THUMBNAIL */}
+              <div className="flex items-start sm:items-center gap-4">
+                <ComponentVisualThumbnail item={activeInspector} />
+
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-extrabold uppercase tracking-wider text-gray-400">
@@ -1282,7 +1526,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                 </div>
               </div>
 
-              {/* TACTILE TOGGLE BUTTONS */}
+              {/* TACTILE TOGGLE BUTTONS WITH DEDICATED ELEMENT ICONS */}
               <div className="flex flex-wrap items-center gap-2 shrink-0">
                 {project.inspectorItems.map((item) => {
                   const isSelected = activeInspector?.id === item.id;
@@ -1290,17 +1534,15 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     <button
                       key={item.id}
                       onClick={() => setActiveInspector(item)}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer select-none ${
+                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer select-none group ${
                         isSelected
                           ? 'bg-[#111213] text-white ring-2 ring-[#F79223] shadow-md shadow-black/15 scale-105'
                           : 'bg-white border border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900 hover:bg-gray-50'
                       }`}
                     >
-                      <span 
-                        className={`w-2 h-2 rounded-full ${
-                          isSelected ? 'bg-[#F79223] animate-pulse' : 'bg-gray-300'
-                        }`} 
-                      />
+                      <span className="shrink-0">
+                        {renderToggleIcon(item.iconType || item.id, isSelected)}
+                      </span>
                       <span>{item.name}</span>
                     </button>
                   );
