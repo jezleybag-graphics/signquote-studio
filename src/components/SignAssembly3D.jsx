@@ -548,7 +548,7 @@ function getChannelLetterShape(char) {
       s.lineTo(1.2, 5.0);
       s.lineTo(2.8, 5.0);
       s.lineTo(2.8, -1.8);
-      s.absarc(0, -1.8, 2.8, 0, Math.PI, false);
+      s.absarc(0, -1.8, 2.8, 0, Math.PI, true);
       s.closePath();
       return s;
     }
