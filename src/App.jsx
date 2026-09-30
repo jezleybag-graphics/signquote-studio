@@ -13,8 +13,10 @@ import { projectsData } from './data/scenarios';
 import { Check } from 'lucide-react';
 
 export default function App() {
-  const [selectedProjectId, setSelectedProjectId] = useState('case1');
-  const project = projectsData[selectedProjectId] || projectsData.case1;
+  const [selectedProjectId, setSelectedProjectId] = useState(() => {
+    return localStorage.getItem('signquote_selected_project') || 'case3';
+  });
+  const project = projectsData[selectedProjectId] || projectsData.case3;
 
   // Active state
   const [selectedPartnerId, setSelectedPartnerId] = useState(project.partnerId);
@@ -30,6 +32,7 @@ export default function App() {
   // Sync state when project changes
   const handleSelectProject = (projectId) => {
     setSelectedProjectId(projectId);
+    localStorage.setItem('signquote_selected_project', projectId);
     const newProj = projectsData[projectId];
     if (newProj) {
       setSelectedPartnerId(newProj.partnerId);
