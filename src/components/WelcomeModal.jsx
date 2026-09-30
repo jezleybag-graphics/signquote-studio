@@ -153,7 +153,7 @@ export default function WelcomeModal({ isOpen, onClose, onOpenDossier }) {
                   About Jezreel Dave Leybag
                 </strong>
                 <span>
-                  12+ years in graphic design, print production, and substrate engineering. Google Gemini AI Certified (86%). Available for full-time US EST operational roles.
+                  Commercial print business owner and technical sign estimator with 4+ years of substrate fabrication and international remote operations. Google Gemini AI Certified (86%). Available for full-time US EST operational roles.
                 </span>
               </div>
             </div>
