@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Building2, DollarSign, Layers, ArrowRight, CheckCircle2, ChevronRight, LayoutGrid, Check } from 'lucide-react';
+import { Sparkles, Building2, DollarSign, ArrowRight, CheckCircle2 } from 'lucide-react';
 import LeadTakeoff from './LeadTakeoff';
 import TradeSourcing from './TradeSourcing';
 import MarginEngine from './MarginEngine';
@@ -25,8 +25,6 @@ export default function EstimatingWorkbench({
   showToast
 }) {
   const [activeStep, setActiveStep] = useState('step1');
-  const [viewMode, setViewMode] = useState('guided'); // 'guided' | 'board'
-  const [takeoffVerified, setTakeoffVerified] = useState(true);
 
   const selectedPartner = wholesaleVendors[selectedPartnerId] || wholesaleVendors.dsw;
   const laborCost = laborHours * 75.0;
@@ -89,29 +87,24 @@ export default function EstimatingWorkbench({
           </p>
         </div>
 
-        {/* WORKBENCH TOP CONTROL BAR: STEPPER TABS & VIEW TOGGLE */}
-        <div className="mb-6 bg-white p-2 sm:p-2.5 rounded-2xl border border-gray-200/90 shadow-sm flex flex-col md:flex-row items-center justify-between gap-3">
-          
-          {/* STEP TABS */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full md:w-auto">
-            {steps.map((s, idx) => {
+        {/* WORKBENCH STEPPER TABS (FULL-WIDTH 3-STEP PIPELINE) */}
+        <div className="mb-6 bg-white p-2 sm:p-2.5 rounded-2xl border border-gray-200/90 shadow-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full">
+            {steps.map((s) => {
               const Icon = s.icon;
-              const isActive = activeStep === s.id && viewMode === 'guided';
+              const isActive = activeStep === s.id;
               
               return (
                 <button
                   key={s.id}
-                  onClick={() => {
-                    setViewMode('guided');
-                    handleStepChange(s.id);
-                  }}
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all cursor-pointer text-left ${
+                  onClick={() => handleStepChange(s.id)}
+                  className={`flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all cursor-pointer text-left ${
                     isActive
                       ? 'bg-[#111213] text-white shadow-md shadow-black/10 ring-2 ring-[#F79223]'
                       : 'bg-gray-50/80 hover:bg-gray-100 text-gray-700 border border-gray-200/80'
                   }`}
                 >
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 font-mono text-xs font-bold ${
+                  <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 font-mono text-xs font-bold ${
                     isActive
                       ? 'bg-[#F79223] text-[#111213]'
                       : 'bg-white text-gray-700 border border-gray-200'
@@ -121,9 +114,9 @@ export default function EstimatingWorkbench({
                   
                   <div className="min-w-0 pr-1">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-xs font-bold truncate">{s.title}</span>
+                      <span className="text-xs font-extrabold tracking-tight truncate">{s.title}</span>
                     </div>
-                    <span className={`text-[10px] block truncate font-medium ${
+                    <span className={`text-[11px] block truncate font-medium ${
                       isActive ? 'text-[#38BDF8]' : 'text-gray-400'
                     }`}>
                       {s.summary}
@@ -133,125 +126,50 @@ export default function EstimatingWorkbench({
               );
             })}
           </div>
-
-          {/* VIEW MODE TOGGLE BUTTON */}
-          <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-xl shrink-0 self-end md:self-auto">
-            <button
-              onClick={() => setViewMode('guided')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                viewMode === 'guided'
-                  ? 'bg-white text-gray-900 shadow-xs'
-                  : 'text-gray-500 hover:text-gray-900'
-              }`}
-            >
-              <span>Guided Stepper</span>
-            </button>
-            <button
-              onClick={() => setViewMode('board')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                viewMode === 'board'
-                  ? 'bg-white text-gray-900 shadow-xs'
-                  : 'text-gray-500 hover:text-gray-900'
-              }`}
-            >
-              <LayoutGrid className="w-3.5 h-3.5" />
-              <span>All 3 Steps</span>
-            </button>
-          </div>
-
         </div>
 
-        {/* WORKBENCH CONTENT CONTAINER */}
-        {viewMode === 'guided' ? (
-          /* GUIDED 1-STEP FOCUSED VIEW (FULL WIDTH, BREATHING ROOM) */
-          <div className="transition-all duration-300">
-            {activeStep === 'step1' && (
-              <LeadTakeoff 
-                project={project}
-                onTakeoffRun={() => {
-                  setTakeoffVerified(true);
-                  if (onTakeoffRun) onTakeoffRun();
-                }}
-                letterHeight={letterHeight}
-                setLetterHeight={setLetterHeight}
-                returnDepth={returnDepth}
-                setReturnDepth={setReturnDepth}
-                onNextStep={() => handleStepChange('step2')}
-                isGuided={true}
-              />
-            )}
+        {/* WORKBENCH CONTENT CONTAINER (FOCUSED 1-STEP AT A TIME) */}
+        <div className="transition-all duration-300">
+          {activeStep === 'step1' && (
+            <LeadTakeoff 
+              project={project}
+              onTakeoffRun={onTakeoffRun}
+              letterHeight={letterHeight}
+              setLetterHeight={setLetterHeight}
+              returnDepth={returnDepth}
+              setReturnDepth={setReturnDepth}
+              onNextStep={() => handleStepChange('step2')}
+              isGuided={true}
+            />
+          )}
 
-            {activeStep === 'step2' && (
-              <TradeSourcing 
-                selectedPartnerId={selectedPartnerId}
-                onSelectPartner={onSelectPartner}
-                project={project}
-                onNextStep={() => handleStepChange('step3')}
-                onPrevStep={() => handleStepChange('step1')}
-                isGuided={true}
-              />
-            )}
+          {activeStep === 'step2' && (
+            <TradeSourcing 
+              selectedPartnerId={selectedPartnerId}
+              onSelectPartner={onSelectPartner}
+              project={project}
+              onNextStep={() => handleStepChange('step3')}
+              onPrevStep={() => handleStepChange('step1')}
+              isGuided={true}
+            />
+          )}
 
-            {activeStep === 'step3' && (
-              <MarginEngine 
-                wholesale={wholesale}
-                setWholesale={setWholesale}
-                freight={freight}
-                setFreight={setFreight}
-                laborHours={laborHours}
-                setLaborHours={setLaborHours}
-                targetMargin={targetMargin}
-                setTargetMargin={setTargetMargin}
-                project={project}
-                onPrevStep={() => handleStepChange('step2')}
-                isGuided={true}
-              />
-            )}
-          </div>
-        ) : (
-          /* OVERVIEW BOARD VIEW (CLEAN 3-COLUMN RESPONSIVE BOARD) */
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-            <div className="flex flex-col h-full">
-              <LeadTakeoff 
-                project={project}
-                onTakeoffRun={onTakeoffRun}
-                letterHeight={letterHeight}
-                setLetterHeight={setLetterHeight}
-                returnDepth={returnDepth}
-                setReturnDepth={setReturnDepth}
-                onNextStep={() => handleStepChange('step2')}
-                isGuided={false}
-              />
-            </div>
-
-            <div className="flex flex-col h-full">
-              <TradeSourcing 
-                selectedPartnerId={selectedPartnerId}
-                onSelectPartner={onSelectPartner}
-                project={project}
-                onNextStep={() => handleStepChange('step3')}
-                onPrevStep={() => handleStepChange('step1')}
-                isGuided={false}
-              />
-            </div>
-
-            <div className="flex flex-col h-full">
-              <MarginEngine 
-                wholesale={wholesale}
-                setWholesale={setWholesale}
-                freight={freight}
-                setFreight={setFreight}
-                laborHours={laborHours}
-                setLaborHours={setLaborHours}
-                targetMargin={targetMargin}
-                setTargetMargin={setTargetMargin}
-                project={project}
-                onPrevStep={() => handleStepChange('step2')}
-                isGuided={false}
-              />
-            </div>
-          </div>
-        )}
+          {activeStep === 'step3' && (
+            <MarginEngine 
+              wholesale={wholesale}
+              setWholesale={setWholesale}
+              freight={freight}
+              setFreight={setFreight}
+              laborHours={laborHours}
+              setLaborHours={setLaborHours}
+              targetMargin={targetMargin}
+              setTargetMargin={setTargetMargin}
+              project={project}
+              onPrevStep={() => handleStepChange('step2')}
+              isGuided={true}
+            />
+          )}
+        </div>
 
         {/* BOTTOM ESTIMATING HUD STATUS BAR */}
         <div className="mt-8 p-4 rounded-2xl bg-[#111213] text-white border border-gray-800 shadow-md flex flex-col md:flex-row items-center justify-between gap-4">
