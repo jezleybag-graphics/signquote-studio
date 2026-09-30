@@ -1,5 +1,6 @@
 import React from 'react';
-import { Clock, ShieldCheck, Building2, Zap, ArrowDown, Sparkles } from 'lucide-react';
+import { Clock, ShieldCheck, Building2, Zap, ArrowDown, Sparkles, Mail, ArrowUpRight } from 'lucide-react';
+import { getGmailComposeUrl } from '../utils/contact';
 
 export default function Hero({ onExploreClick, onOpenGuide }) {
   return (
@@ -58,6 +59,19 @@ export default function Hero({ onExploreClick, onOpenGuide }) {
               <Sparkles className="w-4 h-4 text-[#F79223]" />
               <span>What is this Project?</span>
             </button>
+            <a 
+              href={getGmailComposeUrl({
+                subject: 'Commercial Signage Estimator Opportunity - Jezreel Dave Leybag',
+                body: 'Hi Jezreel,\n\nI reviewed your SignQuote AI & Architectural Studio workbench and would like to schedule a call regarding commercial signage estimating and operational workflows.\n\nBest regards,'
+              })}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3.5 rounded-xl bg-[#F79223] hover:bg-[#E07E12] text-white text-sm font-bold shadow-lg shadow-[#F79223]/25 transition-all flex items-center gap-2 cursor-pointer active:scale-95 group"
+            >
+              <Mail className="w-4 h-4" />
+              <span>Schedule Call</span>
+              <ArrowUpRight className="w-4 h-4 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
           </div>
         </div>
 

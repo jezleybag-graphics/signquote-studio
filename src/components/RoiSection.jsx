@@ -1,5 +1,6 @@
 import React from 'react';
-import { Clock, ShieldCheck, CheckCircle2, Sparkles, Award } from 'lucide-react';
+import { Clock, ShieldCheck, CheckCircle2, Sparkles, Award, Mail, ArrowUpRight } from 'lucide-react';
+import { getGmailComposeUrl } from '../utils/contact';
 
 export default function RoiSection() {
   const badges = [
@@ -92,6 +93,36 @@ export default function RoiSection() {
                 {badge}
               </span>
             ))}
+          </div>
+        </div>
+
+        {/* EXECUTIVE CONVERSION CALL-TO-ACTION BANNER */}
+        <div className="mt-12 p-8 sm:p-10 rounded-3xl bg-[#111213] text-white border border-gray-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="max-w-2xl text-center md:text-left">
+            <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#F79223] block mb-2">
+              COMMERCIAL CAPACITY READY • US EST
+            </span>
+            <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight mb-2">
+              Ready to Expand Your Signage Quoting Throughput?
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
+              Equip your sign company with senior-level blueprint takeoff speed, flawless CoreBridge-aligned margin defense, and North American wholesale routing.
+            </p>
+          </div>
+          <div className="shrink-0 flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+            <a
+              href={getGmailComposeUrl({
+                subject: 'Signage Estimator Candidate Opportunity - Jezreel Dave Leybag',
+                body: 'Hi Jezreel,\n\nI reviewed your SignQuote workbench and ROI metrics. I would like to schedule a call regarding commercial signage estimating operations.\n\nBest regards,'
+              })}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#F79223] hover:bg-[#E07E12] text-white text-xs sm:text-sm font-bold shadow-lg shadow-[#F79223]/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 group whitespace-nowrap"
+            >
+              <Mail className="w-4 h-4 shrink-0" />
+              <span>Schedule Call</span>
+              <ArrowUpRight className="w-4 h-4 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
+            </a>
           </div>
         </div>
 

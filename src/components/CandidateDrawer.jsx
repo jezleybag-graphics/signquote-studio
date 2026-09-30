@@ -1,5 +1,6 @@
 import React from 'react';
-import { X, Mail, Phone, ExternalLink, Award, CheckCircle2, ShieldCheck, Briefcase } from 'lucide-react';
+import { X, Mail, Phone, ExternalLink, Award, CheckCircle2, ShieldCheck, Briefcase, ArrowUpRight } from 'lucide-react';
+import { getGmailComposeUrl } from '../utils/contact';
 
 export default function CandidateDrawer({ isOpen, onClose }) {
   if (!isOpen) return null;
@@ -140,7 +141,16 @@ export default function CandidateDrawer({ isOpen, onClose }) {
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between py-2 border-b border-gray-100">
                   <span className="text-gray-500">Email:</span>
-                  <a href="mailto:jezreelleybag.graphics@gmail.com" className="font-mono text-[#F79223] font-bold hover:underline">
+                  <a 
+                    href={getGmailComposeUrl({
+                      subject: 'Commercial Signage Inquiry - Jezreel Dave Leybag',
+                      body: 'Hi Jezreel,\n\nI reviewed your SignQuote workbench and would like to connect regarding commercial signage estimating.\n\nBest regards,'
+                    })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-[#F79223] font-bold hover:underline"
+                    title="Click to email Jezreel in Gmail (opens new tab)"
+                  >
                     jezreelleybag.graphics@gmail.com
                   </a>
                 </div>
@@ -168,11 +178,17 @@ export default function CandidateDrawer({ isOpen, onClose }) {
           {/* DRAWER FOOTER CTA */}
           <div className="p-6 border-t border-gray-100 bg-gray-50">
             <a 
-              href="mailto:jezreelleybag.graphics@gmail.com?subject=Signage%20Estimator%20Screening%20Call%20-%20Jezreel%20Dave%20Leybag" 
-              className="w-full py-3.5 px-6 rounded-xl bg-[#F79223] hover:bg-[#E07E12] text-white text-xs font-bold shadow-md shadow-[#F79223]/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+              href={getGmailComposeUrl({
+                subject: 'Signage Estimator Screening Call - Jezreel Dave Leybag',
+                body: 'Hi Jezreel,\n\nWe reviewed your Candidate Dossier and would like to schedule a screening call regarding commercial signage estimating.\n\nBest regards,'
+              })}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-3.5 px-6 rounded-xl bg-[#F79223] hover:bg-[#E07E12] text-white text-xs font-bold shadow-md shadow-[#F79223]/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 group"
             >
-              <Mail className="w-4 h-4" />
-              <span>Schedule Candidate Screening Call</span>
+              <Mail className="w-4 h-4 shrink-0" />
+              <span>Schedule Call</span>
+              <ArrowUpRight className="w-4 h-4 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
             </a>
           </div>
 

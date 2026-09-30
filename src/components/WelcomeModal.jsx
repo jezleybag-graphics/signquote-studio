@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { X, Sparkles, Box, ShieldAlert, ArrowRight, UserCheck, Mail, CheckCircle2, Info } from 'lucide-react';
+import { X, Sparkles, Box, ShieldAlert, ArrowRight, UserCheck, Mail, CheckCircle2, Info, ArrowUpRight } from 'lucide-react';
+import { getGmailComposeUrl } from '../utils/contact';
 
 export default function WelcomeModal({ isOpen, onClose, onOpenDossier }) {
   // Close on ESC key press
@@ -138,22 +139,38 @@ export default function WelcomeModal({ isOpen, onClose, onOpenDossier }) {
           </div>
 
           {/* CANDIDATE FIT HIGHLIGHT */}
-          <div className="p-4 rounded-2xl bg-[#FFF6EB] border border-[#F79223]/30 flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl overflow-hidden border border-[#F79223] shrink-0 bg-gray-200">
-              <img 
-                src="/jezreel-photo.jpg" 
-                alt="Jezreel Dave Leybag" 
-                className="w-full h-full object-cover"
-              />
+          <div className="p-4 rounded-2xl bg-[#FFF6EB] border border-[#F79223]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl overflow-hidden border border-[#F79223] shrink-0 bg-gray-200">
+                <img 
+                  src="/jezreel-photo.jpg" 
+                  alt="Jezreel Dave Leybag" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="text-xs text-gray-700 leading-relaxed">
+                <strong className="font-extrabold text-gray-900 block text-xs">
+                  About Jezreel Dave Leybag
+                </strong>
+                <span>
+                  12+ years in graphic design, print production, and substrate engineering. Google Gemini AI Certified (86%). Available for full-time US EST operational roles.
+                </span>
+              </div>
             </div>
-            <div className="text-xs text-gray-700 leading-relaxed">
-              <strong className="font-extrabold text-gray-900 block text-xs">
-                About Jezreel Dave Leybag
-              </strong>
-              <span>
-                12+ years in graphic design, print production, and substrate engineering. Google Gemini AI Certified (86%). Available for full-time US EST operational roles.
-              </span>
-            </div>
+
+            <a
+              href={getGmailComposeUrl({
+                subject: 'Commercial Signage Estimator Opportunity - Jezreel Dave Leybag',
+                body: 'Hi Jezreel,\n\nI reviewed your SignQuote workbench and would like to schedule a call regarding commercial signage estimating.\n\nBest regards,'
+              })}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 w-full sm:w-auto px-3.5 py-2 rounded-xl bg-[#F79223] hover:bg-[#E07E12] text-white text-xs font-bold shadow-sm shadow-[#F79223]/25 transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 group whitespace-nowrap"
+            >
+              <Mail className="w-3.5 h-3.5 shrink-0" />
+              <span>Schedule Call</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
+            </a>
           </div>
 
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, ArrowUpRight } from 'lucide-react';
+import { getGmailComposeUrl } from '../utils/contact';
 
 export default function StickyFooter({ onOpenDrawer }) {
   const [visible, setVisible] = useState(false);
@@ -51,12 +52,17 @@ export default function StickyFooter({ onOpenDrawer }) {
             Candidate Dossier
           </button>
           <a
-            href="mailto:jezreelleybag.graphics@gmail.com?subject=Signage%20Estimator%20Screening%20Call%20-%20Jezreel%20Dave%20Leybag"
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-[#F79223] hover:bg-[#E07E12] text-white text-xs font-bold shadow-md shadow-[#F79223]/25 transition-all cursor-pointer"
+            href={getGmailComposeUrl({
+              subject: 'Signage Estimator Screening Call - Jezreel Dave Leybag',
+              body: 'Hi Jezreel,\n\nI reviewed your SignQuote AI & Architectural Studio workbench and would like to schedule a call regarding commercial signage estimating and operational workflows.\n\nBest regards,'
+            })}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-[#F79223] hover:bg-[#E07E12] text-white text-xs font-bold shadow-md shadow-[#F79223]/25 transition-all cursor-pointer group active:scale-95"
           >
-            <Mail className="w-3.5 h-3.5" />
-            <span>Contact Jezreel</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
+            <Mail className="w-3.5 h-3.5 shrink-0" />
+            <span>Schedule Call</span>
+            <ArrowUpRight className="w-3.5 h-3.5 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
           </a>
         </div>
 
