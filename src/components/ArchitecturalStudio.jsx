@@ -461,13 +461,13 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
                     {/* 7" x 4.5" EXTRUDED RACEWAY */}
                     <rect 
-                      x="60" y="160" width="760" height="42" 
+                      x="50" y="105" width="780" height="90" 
                       fill="#D6CEBE" 
                       stroke={activeInspector?.id === 'raceway' ? '#F79223' : '#A89F8D'} 
                       strokeWidth={activeInspector?.id === 'raceway' ? '3' : '2'} 
-                      rx="2" 
+                      rx="4" 
                     />
-                    <text x="75" y="213" fontSize="9.5" fill={activeInspector?.id === 'raceway' ? '#D97706' : '#57534E'} fontWeight="700">
+                    <text x="65" y="212" fontSize="9.5" fill={activeInspector?.id === 'raceway' ? '#D97706' : '#57534E'} fontWeight="700">
                       7" x 4.5" EXTRUDED ALUMINUM RACEWAY (PAINTED KHAKI BEIGE)
                     </text>
 
@@ -476,8 +476,8 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       <g>
                         {[160, 430, 700].map((dx, i) => (
                           <g key={i}>
-                            <rect x={dx} y="166" width="60" height="30" rx="4" fill="#0F172A" stroke="#F79223" strokeWidth="2" />
-                            <text x={dx + 30} y="184" fontSize="7.5" fill="#FEF08A" fontWeight="bold" textAnchor="middle">60W UL</text>
+                            <rect x={dx} y="135" width="60" height="30" rx="4" fill="#0F172A" stroke="#F79223" strokeWidth="2" />
+                            <text x={dx + 30} y="153" fontSize="7.5" fill="#FEF08A" fontWeight="bold" textAnchor="middle">60W UL</text>
                           </g>
                         ))}
                       </g>
@@ -485,7 +485,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
                     {/* FRONT-LIT RED CHANNEL LETTERS */}
                     <text 
-                      x="440" y="138" fontSize="50" fontWeight="900" 
+                      x="440" y="162" fontSize="50" fontWeight="900" 
                       fill="#0F172A" 
                       stroke={activeInspector?.id === 'trim' ? '#F79223' : '#0F172A'} 
                       strokeWidth={activeInspector?.id === 'trim' ? '16' : '12'} 
@@ -494,7 +494,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       METRO BURGER
                     </text>
                     <text 
-                      x="440" y="138" fontSize="50" fontWeight="900" 
+                      x="440" y="162" fontSize="50" fontWeight="900" 
                       fill={activeInspector?.id === 'face' ? '#EF4444' : '#DC2626'} 
                       textAnchor="middle" letterSpacing="8"
                       stroke={activeInspector?.id === 'face' ? '#FEF08A' : 'none'}

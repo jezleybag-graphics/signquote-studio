@@ -543,25 +543,26 @@ function getChannelLetterShape(char) {
     case 'U': {
       s.moveTo(-2.8, 5.0);
       s.lineTo(-1.2, 5.0);
-      s.lineTo(-1.2, -1.8);
-      s.absarc(0, -1.8, 1.2, Math.PI, 0, true);
+      s.lineTo(-1.2, -2.2);
+      s.absarc(0, -2.2, 1.2, Math.PI, 0, false);
       s.lineTo(1.2, 5.0);
       s.lineTo(2.8, 5.0);
-      s.lineTo(2.8, -1.8);
-      s.absarc(0, -1.8, 2.8, 0, Math.PI, true);
+      s.lineTo(2.8, -2.2);
+      s.absarc(0, -2.2, 2.8, 0, Math.PI, true);
       s.closePath();
       return s;
     }
 
     case 'G': {
-      s.moveTo(2.6, 3.5);
-      s.lineTo(1.4, 4.3);
-      s.absarc(0, 0, 5.0, Math.PI / 4, -Math.PI / 6, false);
-      s.lineTo(2.8, 0.0);
-      s.lineTo(0.6, 0.0);
-      s.lineTo(0.6, -1.4);
-      s.lineTo(1.5, -1.4);
-      s.absarc(0, 0, 3.5, -Math.PI / 6, Math.PI / 4, true);
+      s.moveTo(1.2, 3.5);
+      s.lineTo(2.5, 3.5);
+      s.absellipse(0, 0, 3.0, 5.0, 0.75, -0.75, false, 0);
+      s.lineTo(2.8, -1.5);
+      s.lineTo(2.8, 0.5);
+      s.lineTo(0.5, 0.5);
+      s.lineTo(0.5, -0.8);
+      s.lineTo(1.6, -0.8);
+      s.absellipse(0, 0, 1.5, 3.5, -0.6, 0.75, true, 0);
       s.closePath();
       return s;
     }
@@ -1665,25 +1666,24 @@ function buildSignLayers(scene, project, layers) {
 
     // 2. 7" x 4.5" EXTRUDED ALUMINUM RACEWAY (Z = 0.0 to 4.5)
     const racewayGroup = new THREE.Group();
-    const racewayGeo = new THREE.BoxGeometry(128, 12, 4.5);
+    const racewayGeo = new THREE.BoxGeometry(122, 15, 4.5);
     const racewayMat = new THREE.MeshStandardMaterial({ 
       color: 0xD6CEBE, 
       metalness: 0.72, 
       roughness: 0.38 
     });
     const racewayMesh = new THREE.Mesh(racewayGeo, racewayMat);
-    racewayMesh.position.set(3.5, -3.0, 2.25);
+    racewayMesh.position.set(0, 0, 2.25);
     racewayMesh.receiveShadow = true;
     racewayMesh.castShadow = true;
     racewayGroup.add(racewayMesh);
 
-
     // Commercial mounting angle brackets (3x heavy steel brackets securing raceway to wall studs)
-    const bracketGeo = new THREE.BoxGeometry(2.4, 14, 0.4);
+    const bracketGeo = new THREE.BoxGeometry(2.4, 17, 0.4);
     const bracketMat = new THREE.MeshStandardMaterial({ color: 0x44403C, metalness: 0.9, roughness: 0.3 });
-    [-45, 3.5, 52].forEach(bx => {
+    [-52, 0, 52].forEach(bx => {
       const bTop = new THREE.Mesh(bracketGeo, bracketMat);
-      bTop.position.set(bx, 3.5, 0.2);
+      bTop.position.set(bx, 0, 0.2);
       racewayGroup.add(bTop);
     });
 
@@ -1691,7 +1691,7 @@ function buildSignLayers(scene, project, layers) {
     const conduitGeo = new THREE.CylinderGeometry(0.8, 0.8, 4.0, 16);
     const conduitMat = new THREE.MeshStandardMaterial({ color: 0x78716C, metalness: 0.85 });
     const conduit = new THREE.Mesh(conduitGeo, conduitMat);
-    conduit.position.set(-48, 4.5, 2.25);
+    conduit.position.set(-54, 7.5, 2.25);
     racewayGroup.add(conduit);
 
     scene.add(racewayGroup);
@@ -1706,9 +1706,9 @@ function buildSignLayers(scene, project, layers) {
       roughness: 0.3 
     });
 
-    [-28, 4.0, 36].forEach((dx) => {
+    [-34, 0, 34].forEach((dx) => {
       const driver = new THREE.Mesh(driverGeo, driverMat);
-      driver.position.set(dx, -3.0, 0);
+      driver.position.set(dx, 0, 0);
       driver.castShadow = true;
       driversGroup.add(driver);
 
@@ -1717,7 +1717,7 @@ function buildSignLayers(scene, project, layers) {
         new THREE.PlaneGeometry(12, 3.6),
         new THREE.MeshBasicMaterial({ color: 0x38BDF8, transparent: true, opacity: 0.85 })
       );
-      specPlate.position.set(dx, -3.0, 1.12);
+      specPlate.position.set(dx, 0, 1.12);
       driversGroup.add(specPlate);
     });
 
@@ -1725,7 +1725,7 @@ function buildSignLayers(scene, project, layers) {
     const toggleGeo = new THREE.BoxGeometry(3.0, 4.0, 1.5);
     const toggleMat = new THREE.MeshStandardMaterial({ color: 0xDC2626 });
     const toggle = new THREE.Mesh(toggleGeo, toggleMat);
-    toggle.position.set(-48, -3.0, 0);
+    toggle.position.set(-54, 0, 0);
     driversGroup.add(toggle);
 
     scene.add(driversGroup);
@@ -1742,13 +1742,6 @@ function buildSignLayers(scene, project, layers) {
     // 5. INTERNAL RED LED MODULES (inside return cans at Z = 6.0)
     const ledsGroup = new THREE.Group();
     const ledMat = new THREE.MeshBasicMaterial({ color: 0xFF2222 });
-    const ledGlowMat = new THREE.MeshBasicMaterial({ 
-      color: 0xEF4444, 
-      transparent: true, 
-      opacity: 0.3, 
-      blending: THREE.AdditiveBlending, 
-      depthWrite: false 
-    });
 
     // 6. 3/16" TRANSLUCENT 2793 RED ACRYLIC FACE (Z = 8.0 to 8.3)
     const faceGroup = new THREE.Group();
@@ -1768,17 +1761,17 @@ function buildSignLayers(scene, project, layers) {
 
     // INDIVIDUAL CHANNEL LETTERS FOR "METRO BURGER"
     const metroLettersData = [
-      { char: 'M', x: -52.0, y: 3.2 },
-      { char: 'E', x: -41.0, y: 3.2 },
-      { char: 'T', x: -31.0, y: 3.2 },
-      { char: 'R', x: -21.0, y: 3.2 },
-      { char: 'O', x: -10.5, y: 3.2 },
-      { char: 'B', x:   4.0, y: 3.2 },
-      { char: 'U', x:  14.5, y: 3.2 },
-      { char: 'R', x:  24.5, y: 3.2 },
-      { char: 'G', x:  34.5, y: 3.2 },
-      { char: 'E', x:  44.5, y: 3.2 },
-      { char: 'R', x:  54.5, y: 3.2 }
+      { char: 'M', x: -48.9, y: 0 },
+      { char: 'E', x: -39.1, y: 0 },
+      { char: 'T', x: -29.8, y: 0 },
+      { char: 'R', x: -20.3, y: 0 },
+      { char: 'O', x: -10.9, y: 0 },
+      { char: 'B', x:   3.4, y: 0 },
+      { char: 'U', x:  12.5, y: 0 },
+      { char: 'R', x:  21.8, y: 0 },
+      { char: 'G', x:  31.1, y: 0 },
+      { char: 'E', x:  40.3, y: 0 },
+      { char: 'R', x:  49.5, y: 0 }
     ];
 
     const metroScale = 1.0;
@@ -1786,7 +1779,7 @@ function buildSignLayers(scene, project, layers) {
     metroLettersData.forEach((item) => {
       const shape = getChannelLetterShape(item.char);
 
-      // Return Can (depth 3.5)
+      // Return Can (depth 3.5, baseZ = 4.5)
       const rGeo = new THREE.ExtrudeGeometry(shape, {
         depth: 3.5,
         bevelEnabled: true,
@@ -1800,15 +1793,15 @@ function buildSignLayers(scene, project, layers) {
       rMesh.castShadow = true;
       returnGroup.add(rMesh);
 
-      // Internal LED Modules & Red glow
+      // Internal LED Modules (baseZ = 6.0)
       const l1 = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.4), ledMat);
-      l1.position.set(item.x, item.y + 2.5, 1.5);
+      l1.position.set(item.x, item.y + 2.0, 0);
       const l2 = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.4), ledMat);
-      l2.position.set(item.x, item.y - 2.5, 1.5);
+      l2.position.set(item.x, item.y - 2.0, 0);
       ledsGroup.add(l1);
       ledsGroup.add(l2);
 
-      // 3/16" Red Acrylic Face
+      // 3/16" Red Acrylic Face (baseZ = 8.0)
       const fGeo = new THREE.ExtrudeGeometry(shape, {
         depth: 0.3,
         bevelEnabled: true,
@@ -1818,21 +1811,21 @@ function buildSignLayers(scene, project, layers) {
       });
       const fMesh = new THREE.Mesh(fGeo, faceMat);
       fMesh.scale.set(metroScale, metroScale, 1.0);
-      fMesh.position.set(item.x, item.y, 3.5);
+      fMesh.position.set(item.x, item.y, 0);
       fMesh.castShadow = true;
       faceGroup.add(fMesh);
 
-      // 1" Jewelite Trim Cap (slightly larger frame contour)
+      // 1" Jewelite Trim Cap (baseZ = 7.95)
       const tGeo = new THREE.ExtrudeGeometry(shape, {
-        depth: 0.6,
+        depth: 0.5,
         bevelEnabled: true,
-        bevelThickness: 0.06,
-        bevelSize: 0.08,
+        bevelThickness: 0.04,
+        bevelSize: 0.06,
         bevelSegments: 2
       });
       const tMesh = new THREE.Mesh(tGeo, trimMat);
-      tMesh.scale.set(metroScale * 1.025, metroScale * 1.025, 1.0);
-      tMesh.position.set(item.x, item.y, 3.2);
+      tMesh.scale.set(metroScale * 1.02, metroScale * 1.02, 1.0);
+      tMesh.position.set(item.x, item.y, 0);
       tMesh.castShadow = true;
       trimGroup.add(tMesh);
     });
