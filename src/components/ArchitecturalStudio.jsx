@@ -300,8 +300,19 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
               </button>
             </div>
 
-            {/* ILLUMINATION TOGGLE */}
+            {/* RIGHT CONTROLS: ACTIVE INSPECTOR FOCUS HUD + ILLUMINATION TOGGLE */}
             <div className="flex items-center gap-3">
+              {activeInspector && (
+                <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-[#F79223]/30 text-xs font-mono font-bold text-gray-800 shadow-xs">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F79223] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F79223]"></span>
+                  </span>
+                  <span className="text-gray-400 font-semibold text-[10px] uppercase">Focus:</span>
+                  <span className="text-[#F79223] uppercase font-extrabold tracking-wide">{activeInspector?.name}</span>
+                </div>
+              )}
+
               <button
                 onClick={() => setIsNightMode(!isNightMode)}
                 className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
@@ -328,15 +339,6 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
           {/* VIEWPORT CANVAS */}
           <div className="relative p-4 sm:p-8 bg-white flex flex-col items-center justify-center min-h-[420px]">
-            
-            {/* LIVE CANVAS FOCUS HUD BADGE */}
-            <div className="absolute top-6 right-8 z-10 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 border border-gray-300 shadow-md backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#F79223] animate-ping" />
-              <span className="w-1.5 h-1.5 rounded-full bg-[#F79223] absolute left-3.5" />
-              <span className="text-[11px] font-bold text-gray-800 font-mono">
-                FOCUS: <span className="text-[#F79223] uppercase">{activeInspector?.name}</span>
-              </span>
-            </div>
 
             {/* VIEW 1: ELEVATION VIEW */}
             {viewMode === 'elev' && (
@@ -651,11 +653,11 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     <rect x="15" y="15" width="930" height="450" fill="none" stroke="#94A3B8" strokeWidth="1.5" />
 
                     {/* DRAWING HEADER */}
-                    <g transform="translate(30, 24)">
-                      <text x="0" y="16" fontSize="11.5" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
+                    <g transform="translate(30, 22)">
+                      <text x="0" y="14" fontSize="11" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
                         SECTION A-A: REVERSE HALO-LIT CHANNEL LETTER PROFILE
                       </text>
-                      <text x="0" y="30" fontSize="9" fill="#64748B" fontWeight="600">
+                      <text x="0" y="27" fontSize="8" fill="#64748B" fontWeight="600">
                         SCALE: 3" = 1'-0" [HALF SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-01
                       </text>
                     </g>
@@ -778,42 +780,42 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
                     {/* CALLOUT LABELS */}
                     {/* Face Callout */}
-                    <line x1="285" y1="120" x2="160" y2="100" stroke={activeInspector?.id === 'face' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'face' ? '1.5' : '1'} />
-                    <rect x="15" y="88" width="140" height="26" rx="4" fill={activeInspector?.id === 'face' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'face' ? '#F79223' : '#CBD5E1'} />
-                    <text x="150" y="100" fontSize="8" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
+                    <line x1="285" y1="110" x2="160" y2="93" stroke={activeInspector?.id === 'face' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'face' ? '1.5' : '1'} />
+                    <rect x="25" y="80" width="135" height="26" rx="4" fill={activeInspector?.id === 'face' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'face' ? '#F79223' : '#CBD5E1'} />
+                    <text x="150" y="92" fontSize="8" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
                       0.063" 5052-H32 FACE {activeInspector?.id === 'face' && '★'}
                     </text>
-                    <text x="150" y="109" fontSize="6.5" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#64748B'} textAnchor="end">
+                    <text x="150" y="101" fontSize="6.5" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#64748B'} textAnchor="end">
                       Satin Black Polyurethane
                     </text>
 
                     {/* Return Callout */}
-                    <line x1="390" y1="90" x2="480" y2="65" stroke={activeInspector?.id === 'return' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'return' ? '1.5' : '1'} />
-                    <rect x="480" y="52" width="160" height="26" rx="4" fill={activeInspector?.id === 'return' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'return' ? '#F79223' : '#CBD5E1'} />
-                    <text x="488" y="64" fontSize="8" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="390" y1="90" x2="440" y2="55" stroke={activeInspector?.id === 'return' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'return' ? '1.5' : '1'} />
+                    <rect x="440" y="42" width="155" height="26" rx="4" fill={activeInspector?.id === 'return' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'return' ? '#F79223' : '#CBD5E1'} />
+                    <text x="448" y="54" fontSize="8" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       3.50" DEPTH ALUM RETURN {activeInspector?.id === 'return' && '★'}
                     </text>
-                    <text x="488" y="73" fontSize="6.5" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#64748B'}>
+                    <text x="448" y="63" fontSize="6.5" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#64748B'}>
                       0.040" Flanged Sidewalls
                     </text>
 
                     {/* LEDs Callout */}
-                    <line x1="465" y1="194" x2="540" y2="175" stroke={activeInspector?.id === 'leds' ? '#F79223' : '#D97706'} strokeWidth={activeInspector?.id === 'leds' ? '1.5' : '1'} />
-                    <rect x="540" y="162" width="140" height="26" rx="4" fill={activeInspector?.id === 'leds' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'leds' ? '#F79223' : '#CBD5E1'} />
-                    <text x="548" y="174" fontSize="8" fill={activeInspector?.id === 'leds' ? '#FFFFFF' : '#D97706'} fontWeight="800">
+                    <line x1="465" y1="194" x2="520" y2="175" stroke={activeInspector?.id === 'leds' ? '#F79223' : '#D97706'} strokeWidth={activeInspector?.id === 'leds' ? '1.5' : '1'} />
+                    <rect x="520" y="162" width="140" height="26" rx="4" fill={activeInspector?.id === 'leds' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'leds' ? '#F79223' : '#CBD5E1'} />
+                    <text x="528" y="174" fontSize="8" fill={activeInspector?.id === 'leds' ? '#FFFFFF' : '#D97706'} fontWeight="800">
                       12V IP67 LED MODULES {activeInspector?.id === 'leds' && '★'}
                     </text>
-                    <text x="548" y="183" fontSize="6.5" fill={activeInspector?.id === 'leds' ? '#FFFFFF' : '#64748B'}>
+                    <text x="528" y="183" fontSize="6.5" fill={activeInspector?.id === 'leds' ? '#FFFFFF' : '#64748B'}>
                       6500K Halo Illumination
                     </text>
 
                     {/* Standoff Callout */}
-                    <line x1="635" y1="137" x2="680" y2="140" stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'standoffs' ? '1.5' : '1'} />
-                    <rect x="680" y="126" width="150" height="26" rx="4" fill={activeInspector?.id === 'standoffs' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#CBD5E1'} />
-                    <text x="688" y="138" fontSize="8" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="635" y1="137" x2="615" y2="139" stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'standoffs' ? '1.5' : '1'} />
+                    <rect x="615" y="126" width="145" height="26" rx="4" fill={activeInspector?.id === 'standoffs' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#CBD5E1'} />
+                    <text x="623" y="138" fontSize="8" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       1.50" MACHINED STANDOFF {activeInspector?.id === 'standoffs' && '★'}
                     </text>
-                    <text x="688" y="147" fontSize="6.5" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#64748B'}>
+                    <text x="623" y="147" fontSize="6.5" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#64748B'}>
                       6061-T6 Aluminum Barrel
                     </text>
 
@@ -858,11 +860,11 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     <rect x="15" y="15" width="930" height="450" fill="none" stroke="#94A3B8" strokeWidth="1.5" />
 
                     {/* DRAWING HEADER */}
-                    <g transform="translate(30, 24)">
-                      <text x="0" y="16" fontSize="11.5" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
+                    <g transform="translate(30, 22)">
+                      <text x="0" y="14" fontSize="11" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
                         SECTION B-B: FRONT-LIT CHANNEL LETTER ON EXTRUDED RACEWAY
                       </text>
-                      <text x="0" y="30" fontSize="9" fill="#64748B" fontWeight="600">
+                      <text x="0" y="27" fontSize="8" fill="#64748B" fontWeight="600">
                         SCALE: 3" = 1'-0" [HALF SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-02
                       </text>
                     </g>
@@ -986,42 +988,42 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
                     {/* CALLOUT LABELS */}
                     {/* Face Callout */}
-                    <line x1="215" y1="120" x2="140" y2="100" stroke={activeInspector?.id === 'face' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'face' ? '1.5' : '1'} />
-                    <rect x="15" y="88" width="130" height="26" rx="4" fill={activeInspector?.id === 'face' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'face' ? '#F79223' : '#CBD5E1'} />
-                    <text x="140" y="100" fontSize="8" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
+                    <line x1="215" y1="95" x2="160" y2="93" stroke={activeInspector?.id === 'face' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'face' ? '1.5' : '1'} />
+                    <rect x="25" y="80" width="135" height="26" rx="4" fill={activeInspector?.id === 'face' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'face' ? '#F79223' : '#CBD5E1'} />
+                    <text x="150" y="92" fontSize="8" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
                       3/16" ACRYLIC FACE {activeInspector?.id === 'face' && '★'}
                     </text>
-                    <text x="140" y="109" fontSize="6.5" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#64748B'} textAnchor="end">
+                    <text x="150" y="101" fontSize="6.5" fill={activeInspector?.id === 'face' ? '#FFFFFF' : '#64748B'} textAnchor="end">
                       #7328 White + 3M Red
                     </text>
 
                     {/* Trim Cap Callout */}
-                    <line x1="230" y1="82" x2="310" y2="60" stroke={activeInspector?.id === 'trim' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'trim' ? '1.5' : '1'} />
-                    <rect x="310" y="48" width="140" height="26" rx="4" fill={activeInspector?.id === 'trim' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'trim' ? '#F79223' : '#CBD5E1'} />
-                    <text x="318" y="60" fontSize="8" fill={activeInspector?.id === 'trim' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="220" y1="95" x2="165" y2="138" stroke={activeInspector?.id === 'trim' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'trim' ? '1.5' : '1'} />
+                    <rect x="25" y="125" width="140" height="26" rx="4" fill={activeInspector?.id === 'trim' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'trim' ? '#F79223' : '#CBD5E1'} />
+                    <text x="33" y="137" fontSize="8" fill={activeInspector?.id === 'trim' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       1.0" JEWELITE TRIM CAP {activeInspector?.id === 'trim' && '★'}
                     </text>
-                    <text x="318" y="69" fontSize="6.5" fill={activeInspector?.id === 'trim' ? '#FFFFFF' : '#64748B'}>
+                    <text x="33" y="146" fontSize="6.5" fill={activeInspector?.id === 'trim' ? '#FFFFFF' : '#64748B'}>
                       Bonded CAB Butyrate
                     </text>
 
                     {/* Return Callout */}
-                    <line x1="410" y1="90" x2="490" y2="60" stroke={activeInspector?.id === 'return' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'return' ? '1.5' : '1'} />
-                    <rect x="490" y="48" width="140" height="26" rx="4" fill={activeInspector?.id === 'return' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'return' ? '#F79223' : '#CBD5E1'} />
-                    <text x="498" y="60" fontSize="8" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="380" y1="90" x2="420" y2="55" stroke={activeInspector?.id === 'return' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'return' ? '1.5' : '1'} />
+                    <rect x="420" y="42" width="140" height="26" rx="4" fill={activeInspector?.id === 'return' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'return' ? '#F79223' : '#CBD5E1'} />
+                    <text x="428" y="54" fontSize="8" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       5.0" RETURN DEPTH {activeInspector?.id === 'return' && '★'}
                     </text>
-                    <text x="498" y="69" fontSize="6.5" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#64748B'}>
+                    <text x="428" y="63" fontSize="6.5" fill={activeInspector?.id === 'return' ? '#FFFFFF' : '#64748B'}>
                       0.040" Pre-Coated Black
                     </text>
 
                     {/* Raceway Callout */}
-                    <line x1="680" y1="105" x2="680" y2="60" stroke={activeInspector?.id === 'raceway' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'raceway' ? '1.5' : '1'} />
-                    <rect x="650" y="38" width="150" height="26" rx="4" fill={activeInspector?.id === 'raceway' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'raceway' ? '#F79223' : '#CBD5E1'} />
-                    <text x="658" y="50" fontSize="8" fill={activeInspector?.id === 'raceway' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="680" y1="105" x2="657" y2="68" stroke={activeInspector?.id === 'raceway' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'raceway' ? '1.5' : '1'} />
+                    <rect x="585" y="42" width="145" height="26" rx="4" fill={activeInspector?.id === 'raceway' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'raceway' ? '#F79223' : '#CBD5E1'} />
+                    <text x="593" y="54" fontSize="8" fill={activeInspector?.id === 'raceway' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       7" x 4.5" ALUM RACEWAY {activeInspector?.id === 'raceway' && '★'}
                     </text>
-                    <text x="658" y="59" fontSize="6.5" fill={activeInspector?.id === 'raceway' ? '#FFFFFF' : '#64748B'}>
+                    <text x="593" y="63" fontSize="6.5" fill={activeInspector?.id === 'raceway' ? '#FFFFFF' : '#64748B'}>
                       Landlord Spec Painted
                     </text>
 
@@ -1066,11 +1068,11 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     <rect x="15" y="15" width="930" height="450" fill="none" stroke="#94A3B8" strokeWidth="1.5" />
 
                     {/* DRAWING HEADER */}
-                    <g transform="translate(30, 24)">
-                      <text x="0" y="16" fontSize="11.5" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
+                    <g transform="translate(30, 22)">
+                      <text x="0" y="14" fontSize="11" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
                         SECTION C-C: J.STUDIO ARCHITECTURAL STANDOFF PLAQUE DETAIL
                       </text>
-                      <text x="0" y="30" fontSize="9" fill="#64748B" fontWeight="600">
+                      <text x="0" y="27" fontSize="8" fill="#64748B" fontWeight="600">
                         SCALE: 6" = 1'-0" [QUARTER SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-03
                       </text>
                     </g>
@@ -1160,44 +1162,44 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </text>
 
                     {/* CALLOUT LABELS */}
+                    {/* Spotlight Callout */}
+                    <line x1="195" y1="42" x2="163" y2="83" stroke={activeInspector?.id === 'lighting' ? '#F79223' : '#EAB308'} strokeWidth={activeInspector?.id === 'lighting' ? '1.5' : '1'} />
+                    <rect x="25" y="70" width="138" height="26" rx="4" fill={activeInspector?.id === 'lighting' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'lighting' ? '#F79223' : '#CBD5E1'} />
+                    <text x="33" y="82" fontSize="8" fill={activeInspector?.id === 'lighting' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                      GALLERY SPOTLIGHTS {activeInspector?.id === 'lighting' && '★'}
+                    </text>
+                    <text x="33" y="91" fontSize="6.5" fill={activeInspector?.id === 'lighting' ? '#FFFFFF' : '#64748B'}>
+                      3000K Overhead Track Wash
+                    </text>
+
                     {/* J.STUDIO Bronze Logo Callout */}
-                    <line x1="504" y1="140" x2="360" y2="120" stroke={activeInspector?.id === 'logo' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '1'} />
-                    <rect x="180" y="108" width="175" height="26" rx="4" fill={activeInspector?.id === 'logo' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'logo' ? '#F79223' : '#CBD5E1'} />
-                    <text x="350" y="120" fontSize="8" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
+                    <line x1="504" y1="135" x2="355" y2="128" stroke={activeInspector?.id === 'logo' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '1'} />
+                    <rect x="180" y="115" width="175" height="26" rx="4" fill={activeInspector?.id === 'logo' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'logo' ? '#F79223' : '#CBD5E1'} />
+                    <text x="350" y="127" fontSize="8" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
                       J.STUDIO BRONZE LOGO {activeInspector?.id === 'logo' && '★'}
                     </text>
-                    <text x="350" y="129" fontSize="6.5" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#64748B'} textAnchor="end">
+                    <text x="350" y="136" fontSize="6.5" fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#64748B'} textAnchor="end">
                       Chemetal #903 on 1/2" Acrylic Core
                     </text>
 
                     {/* Acrylic Plaque Callout */}
-                    <line x1="550" y1="95" x2="420" y2="70" stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'plaque' ? '1.5' : '1'} />
-                    <rect x="260" y="58" width="155" height="26" rx="4" fill={activeInspector?.id === 'plaque' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#CBD5E1'} />
-                    <text x="405" y="70" fontSize="8" fill={activeInspector?.id === 'plaque' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
+                    <line x1="550" y1="210" x2="375" y2="208" stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'plaque' ? '1.5' : '1'} />
+                    <rect x="200" y="195" width="175" height="26" rx="4" fill={activeInspector?.id === 'plaque' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#CBD5E1'} />
+                    <text x="368" y="207" fontSize="8" fill={activeInspector?.id === 'plaque' ? '#FFFFFF' : '#0F172A'} fontWeight="800" textAnchor="end">
                       1/4" CLEAR ACRYLIC PLAQUE {activeInspector?.id === 'plaque' && '★'}
                     </text>
-                    <text x="405" y="79" fontSize="6.5" fill={activeInspector?.id === 'plaque' ? '#FFFFFF' : '#64748B'} textAnchor="end">
+                    <text x="368" y="216" fontSize="6.5" fill={activeInspector?.id === 'plaque' ? '#FFFFFF' : '#64748B'} textAnchor="end">
                       Flame-Polished Beveled Edges
                     </text>
 
                     {/* Gyford Standoff Callout */}
-                    <line x1="630" y1="115" x2="630" y2="70" stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'standoffs' ? '1.5' : '1'} />
-                    <rect x="545" y="48" width="160" height="26" rx="4" fill={activeInspector?.id === 'standoffs' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#CBD5E1'} />
-                    <text x="553" y="60" fontSize="8" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
+                    <line x1="630" y1="115" x2="600" y2="68" stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#0284C7'} strokeWidth={activeInspector?.id === 'standoffs' ? '1.5' : '1'} />
+                    <rect x="490" y="42" width="160" height="26" rx="4" fill={activeInspector?.id === 'standoffs' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'standoffs' ? '#F79223' : '#CBD5E1'} />
+                    <text x="498" y="54" fontSize="8" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
                       GYFORD STANDOFFS (6x) {activeInspector?.id === 'standoffs' && '★'}
                     </text>
-                    <text x="553" y="69" fontSize="6.5" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#64748B'}>
+                    <text x="498" y="63" fontSize="6.5" fill={activeInspector?.id === 'standoffs' ? '#FFFFFF' : '#64748B'}>
                       1.0" OD x 1.0" Projection SS
-                    </text>
-
-                    {/* Spotlight Callout */}
-                    <line x1="220" y1="40" x2="160" y2="40" stroke={activeInspector?.id === 'lighting' ? '#F79223' : '#EAB308'} strokeWidth={activeInspector?.id === 'lighting' ? '1.5' : '1'} />
-                    <rect x="25" y="28" width="130" height="26" rx="4" fill={activeInspector?.id === 'lighting' ? '#F79223' : '#FFFFFF'} stroke={activeInspector?.id === 'lighting' ? '#F79223' : '#CBD5E1'} />
-                    <text x="33" y="40" fontSize="8" fill={activeInspector?.id === 'lighting' ? '#FFFFFF' : '#0F172A'} fontWeight="800">
-                      GALLERY SPOTLIGHTS {activeInspector?.id === 'lighting' && '★'}
-                    </text>
-                    <text x="33" y="49" fontSize="6.5" fill={activeInspector?.id === 'lighting' ? '#FFFFFF' : '#64748B'}>
-                      3000K Overhead Track Wash
                     </text>
 
                     {/* FASTSIGNS TITLE BLOCK */}
