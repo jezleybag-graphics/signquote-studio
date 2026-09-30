@@ -412,14 +412,15 @@ function getChannelLetterShape(char) {
       s.moveTo(-2.8, -5.0);
       s.lineTo(-2.8, 5.0);
       s.lineTo(0.2, 5.0);
-      s.absarc(0.2, 0.0, 5.0, Math.PI / 2, -Math.PI / 2, true);
+      s.absellipse(0.2, 0.0, 3.0, 5.0, Math.PI / 2, -Math.PI / 2, true);
+      s.lineTo(-2.8, -5.0);
       s.closePath();
 
       const h = new THREE.Path();
-      h.moveTo(-1.2, -3.5);
+      h.moveTo(-1.3, -3.5);
       h.lineTo(0.2, -3.5);
-      h.absarc(0.2, 0.0, 3.5, -Math.PI / 2, Math.PI / 2, false);
-      h.lineTo(-1.2, 3.5);
+      h.absellipse(0.2, 0.0, 1.6, 3.5, -Math.PI / 2, Math.PI / 2, false);
+      h.lineTo(-1.3, 3.5);
       h.closePath();
       s.holes.push(h);
       return s;
@@ -683,6 +684,49 @@ function createTimberWallTexture() {
   return texture;
 }
 
+// High-Resolution Soft Halo Illumination Reflection Texture for Apex Dental ACM Backer
+function createApexHaloTexture(letters, emblemPos) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 512;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, 1024, 512);
+
+  const scaleX = 1024 / 104;
+  const scaleY = 512 / 30;
+
+  function drawGlow(x, y, radius) {
+    const cx = (x + 52) * scaleX;
+    const cy = (15 - y) * scaleY;
+    const r = radius * scaleX;
+
+    const grad = ctx.createRadialGradient(cx, cy, r * 0.1, cx, cy, r);
+    grad.addColorStop(0.0, 'rgba(255, 255, 255, 0.40)');
+    grad.addColorStop(0.25, 'rgba(240, 249, 255, 0.22)');
+    grad.addColorStop(0.55, 'rgba(224, 242, 254, 0.08)');
+    grad.addColorStop(0.85, 'rgba(224, 242, 254, 0.02)');
+    grad.addColorStop(1.0, 'rgba(224, 242, 254, 0.0)');
+
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Draw soft glow for emblem
+  drawGlow(emblemPos.x, emblemPos.y, 6.8);
+
+  // Draw soft glow for each letter
+  letters.forEach((item) => {
+    drawGlow(item.x, item.y, 5.4);
+  });
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  return texture;
+}
+
 // High-Resolution Subtitle Texture for Apex Dental ACM Backer
 function createApexSubtitleTexture() {
   const canvas = document.createElement('canvas');
@@ -931,10 +975,11 @@ export default function SignAssembly3D({
   // Highlight active subassembly mesh when activeInspector changes
   useEffect(() => {
     const layers = layersGroupRef.current;
-    if (!layers || !activeInspector) return;
+    if (!layers) return;
 
     Object.entries(layers).forEach(([key, group]) => {
-      const isMatch = activeInspector.id === key || 
+      const isMatch = activeInspector && (
+        activeInspector.id === key || 
         (activeInspector.id === 'metal-face' && key === 'face') ||
         (activeInspector.id === 'acrylic-face' && key === 'face') ||
         (activeInspector.id === 'logo' && (key === 'logo' || key === 'logoFace' || key === 'logoCore')) ||
@@ -943,10 +988,12 @@ export default function SignAssembly3D({
         (activeInspector.id === 'polycarb' && key === 'polycarb') ||
         (activeInspector.id === 'trim' && key === 'trim') ||
         (activeInspector.id === 'drivers' && key === 'drivers') ||
-        (activeInspector.id === 'raceway' && key === 'raceway');
+        (activeInspector.id === 'raceway' && key === 'raceway')
+      );
 
       group.traverse((child) => {
         if (child.isMesh && child.material) {
+          if (child.userData.isAccent) return; // Preserve pristine brand accents like cyan medical cross
           if (!child.userData.origMaterial) {
             child.userData.origMaterial = child.material;
           }
@@ -1357,6 +1404,25 @@ function buildSignLayers(scene, project, layers) {
     scene.add(wallGroup);
     layers.wall = wallGroup;
 
+    // PROCEDURAL BRAND ASSET GEOMETRIES & TYPOGRAPHY LAYOUT DATA
+    const { badge: emblemBadgeShape, cross: emblemCrossShape } = getDentalEmblemShapes();
+    const emblemScale = 0.95;
+    const emblemPos = { x: -37.5, y: 2.0 };
+
+    const letterScale = 0.90;
+    const apexLettersData = [
+      { char: 'A', x: -26.0, y: 2.0 },
+      { char: 'P', x: -19.2, y: 2.0 },
+      { char: 'E', x: -12.6, y: 2.0 },
+      { char: 'X', x:  -6.0, y: 2.0 },
+      { char: 'D', x:   5.0, y: 2.0 },
+      { char: 'E', x:  11.6, y: 2.0 },
+      { char: 'N', x:  18.0, y: 2.0 },
+      { char: 'T', x:  24.6, y: 2.0 },
+      { char: 'A', x:  31.4, y: 2.0 },
+      { char: 'L', x:  38.0, y: 2.0 }
+    ];
+
     // 2. 3MM SATIN BLACK ACM BACKER PANEL (Z = 0.0 to 0.3)
     const backerGroup = new THREE.Group();
     const backerGeo = new THREE.BoxGeometry(104, 30, 0.3);
@@ -1370,7 +1436,7 @@ function buildSignLayers(scene, project, layers) {
     backerMesh.receiveShadow = true;
     backerGroup.add(backerMesh);
 
-    // Subtle 3mm perimeter tray flange edge
+    // Architectural perimeter tray flange edge (all 4 sides)
     const flangeMat = new THREE.MeshStandardMaterial({ color: 0x1E293B, metalness: 0.8, roughness: 0.3 });
     const flangeTop = new THREE.Mesh(new THREE.BoxGeometry(104.4, 0.6, 0.5), flangeMat);
     flangeTop.position.set(0, 15, 0.25);
@@ -1378,6 +1444,12 @@ function buildSignLayers(scene, project, layers) {
     const flangeBot = new THREE.Mesh(new THREE.BoxGeometry(104.4, 0.6, 0.5), flangeMat);
     flangeBot.position.set(0, -15, 0.25);
     backerGroup.add(flangeBot);
+    const flangeLeft = new THREE.Mesh(new THREE.BoxGeometry(0.6, 30.0, 0.5), flangeMat);
+    flangeLeft.position.set(-52, 0, 0.25);
+    backerGroup.add(flangeLeft);
+    const flangeRight = new THREE.Mesh(new THREE.BoxGeometry(0.6, 30.0, 0.5), flangeMat);
+    flangeRight.position.set(52, 0, 0.25);
+    backerGroup.add(flangeRight);
 
     // Baffled weep slots along bottom edge
     const weepMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
@@ -1386,6 +1458,20 @@ function buildSignLayers(scene, project, layers) {
       weep.position.set(wx, -14.6, 0.16);
       backerGroup.add(weep);
     });
+
+    // Soft architectural halo wash plane reflecting against the black ACM backer tray
+    const haloGeo = new THREE.PlaneGeometry(104, 30);
+    const haloTex = createApexHaloTexture(apexLettersData, emblemPos);
+    const haloMat = new THREE.MeshBasicMaterial({
+      map: haloTex,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const haloBackdropMesh = new THREE.Mesh(haloGeo, haloMat);
+    haloBackdropMesh.position.set(0, 0, 0.302);
+    haloBackdropMesh.userData.isAccent = true;
+    backerGroup.add(haloBackdropMesh);
 
     // UV-Printed Secondary Subtitle ("FAMILY & COSMETIC DENTISTRY")
     const subGeo = new THREE.PlaneGeometry(64, 8.5);
@@ -1396,7 +1482,8 @@ function buildSignLayers(scene, project, layers) {
       depthWrite: false 
     });
     const subMesh = new THREE.Mesh(subGeo, subMat);
-    subMesh.position.set(8.5, -7.5, 0.31);
+    subMesh.position.set(5.8, -6.8, 0.303);
+    subMesh.userData.isAccent = true;
     backerGroup.add(subMesh);
 
     scene.add(backerGroup);
@@ -1404,7 +1491,7 @@ function buildSignLayers(scene, project, layers) {
 
     // 3. 1.50" MACHINED THREADED STANDOFF SPACERS (Z = 0.3 to 2.8, length = 2.5)
     const standoffsGroup = new THREE.Group();
-    const standoffGeo = new THREE.CylinderGeometry(0.7, 0.7, 2.5, 24);
+    const standoffGeo = new THREE.CylinderGeometry(0.35, 0.35, 2.5, 16);
     standoffGeo.rotateX(Math.PI / 2);
     const standoffMat = new THREE.MeshStandardMaterial({ 
       color: 0xCBD5E1, 
@@ -1412,55 +1499,65 @@ function buildSignLayers(scene, project, layers) {
       roughness: 0.22 
     });
 
-    // Standoff anchor coordinates: behind emblem (4x) and letters
-    const apexStandoffCoords = [
-      [-41.5, 4.5], [-34.5, 4.5], [-41.5, -1.5], [-34.5, -1.5], // Dental emblem
-      [-26.5, -1.0], [-23.5, 3.5], [-23.5, -1.0], // A
-      [-19.5, 3.5], [-19.5, -1.0], // P
-      [-12.5, 3.5], [-12.5, -1.0], // E
-      [-5.5, 3.5], [-2.5, -1.0], // X
-      [4.0, 3.5], [4.0, -1.0], [7.5, 1.5], // D
-      [11.0, 3.5], [11.0, -1.0], // E
-      [18.0, 3.5], [21.0, -1.0], // N
-      [26.5, 3.5], [26.5, -1.0], // T
-      [32.0, -1.0], [35.0, 3.5], [35.0, -1.0], // A
-      [39.0, 3.5], [42.0, -1.0] // L
-    ];
-
-    apexStandoffCoords.forEach(([sx, sy]) => {
+    const addStandoff = (x, y) => {
       const st = new THREE.Mesh(standoffGeo, standoffMat);
-      st.position.set(sx, sy, 1.25);
+      st.position.set(x, y, 1.25);
       st.castShadow = true;
       standoffsGroup.add(st);
+    };
+
+    // Dental emblem 4x mounting studs
+    [-2.8, 2.8].forEach(sx => {
+      [-2.8, 2.8].forEach(sy => {
+        addStandoff(emblemPos.x + sx, emblemPos.y + sy);
+      });
     });
+
+    // Precise standoff relative anchor offsets per character (safely behind solid returns/faces)
+    const APEX_STANDOFF_OFFSETS = {
+      'A': [ [-1.8, -2.6], [1.8, -2.6], [0.0, 3.8] ],
+      'P': [ [-2.0, -2.8], [-2.0, 2.5] ],
+      'E': [ [-2.0, 3.0], [-2.0, -3.0], [1.2, 0.0] ],
+      'X': [ [-1.6, 2.8], [1.6, -2.8], [1.6, 2.8], [-1.6, -2.8] ],
+      'D': [ [-2.0, 2.8], [-2.0, -2.8], [2.2, 0.0] ],
+      'N': [ [-2.0, 2.5], [-2.0, -2.5], [2.0, 2.5], [2.0, -2.5] ],
+      'T': [ [-1.8, 4.2], [1.8, 4.2], [0.0, -2.5] ],
+      'L': [ [-1.8, 2.5], [-1.8, -3.5], [1.4, -4.2] ]
+    };
+
+    apexLettersData.forEach((item) => {
+      const offsets = APEX_STANDOFF_OFFSETS[item.char] || [[0, 0]];
+      offsets.forEach(([ox, oy]) => {
+        addStandoff(item.x + ox * letterScale, item.y + oy * letterScale);
+      });
+    });
+
     scene.add(standoffsGroup);
     layers.standoffs = standoffsGroup;
 
     // 4. 3/16" CLEAR LEXAN POLYCARBONATE BACKS (Z = 2.8 to 3.1)
     const polyGroup = new THREE.Group();
     const polyMat = new THREE.MeshStandardMaterial({
-      color: 0xBAE6FD,
+      color: 0xE0F2FE,
       transparent: true,
-      opacity: 0.55,
+      opacity: 0.50,
       roughness: 0.15,
       metalness: 0.1
     });
 
-    // 5. 12V HIGH-OUTPUT LED MODULES & HALO BACKLIGHT GLOW (Z = 3.2)
+    // 5. 12V HIGH-OUTPUT LED MODULES (Z = 3.2 to 3.55 inside cans)
     const ledsGroup = new THREE.Group();
-    const ledMat = new THREE.MeshBasicMaterial({ color: 0xFFF9C4 });
-    const haloGlowMat = new THREE.MeshBasicMaterial({ 
-      color: 0xFEF08A, 
-      transparent: true, 
-      opacity: 0.28, 
-      blending: THREE.AdditiveBlending, 
-      depthWrite: false 
+    const ledMat = new THREE.MeshStandardMaterial({ 
+      color: 0xFFFBEB, 
+      emissive: 0xFEF08A, 
+      emissiveIntensity: 0.85, 
+      roughness: 0.3 
     });
 
     // 6. 3.5" FABRICATED SATIN BLACK ALUMINUM RETURNS (Z = 3.1 to 6.6)
     const returnGroup = new THREE.Group();
     const returnMat = new THREE.MeshStandardMaterial({ 
-      color: 0x111827, 
+      color: 0x1E293B, 
       metalness: 0.85, 
       roughness: 0.28 
     });
@@ -1474,10 +1571,6 @@ function buildSignLayers(scene, project, layers) {
     });
 
     // A. PROCEDURAL DENTAL EMBLEM (Badge + Medical Cross)
-    const { badge: emblemBadgeShape, cross: emblemCrossShape } = getDentalEmblemShapes();
-    const emblemScale = 0.95;
-    const emblemPos = { x: -38.0, y: 1.5 };
-
     // Emblem Polycarbonate back
     const emblemPolyGeo = new THREE.ExtrudeGeometry(emblemBadgeShape, { depth: 0.3, bevelEnabled: false });
     const emblemPolyMesh = new THREE.Mesh(emblemPolyGeo, polyMat);
@@ -1485,15 +1578,10 @@ function buildSignLayers(scene, project, layers) {
     emblemPolyMesh.position.set(emblemPos.x, emblemPos.y, 0.15);
     polyGroup.add(emblemPolyMesh);
 
-    // Emblem LED modules & halo wash
-    const emblemHaloGeo = new THREE.CircleGeometry(5.8, 32);
-    const emblemHaloMesh = new THREE.Mesh(emblemHaloGeo, haloGlowMat);
-    emblemHaloMesh.position.set(emblemPos.x, emblemPos.y, -2.8);
-    ledsGroup.add(emblemHaloMesh);
-
+    // Emblem LED modules
     [-2, 2].forEach(lx => {
       [-2, 2].forEach(ly => {
-        const ledMesh = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.4), ledMat);
+        const ledMesh = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.35), ledMat);
         ledMesh.position.set(emblemPos.x + lx, emblemPos.y + ly, 0.2);
         ledsGroup.add(ledMesh);
       });
@@ -1513,7 +1601,7 @@ function buildSignLayers(scene, project, layers) {
     emblemRetMesh.castShadow = true;
     returnGroup.add(emblemRetMesh);
 
-    // Emblem Face (satin black plate + electric cyan medical cross)
+    // Emblem Face (satin black plate)
     const emblemFaceGeo = new THREE.ExtrudeGeometry(emblemBadgeShape, {
       depth: 0.2,
       bevelEnabled: true,
@@ -1528,7 +1616,13 @@ function buildSignLayers(scene, project, layers) {
     faceGroup.add(emblemFaceMesh);
 
     // Medical Cross '+' relief in vibrant cyan (#38BDF8)
-    const crossMat = new THREE.MeshStandardMaterial({ color: 0x38BDF8, metalness: 0.7, roughness: 0.25 });
+    const crossMat = new THREE.MeshStandardMaterial({ 
+      color: 0x38BDF8, 
+      emissive: 0x0284C7,
+      emissiveIntensity: 0.2,
+      metalness: 0.7, 
+      roughness: 0.25 
+    });
     const crossGeo = new THREE.ExtrudeGeometry(emblemCrossShape, {
       depth: 0.35,
       bevelEnabled: true,
@@ -1540,24 +1634,18 @@ function buildSignLayers(scene, project, layers) {
     crossMesh.scale.set(emblemScale, emblemScale, 1.0);
     crossMesh.position.set(emblemPos.x, emblemPos.y, 0.18);
     crossMesh.castShadow = true;
+    crossMesh.userData.isAccent = true;
     faceGroup.add(crossMesh);
 
+    // Fine concentric architectural accent ring
+    const ringGeo = new THREE.RingGeometry(3.2, 3.45, 32);
+    const ringMesh = new THREE.Mesh(ringGeo, crossMat);
+    ringMesh.scale.set(emblemScale, emblemScale, 1.0);
+    ringMesh.position.set(emblemPos.x, emblemPos.y, 0.20);
+    ringMesh.userData.isAccent = true;
+    faceGroup.add(ringMesh);
+
     // B. PROCEDURAL INDIVIDUAL CHANNEL LETTERS FOR "APEX DENTAL"
-    const apexLettersData = [
-      { char: 'A', x: -25.0, y: 1.5 },
-      { char: 'P', x: -18.0, y: 1.5 },
-      { char: 'E', x: -11.0, y: 1.5 },
-      { char: 'X', x:  -4.0, y: 1.5 },
-      { char: 'D', x:   5.5, y: 1.5 },
-      { char: 'E', x:  12.5, y: 1.5 },
-      { char: 'N', x:  19.5, y: 1.5 },
-      { char: 'T', x:  26.5, y: 1.5 },
-      { char: 'A', x:  33.5, y: 1.5 },
-      { char: 'L', x:  40.5, y: 1.5 }
-    ];
-
-    const letterScale = 0.90;
-
     apexLettersData.forEach((item) => {
       const shape = getChannelLetterShape(item.char);
 
@@ -1568,16 +1656,11 @@ function buildSignLayers(scene, project, layers) {
       pMesh.position.set(item.x, item.y, 0.15);
       polyGroup.add(pMesh);
 
-      // LEDs & halo backlight disk
-      const haloGeo = new THREE.CircleGeometry(4.8, 24);
-      const haloMesh = new THREE.Mesh(haloGeo, haloGlowMat);
-      haloMesh.position.set(item.x, item.y, -2.8);
-      ledsGroup.add(haloMesh);
-
-      const ledMesh1 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.35), ledMat);
-      ledMesh1.position.set(item.x, item.y + 2.0, 0.2);
-      const ledMesh2 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.35), ledMat);
-      ledMesh2.position.set(item.x, item.y - 2.0, 0.2);
+      // Internal LED modules
+      const ledMesh1 = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.35), ledMat);
+      ledMesh1.position.set(item.x, item.y + 1.6, 0.2);
+      const ledMesh2 = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.35), ledMat);
+      ledMesh2.position.set(item.x, item.y - 1.6, 0.2);
       ledsGroup.add(ledMesh1);
       ledsGroup.add(ledMesh2);
 
