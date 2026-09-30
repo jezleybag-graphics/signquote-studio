@@ -69,12 +69,38 @@ export default function CandidateDrawer({ isOpen, onClose, onOpenCertificate }) 
               </p>
             </div>
 
-            {/* VERIFIED CERTIFICATIONS */}
+            {/* VERIFIED CERTIFICATIONS & RESUME */}
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-gray-400 block mb-3">
-                Verified Credentials &amp; Certifications
+                Verified Credentials &amp; Resume
               </span>
               <div className="space-y-2.5">
+                {/* 1-PAGE ATS RESUME DOWNLOAD */}
+                <a 
+                  href="/Jezreel_Dave_Resume_Signage_Estimator.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3.5 rounded-xl border border-sky-200 bg-sky-50/60 flex items-start justify-between gap-3 cursor-pointer hover:border-sky-400 hover:bg-sky-50 transition-all group shadow-2xs"
+                  title="Open 1-Page ATS PDF Resume"
+                >
+                  <div className="flex items-start gap-3">
+                    <Briefcase className="w-5 h-5 text-[#0284c7] shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-xs font-bold text-gray-900 block group-hover:text-sky-900 transition-colors">
+                        1-Page ATS Resume (PDF)
+                      </strong>
+                      <span className="text-[11px] text-gray-600 block">
+                        Signage Estimator &amp; Vendor Sourcing Specialist
+                      </span>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold text-sky-700 bg-white px-2 py-0.5 rounded border border-sky-200 group-hover:bg-[#0284c7] group-hover:text-white transition-colors shrink-0 flex items-center gap-0.5">
+                    <span>View PDF</span>
+                    <ArrowUpRight className="w-3 h-3" />
+                  </span>
+                </a>
+
+                {/* VERIFIED CERTIFICATE */}
                 <div 
                   onClick={() => {
                     if (onOpenCertificate) onOpenCertificate();
