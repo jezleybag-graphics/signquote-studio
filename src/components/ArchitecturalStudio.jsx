@@ -24,11 +24,14 @@ function ComponentVisualThumbnail({ item }) {
   if (type === 'logo') {
     return (
       <svg viewBox="0 0 54 54" className="w-12 h-12 rounded-xl bg-[#111213] border border-[#F79223]/50 p-1 shrink-0 shadow-sm">
-        <rect x="13" y="24" width="4" height="12" rx="2" fill="#F79223" />
-        <rect x="20" y="18" width="4" height="18" rx="2" fill="#F79223" />
-        <rect x="27" y="10" width="4" height="26" rx="2" fill="#FEF08A" />
-        <rect x="34" y="16" width="4" height="20" rx="2" fill="#EA580C" />
-        <text x="27" y="46" fontSize="6.5" fill="#F79223" fontWeight="900" textAnchor="middle" letterSpacing="1">J.STUDIO</text>
+        <path d="M 18,24 L 18,34 C 15.5,34 14,32 14,29 C 14,26 15.5,24 18,24 Z" fill="#F79223" />
+        <rect x="20" y="19" width="3.5" height="17" rx="1.75" fill="#F79223" />
+        <rect x="25.5" y="11" width="3.5" height="25" rx="1.75" fill="#FFFFFF" />
+        <path d="M 31,17 L 31,31 C 33.5,31 35,28.5 35,24 C 35,19.5 33.5,17 31,17 Z" fill="#FFFFFF" />
+        <text x="27" y="45" fontSize="6.5" fontWeight="900" textAnchor="middle" letterSpacing="0.8">
+          <tspan fill="#F79223">J.</tspan>
+          <tspan fill="#FFFFFF">STUDIO</tspan>
+        </text>
       </svg>
     );
   }
@@ -541,9 +544,14 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     <rect x="200" y="55" width="480" height="230" rx="8" fill="#0F172A" opacity="0.08" />
                     <rect 
                       x="190" y="45" width="480" height="230" rx="8" 
-                      fill="#E0F2FE" opacity="0.5" 
+                      fill="#F1F5F9" fillOpacity={isNightMode ? "0.08" : "0.55"}
                       stroke={activeInspector?.id === 'plaque' ? '#F79223' : '#38BDF8'} 
-                      strokeWidth={activeInspector?.id === 'plaque' ? '3' : '2'} 
+                      strokeWidth={activeInspector?.id === 'plaque' ? '3' : '1.5'} 
+                    />
+                    {/* Flame-polished bevel inner highlight */}
+                    <rect 
+                      x="194" y="49" width="472" height="222" rx="6" 
+                      fill="none" stroke="#FFFFFF" strokeWidth="1" opacity="0.75" 
                     />
                     
                     {/* 6x GYFORD MACHINED STAINLESS STANDOFFS */}
@@ -560,62 +568,69 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       </g>
                     ))}
 
-                    {/* J.STUDIO ARCHITECTURAL BRAND EMBLEM & TYPOGRAPHY */}
-                    <g transform="translate(430, 132)">
-                      {/* CHEMETAL BRUSHED BRONZE SOUNDWAVE MOTIF (JEZREEL'S ICONIC LOGO) */}
+                    {/* J.STUDIO ARCHITECTURAL BRAND EMBLEM & TYPOGRAPHY (OPTICALLY BALANCED) */}
+                    <g transform="translate(430, 144)">
+                      {/* CHEMETAL BRUSHED BRONZE & CHARCOAL SOUNDWAVE MOTIF (AUTHENTIC LOGO MARK) */}
                       <g>
-                        {/* Bar 1 (Short left) */}
-                        <rect 
-                          x="-32" y="-22" width="10" height="24" rx="5" 
-                          fill={activeInspector?.id === 'logo' ? '#F79223' : '#D97706'} 
+                        {/* Shape 1 (Left crescent, brand orange) */}
+                        <path 
+                          d="M -13,-4 L -13,14 C -17.5,14 -20.5,10.5 -20.5,5 C -20.5,-0.5 -17.5,-4 -13,-4 Z" 
+                          fill={activeInspector?.id === 'logo' ? '#F79223' : '#F59223'} 
                           stroke={activeInspector?.id === 'logo' ? '#FEF08A' : 'none'}
                           strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
                         />
-                        {/* Bar 2 (Medium-tall left) */}
+                        {/* Shape 2 (Mid-left vertical capsule, brand orange) */}
                         <rect 
-                          x="-17" y="-34" width="10" height="36" rx="5" 
-                          fill={activeInspector?.id === 'logo' ? '#F79223' : '#B45309'} 
+                          x="-9" y="-10" width="7" height="28" rx="3.5" 
+                          fill={activeInspector?.id === 'logo' ? '#F79223' : '#F59223'} 
                           stroke={activeInspector?.id === 'logo' ? '#FEF08A' : 'none'}
                           strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
                         />
-                        {/* Bar 3 (Tall center) */}
+                        {/* Shape 3 (Tall vertical capsule, obsidian black/charcoal) */}
                         <rect 
-                          x="-2" y="-48" width="10" height="58" rx="5" 
-                          fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#78350F'} 
+                          x="2" y="-26" width="7" height="44" rx="3.5" 
+                          fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#111213'} 
                           stroke={activeInspector?.id === 'logo' ? '#FFFFFF' : 'none'}
                           strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
                         />
-                        {/* Bar 4 (Right crescent/curved pill) */}
-                        <rect 
-                          x="13" y="-36" width="10" height="38" rx="5" 
-                          fill={activeInspector?.id === 'logo' ? '#F79223' : '#92400E'} 
-                          stroke={activeInspector?.id === 'logo' ? '#FEF08A' : 'none'}
+                        {/* Shape 4 (Right crescent, obsidian black/charcoal) */}
+                        <path 
+                          d="M 13,-15 L 13,13 C 17.5,13 20.5,8 20.5,-1 C 20.5,-10 17.5,-15 13,-15 Z" 
+                          fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#111213'} 
+                          stroke={activeInspector?.id === 'logo' ? '#FFFFFF' : 'none'}
                           strokeWidth={activeInspector?.id === 'logo' ? '1.5' : '0'}
                         />
                       </g>
 
                       {/* J.STUDIO TYPOGRAPHY */}
                       <text 
-                        x="0" y="32" fontSize="28" fontWeight="900" 
-                        fill={activeInspector?.id === 'logo' ? '#F79223' : '#78350F'} 
-                        textAnchor="middle" letterSpacing="6"
-                        fontFamily="'Inter', sans-serif"
+                        x="0" y="38" fontSize="21" fontWeight="900" 
+                        textAnchor="middle" letterSpacing="2"
+                        fontFamily="'Montserrat', 'Inter', -apple-system, sans-serif"
                       >
-                        J.STUDIO
+                        <tspan fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#F79223'}>J.</tspan>
+                        <tspan fill={activeInspector?.id === 'logo' ? '#FFFFFF' : '#111213'}>STUDIO</tspan>
                       </text>
+
+                      {/* SUB-TITLE: ARCHITECTURAL & SIGNAGE DESIGN */}
                       <text 
-                        x="0" y="50" fontSize="9.5" fontWeight="800" 
-                        fill={activeInspector?.id === 'logo' ? '#D97706' : '#B45309'} 
-                        textAnchor="middle" letterSpacing="4"
+                        x="0" y="52" fontSize="7" fontWeight="800" 
+                        fill={activeInspector?.id === 'logo' ? '#F79223' : '#475569'} 
+                        textAnchor="middle" letterSpacing="3.5"
+                        fontFamily="'Inter', sans-serif"
                       >
                         ARCHITECTURAL &amp; SIGNAGE DESIGN
                       </text>
+
+                      {/* SIGNATURE SUB-TITLE: JEZREEL DAVE LEYBAG • EXECUTIVE SUITE */}
                       <text 
-                        x="0" y="64" fontSize="7.5" fontWeight="700" 
-                        fill="#0284C7" 
-                        textAnchor="middle" letterSpacing="2.5"
+                        x="0" y="65" fontSize="6" fontWeight="700" 
+                        textAnchor="middle" letterSpacing="2"
+                        fontFamily="'Inter', sans-serif"
                       >
-                        JEZREEL DAVE LEYBAG • EXECUTIVE SUITE
+                        <tspan fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#64748B'}>JEZREEL DAVE LEYBAG</tspan>
+                        <tspan fill="#F79223" fontWeight="900"> • </tspan>
+                        <tspan fill={activeInspector?.id === 'logo' ? '#FEF08A' : '#64748B'}>EXECUTIVE SUITE 400</tspan>
                       </text>
                     </g>
 
