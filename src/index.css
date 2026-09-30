@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-orange: #F79223;
+    --brand-obsidian: #111213;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #FAFAFA;
+    color: #1A1B1B;
+    overflow-x: hidden;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom scrollbar for premium look */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F3F5;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(247, 146, 35, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(247, 146, 35, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(247, 146, 35, 0); }
+}
+
+.pulse-badge {
+  animation: pulse-ring 2.5s infinite;
+}
+
+/* Print styles for official architectural submittal package */
+@media print {
+  nav, header, .no-print, button, .sticky-footer {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 10pt;
+  }
+  .print-page {
+    break-inside: avoid;
+    page-break-after: always;
+  }
+}
