@@ -539,15 +539,12 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     // Plaque thickness = 1.2 units. Rests against barrel tops (Z = 5.0 to 6.2)
     const plaqueGroup = new THREE.Group();
     const plaqueGeo = new THREE.BoxGeometry(82, 46, 1.2);
-    const plaqueMat = new THREE.MeshPhysicalMaterial({
-      color: 0xF0F9FF,
-      transmission: 0.88,
-      opacity: 1,
+    const plaqueMat = new THREE.MeshStandardMaterial({
+      color: 0xE0F2FE,
       transparent: true,
-      roughness: 0.18,
-      ior: 1.49,
-      thickness: 1.2,
-      specularIntensity: 0.95
+      opacity: 0.45,
+      roughness: 0.15,
+      metalness: 0.1
     });
     const plaqueMesh = new THREE.Mesh(plaqueGeo, plaqueMat);
     plaqueMesh.position.set(0, 0, 5.6); // back = 5.0, front face = 6.2
@@ -789,12 +786,12 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     // 4. 3/16" CLEAR LEXAN POLYCARBONATE BACKS (Z = 4.6 to 5.1)
     const polyGroup = new THREE.Group();
     const polyGeo = new THREE.BoxGeometry(90, 16, 0.5);
-    const polyMat = new THREE.MeshPhysicalMaterial({
+    const polyMat = new THREE.MeshStandardMaterial({
       color: 0xBAE6FD,
-      transmission: 0.92,
-      roughness: 0.1,
       transparent: true,
-      opacity: 0.85
+      opacity: 0.5,
+      roughness: 0.2,
+      metalness: 0.1
     });
     const polyMesh = new THREE.Mesh(polyGeo, polyMat);
     polyMesh.position.set(0, 0, 4.85);
