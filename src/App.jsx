@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProjectSelector from './components/ProjectSelector';
@@ -6,6 +6,7 @@ import ArchitecturalStudio from './components/ArchitecturalStudio';
 import EstimatingWorkbench from './components/EstimatingWorkbench';
 import RoiSection from './components/RoiSection';
 import CandidateDrawer from './components/CandidateDrawer';
+import WelcomeModal from './components/WelcomeModal';
 import StickyFooter from './components/StickyFooter';
 import { projectsData, wholesaleVendors } from './data/scenarios';
 import { Check } from 'lucide-react';
@@ -25,7 +26,19 @@ export default function App() {
   const [letterHeight, setLetterHeight] = useState(project.letterHeight);
   const [returnDepth, setReturnDepth] = useState(project.returnDepth);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
   const [toastMsg, setToastMsg] = useState(null);
+
+  // Auto-prompt Welcome Modal on first visit (after smooth initial render)
+  useEffect(() => {
+    const dismissed = localStorage.getItem('signquote_welcome_dismissed');
+    if (!dismissed) {
+      const timer = setTimeout(() => {
+        setIsWelcomeModalOpen(true);
+      }, 700);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   // Sync state when project changes
   const handleSelectProject = (projectId) => {
@@ -74,13 +87,19 @@ export default function App() {
     <div className="min-h-screen bg-[#FAFAFA] text-[#1A1B1B] font-sans antialiased pb-24">
       
       {/* 1. ULTRA-PREMIUM EXECUTIVE HEADER */}
-      <Header onOpenDrawer={() => setIsDrawerOpen(true)} />
+      <Header 
+        onOpenDrawer={() => setIsDrawerOpen(true)} 
+        onOpenGuide={() => setIsWelcomeModalOpen(true)}
+      />
 
       {/* 2. SPACIOUS HERO SECTION */}
-      <Hero onExploreClick={() => {
-        const el = document.getElementById('projects');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }} />
+      <Hero 
+        onExploreClick={() => {
+          const el = document.getElementById('projects');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }} 
+        onOpenGuide={() => setIsWelcomeModalOpen(true)}
+      />
 
       {/* 3. COMMERCIAL CONTRACT ARCHETYPES */}
       <ProjectSelector 
@@ -125,7 +144,14 @@ export default function App() {
         onClose={() => setIsDrawerOpen(false)} 
       />
 
-      {/* 8. CONVERSION STICKY FOOTER */}
+      {/* 8. EXECUTIVE WELCOME & ORIENTATION MODAL */}
+      <WelcomeModal
+        isOpen={isWelcomeModalOpen}
+        onClose={() => setIsWelcomeModalOpen(false)}
+        onOpenDossier={() => setIsDrawerOpen(true)}
+      />
+
+      {/* 9. CONVERSION STICKY FOOTER */}
       <StickyFooter onOpenDrawer={() => setIsDrawerOpen(true)} />
 
       {/* TOAST NOTIFICATION */}

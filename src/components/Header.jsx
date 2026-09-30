@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserCheck, Mail, ArrowUpRight } from 'lucide-react';
 
-export default function Header({ onOpenDrawer }) {
+export default function Header({ onOpenDrawer, onOpenGuide }) {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/95 border-b border-gray-200/80 transition-all select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
@@ -34,9 +34,12 @@ export default function Header({ onOpenDrawer }) {
 
         {/* STREAMLINED DESKTOP NAVIGATION */}
         <nav className="hidden xl:flex items-center gap-1 bg-gray-100/80 p-1.5 rounded-full border border-gray-200/70 text-xs font-semibold text-gray-600">
-          <a href="#overview" className="px-3.5 py-1.5 rounded-full hover:text-[#111213] hover:bg-white transition-all whitespace-nowrap">
-            Overview
-          </a>
+          <button 
+            onClick={onOpenGuide}
+            className="px-3.5 py-1.5 rounded-full hover:text-[#111213] hover:bg-white transition-all whitespace-nowrap cursor-pointer"
+          >
+            Overview &amp; Guide
+          </button>
           <a href="#projects" className="px-3.5 py-1.5 rounded-full hover:text-[#111213] hover:bg-white transition-all whitespace-nowrap">
             Projects
           </a>

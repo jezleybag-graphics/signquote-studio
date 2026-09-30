@@ -1,7 +1,7 @@
 import React from 'react';
 import { Clock, ShieldCheck, Building2, Zap, ArrowDown, Sparkles } from 'lucide-react';
 
-export default function Hero({ onExploreClick }) {
+export default function Hero({ onExploreClick, onOpenGuide }) {
   return (
     <section id="overview" className="relative pt-12 pb-16 md:pt-16 md:pb-24 overflow-hidden border-b border-gray-200/70 bg-gradient-to-b from-white to-gray-50/60">
       
@@ -12,15 +12,22 @@ export default function Hero({ onExploreClick }) {
         
         {/* TOP CREDENTIAL BADGE */}
         <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#FFF6EB] border border-[#F79223]/30 text-[#111213] text-xs font-bold shadow-sm">
+          <button 
+            onClick={onOpenGuide}
+            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#FFF6EB] border border-[#F79223]/30 text-[#111213] text-xs font-bold shadow-sm hover:border-[#F79223] transition-all cursor-pointer group"
+            title="Click to view Executive Overview & Guide"
+          >
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F79223] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F79223]"></span>
             </span>
             <span>GOOGLE GEMINI CERTIFIED (86%)</span>
             <span className="text-gray-300">•</span>
-            <span className="text-gray-600 font-semibold">COMMERCIAL SIGNAGE ESTIMATING BENCHMARK</span>
-          </div>
+            <span className="text-gray-600 font-semibold group-hover:text-[#F79223] transition-colors flex items-center gap-1">
+              <span>EXECUTIVE GUIDE</span>
+              <span className="text-[10px]">↗</span>
+            </span>
+          </button>
         </div>
 
         {/* MAIN HEADLINE WITH BREATHING ROOM */}
@@ -44,13 +51,13 @@ export default function Hero({ onExploreClick }) {
               <span>Explore Interactive Studio</span>
               <ArrowDown className="w-4 h-4 text-[#F79223]" />
             </button>
-            <a 
-              href="#cad-studio"
+            <button 
+              onClick={onOpenGuide}
               className="px-6 py-3.5 rounded-xl bg-white border border-gray-300 hover:border-gray-900 text-gray-800 text-sm font-bold shadow-sm transition-all hover:bg-gray-50 flex items-center gap-2 cursor-pointer active:scale-95"
             >
               <Sparkles className="w-4 h-4 text-[#F79223]" />
-              <span>Inspect Architectural CAD Suite</span>
-            </a>
+              <span>What is this Project?</span>
+            </button>
           </div>
         </div>
 
