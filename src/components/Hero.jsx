@@ -1,6 +1,5 @@
 import React from 'react';
-import { Clock, ShieldCheck, Building2, Zap, ArrowDown, Sparkles, Mail, ArrowUpRight } from 'lucide-react';
-import { getGmailComposeUrl } from '../utils/contact';
+import { Clock, ShieldCheck, Building2, Zap, ArrowDown } from 'lucide-react';
 
 export default function Hero({ onExploreClick, onOpenGuide }) {
   return (
@@ -43,35 +42,15 @@ export default function Hero({ onExploreClick, onOpenGuide }) {
             A production-grade operational system engineered by <strong className="text-gray-900 font-bold">Jezreel Dave Leybag</strong>. Automates unstructured contractor RFP spec extraction, generates submittal-ready architectural shop drawings, coordinates North American wholesale trade fabricators, and locks margin defense.
           </p>
 
-          {/* ACTION BUTTONS */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
+          {/* SINGLE PURPOSEFUL HERO ACTION */}
+          <div className="flex justify-center mb-16">
             <button 
               onClick={onExploreClick}
-              className="px-6 py-3.5 rounded-xl bg-[#111213] hover:bg-black text-white text-sm font-bold shadow-lg shadow-black/10 transition-all flex items-center gap-2.5 hover:gap-3 cursor-pointer active:scale-95"
+              className="h-12 sm:h-13 px-8 rounded-2xl bg-[#111213] hover:bg-black text-white text-sm sm:text-base font-bold shadow-xl shadow-black/10 transition-all flex items-center gap-3 cursor-pointer active:scale-98 group border border-gray-800 hover:border-gray-700"
             >
               <span>Explore Interactive Studio</span>
-              <ArrowDown className="w-4 h-4 text-[#F79223]" />
+              <ArrowDown className="w-4 h-4 text-[#F79223] group-hover:translate-y-0.5 transition-transform" />
             </button>
-            <button 
-              onClick={onOpenGuide}
-              className="px-6 py-3.5 rounded-xl bg-white border border-gray-300 hover:border-gray-900 text-gray-800 text-sm font-bold shadow-sm transition-all hover:bg-gray-50 flex items-center gap-2 cursor-pointer active:scale-95"
-            >
-              <Sparkles className="w-4 h-4 text-[#F79223]" />
-              <span>What is this Project?</span>
-            </button>
-            <a 
-              href={getGmailComposeUrl({
-                subject: 'Commercial Signage Estimator Opportunity - Jezreel Dave Leybag',
-                body: 'Hi Jezreel,\n\nI reviewed your SignQuote AI & Architectural Studio workbench and would like to schedule a call regarding commercial signage estimating and operational workflows.\n\nBest regards,'
-              })}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-xl bg-[#F79223] hover:bg-[#E07E12] text-white text-sm font-bold shadow-lg shadow-[#F79223]/25 transition-all flex items-center gap-2 cursor-pointer active:scale-95 group"
-            >
-              <Mail className="w-4 h-4" />
-              <span>Schedule Call</span>
-              <ArrowUpRight className="w-4 h-4 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
           </div>
         </div>
 
