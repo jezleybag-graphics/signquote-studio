@@ -170,7 +170,9 @@ export const wholesaleVendors = {
     specialty: "Channel Letters (Front & Reverse Halo)",
     rating: "4.9 / 5.0",
     phone: "1-888-278-8383",
-    tagline: "North America's Dedicated Trade-Only Channel Letter Source"
+    tagline: "North America's Dedicated Trade-Only Channel Letter Source",
+    costFactor: 1.0,
+    freightDelta: 0
   },
   gemini: {
     id: "gemini",
@@ -180,7 +182,9 @@ export const wholesaleVendors = {
     specialty: "Cast Metal & Dimensional Acrylic",
     rating: "5.0 / 5.0",
     phone: "1-800-538-8377",
-    tagline: "Industry Standard for Dimensional Letters & Plaques (Lifetime Guarantee)"
+    tagline: "Industry Standard for Dimensional Letters & Plaques (Lifetime Guarantee)",
+    costFactor: 1.05,
+    freightDelta: -40
   },
   qm: {
     id: "qm",
@@ -190,7 +194,9 @@ export const wholesaleVendors = {
     specialty: "Extruded Cabinets & Letters",
     rating: "4.8 / 5.0",
     phone: "1-800-423-0107",
-    tagline: "Specialist in Extruded Aluminum Sign Cabinets & Automated Letters"
+    tagline: "Specialist in Extruded Aluminum Sign Cabinets & Automated Letters",
+    costFactor: 0.96,
+    freightDelta: -30
   },
   howard: {
     id: "howard",
@@ -200,6 +206,8 @@ export const wholesaleVendors = {
     specialty: "Post & Panel Systems",
     rating: "4.8 / 5.0",
     phone: "1-800-458-0591",
-    tagline: "Architectural Signage Systems & Exterior Wayfinding Post & Panel"
+    tagline: "Architectural Signage Systems & Exterior Wayfinding Post & Panel",
+    costFactor: 1.02,
+    freightDelta: 15
   }
 };
