@@ -310,7 +310,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
             {/* VIEW 2: HIGH-FIDELITY ARCHITECTURAL CAD SECTION DETAIL A-A */}
             {viewMode === 'cad' && (
               <div className="w-full max-w-5xl rounded-2xl overflow-hidden border border-gray-300 shadow-sm bg-white">
-                <svg viewBox="0 0 900 450" className="w-full h-auto block select-none font-sans bg-[#F8FAFC]">
+                <svg viewBox="0 0 960 470" className="w-full h-auto block select-none font-sans bg-[#F8FAFC]">
                   <defs>
                     <pattern id="blueprint-grid" width="20" height="20" patternUnits="userSpaceOnUse">
                       <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#E2E8F0" strokeWidth="0.75" />
@@ -323,116 +323,169 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </pattern>
                   </defs>
 
-                  <rect width="900" height="450" fill="url(#blueprint-grid)" />
-                  <rect x="15" y="15" width="870" height="420" fill="none" stroke="#94A3B8" strokeWidth="1.5" />
+                  {/* BLUEPRINT GRID BACKGROUND */}
+                  <rect width="960" height="470" fill="url(#blueprint-grid)" />
+                  <rect x="15" y="15" width="930" height="440" fill="none" stroke="#94A3B8" strokeWidth="1.5" />
 
-                  {/* DRAWING HEADER */}
-                  <text x="35" y="42" fontSize="13" fontWeight="800" fill="#0F172A" letterSpacing="1">
-                    SECTION A-A: REVERSE HALO-LIT CHANNEL LETTER PROFILE
-                  </text>
-                  <text x="35" y="58" fontSize="10" fill="#64748B" fontWeight="600">
-                    SCALE: 3" = 1'-0" [HALF SIZE: N.T.S.] • FASTSIGNS STANDARD SUBMITTAL SPEC
-                  </text>
+                  {/* DRAWING HEADER (CLEARLY SEPARATED) */}
+                  <g transform="translate(30, 24)">
+                    <text x="0" y="18" fontSize="13" fontWeight="800" fill="#0F172A" letterSpacing="0.8">
+                      SECTION A-A: REVERSE HALO-LIT CHANNEL LETTER PROFILE
+                    </text>
+                    <text x="0" y="34" fontSize="10.5" fill="#64748B" fontWeight="600">
+                      SCALE: 3" = 1'-0" [HALF SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-01
+                    </text>
+                  </g>
 
                   {/* 1. BUILDING FACADE BRICK WALL */}
-                  <rect x="750" y="55" width="110" height="280" fill="url(#brick-hatch-cad)" stroke="#475569" strokeWidth="2" />
-                  <text x="805" y="350" fontSize="9" fontWeight="700" fill="#475569" textAnchor="middle">
+                  <rect x="780" y="65" width="130" height="270" fill="url(#brick-hatch-cad)" stroke="#475569" strokeWidth="2" />
+                  <text x="845" y="355" fontSize="10" fontWeight="700" fill="#475569" textAnchor="middle">
                     SPLIT-FACE BRICK
                   </text>
 
                   {/* Concrete Anchors */}
-                  <rect x="710" y="115" width="60" height="12" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
-                  <polygon points="770,115 785,121 770,127" fill="#475569" />
-                  <rect x="710" y="245" width="60" height="12" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
-                  <polygon points="770,245 785,251 770,257" fill="#475569" />
+                  <rect x="730" y="120" width="70" height="12" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
+                  <polygon points="800,120 815,126 800,132" fill="#475569" />
+                  <rect x="730" y="250" width="70" height="12" fill="#94A3B8" stroke="#334155" strokeWidth="1" />
+                  <polygon points="800,250 815,256 800,262" fill="#475569" />
 
                   {/* 2. CONDUIT PASS-THROUGH SLEEVE */}
-                  <rect x="670" y="180" width="130" height="16" fill="#E2E8F0" stroke="#0284C7" strokeWidth="1.5" />
-                  <path d="M 750 174 Q 755 188 750 202" stroke="#0284C7" strokeWidth="3" fill="none" />
+                  <rect x="690" y="185" width="140" height="16" fill="#E2E8F0" stroke="#0284C7" strokeWidth="1.5" />
+                  <path d="M 770 178 Q 775 193 770 208" stroke="#0284C7" strokeWidth="3" fill="none" />
 
                   {/* 3. 3MM BLACK ACM BACKER PANEL */}
-                  <rect x="660" y="70" width="14" height="250" fill="url(#pe-core-hatch)" stroke="#0F172A" strokeWidth="1.5" rx="1" />
+                  <rect x="675" y="75" width="14" height="250" fill="url(#pe-core-hatch)" stroke="#0F172A" strokeWidth="1.5" rx="1" />
 
                   {/* 4. 1.5" MACHINED ALUMINUM STANDOFF BARRELS */}
-                  <rect x="580" y="110" width="80" height="22" fill="#CBD5E1" stroke="#334155" strokeWidth="1.5" />
-                  <line x1="570" y1="121" x2="710" y2="121" stroke="#0F172A" strokeWidth="3" strokeDasharray="4 2" />
-                  <rect x="580" y="240" width="80" height="22" fill="#CBD5E1" stroke="#334155" strokeWidth="1.5" />
-                  <line x1="570" y1="251" x2="710" y2="251" stroke="#0F172A" strokeWidth="3" strokeDasharray="4 2" />
+                  <rect x="595" y="115" width="80" height="22" fill="#CBD5E1" stroke="#334155" strokeWidth="1.5" />
+                  <line x1="585" y1="126" x2="730" y2="126" stroke="#0F172A" strokeWidth="3" strokeDasharray="4 2" />
+                  <rect x="595" y="245" width="80" height="22" fill="#CBD5E1" stroke="#334155" strokeWidth="1.5" />
+                  <line x1="585" y1="256" x2="730" y2="256" stroke="#0F172A" strokeWidth="3" strokeDasharray="4 2" />
 
                   {/* 5. 3/16" CLEAR OPTICAL POLYCARBONATE BACK */}
-                  <rect x="568" y="85" width="12" height="210" fill="#BAE6FD" opacity="0.65" stroke="#0284C7" strokeWidth="1.5" />
+                  <rect x="583" y="90" width="12" height="210" fill="#BAE6FD" opacity="0.65" stroke="#0284C7" strokeWidth="1.5" />
 
                   {/* 6. 3.5" ALUMINUM RETURN SIDEWALLS */}
-                  <rect x="280" y="85" width="288" height="8" fill="#1E293B" />
-                  <rect x="550" y="93" width="18" height="12" fill="#334155" />
-                  <rect x="280" y="287" width="288" height="8" fill="#1E293B" />
-                  <rect x="550" y="275" width="18" height="12" fill="#334155" />
+                  <rect x="295" y="90" width="288" height="8" fill="#1E293B" />
+                  <rect x="565" y="98" width="18" height="12" fill="#334155" />
+                  <rect x="295" y="292" width="288" height="8" fill="#1E293B" />
+                  <rect x="565" y="280" width="18" height="12" fill="#334155" />
 
                   {/* 7. OPAQUE ALUMINUM FACE (0.063" ROUTER CUT) */}
-                  <rect x="265" y="80" width="15" height="220" fill="#0F172A" stroke="#0F172A" strokeWidth="2" rx="1" />
+                  <rect x="280" y="85" width="15" height="220" fill="#0F172A" stroke="#0F172A" strokeWidth="2" rx="1" />
 
                   {/* 8. 12V LED MODULES INSIDE CAN */}
-                  <rect x="420" y="110" width="30" height="18" rx="3" fill="#F59E0B" stroke="#D97706" strokeWidth="1.5" />
-                  <circle cx="435" cy="119" r="4" fill="#FEF08A" />
-                  <rect x="420" y="180" width="30" height="18" rx="3" fill="#F59E0B" stroke="#D97706" strokeWidth="1.5" />
-                  <circle cx="435" cy="189" r="4" fill="#FEF08A" />
-                  <rect x="420" y="250" width="30" height="18" rx="3" fill="#F59E0B" stroke="#D97706" strokeWidth="1.5" />
-                  <circle cx="435" cy="259" r="4" fill="#FEF08A" />
+                  <rect x="435" y="115" width="30" height="18" rx="3" fill="#F59E0B" stroke="#D97706" strokeWidth="1.5" />
+                  <circle cx="450" cy="124" r="4" fill="#FEF08A" />
+                  <rect x="435" y="185" width="30" height="18" rx="3" fill="#F59E0B" stroke="#D97706" strokeWidth="1.5" />
+                  <circle cx="450" cy="194" r="4" fill="#FEF08A" />
+                  <rect x="435" y="255" width="30" height="18" rx="3" fill="#F59E0B" stroke="#D97706" strokeWidth="1.5" />
+                  <circle cx="450" cy="264" r="4" fill="#FEF08A" />
 
                   {/* Optical reflection paths */}
-                  <path d="M 450 119 L 580 95 M 450 119 L 580 145" stroke="#F59E0B" strokeWidth="1" strokeDasharray="3 3" />
-                  <path d="M 450 259 L 580 235 M 450 259 L 580 285" stroke="#F59E0B" strokeWidth="1" strokeDasharray="3 3" />
+                  <path d="M 465 124 L 595 100 M 465 124 L 595 150" stroke="#F59E0B" strokeWidth="1" strokeDasharray="3 3" />
+                  <path d="M 465 264 L 595 240 M 465 264 L 595 290" stroke="#F59E0B" strokeWidth="1" strokeDasharray="3 3" />
 
                   {/* 9. 1/4" WEEP HOLE */}
-                  <circle cx="340" cy="291" r="3" fill="#FFFFFF" stroke="#EF4444" strokeWidth="1.5" />
-                  <text x="340" y="325" fontSize="8" fill="#EF4444" fontWeight="700" textAnchor="middle">
+                  <circle cx="355" cy="296" r="3" fill="#FFFFFF" stroke="#EF4444" strokeWidth="1.5" />
+                  <text x="355" y="325" fontSize="8.5" fill="#EF4444" fontWeight="700" textAnchor="middle">
                     1/4" WEEP HOLE
                   </text>
 
-                  {/* LEADER LINES */}
-                  <line x1="272" y1="100" x2="210" y2="80" stroke="#0284C7" strokeWidth="1" />
-                  <line x1="210" y1="80" x2="100" y2="80" stroke="#0284C7" strokeWidth="1" />
-                  <text x="95" y="77" fontSize="9" fill="#0F172A" fontWeight="700" textAnchor="end">
+                  {/* ================= REPOSITIONED LEADER LINES (NO OVERLAP) ================= */}
+                  
+                  {/* Face Callout (Left Side, clear of borders) */}
+                  <line x1="285" y1="120" x2="220" y2="120" stroke="#0284C7" strokeWidth="1" />
+                  <line x1="220" y1="120" x2="160" y2="100" stroke="#0284C7" strokeWidth="1" />
+                  <text x="155" y="98" fontSize="9" fill="#0F172A" fontWeight="700" textAnchor="end">
                     0.063" 5052-H32 ALUMINUM FACE
                   </text>
-
-                  <line x1="380" y1="85" x2="380" y2="50" stroke="#0284C7" strokeWidth="1" />
-                  <line x1="380" y1="50" x2="260" y2="50" stroke="#0284C7" strokeWidth="1" />
-                  <text x="255" y="47" fontSize="9" fill="#0F172A" fontWeight="700" textAnchor="end">
-                    3.50" DEPTH 0.040" ALUM RETURN
+                  <text x="155" y="110" fontSize="8" fill="#64748B" textAnchor="end">
+                    Satin Black Polyurethane Enamel
                   </text>
 
-                  {/* FASTSIGNS TITLE BLOCK */}
-                  <g transform="translate(500, 350)">
-                    <rect x="0" y="0" width="365" height="70" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.5" />
-                    <line x1="135" y1="0" x2="135" y2="70" stroke="#0F172A" strokeWidth="1" />
-                    <line x1="265" y1="0" x2="265" y2="70" stroke="#0F172A" strokeWidth="1" />
-                    <line x1="135" y1="35" x2="365" y2="35" stroke="#0F172A" strokeWidth="1" />
+                  {/* Return Sidewall Callout (Top Center, clearly below header) */}
+                  <line x1="390" y1="90" x2="390" y2="65" stroke="#0284C7" strokeWidth="1" />
+                  <line x1="390" y1="65" x2="480" y2="65" stroke="#0284C7" strokeWidth="1" />
+                  <text x="485" y="63" fontSize="9" fill="#0F172A" fontWeight="700">
+                    3.50" DEPTH 0.040" ALUM RETURN
+                  </text>
+                  <text x="485" y="74" fontSize="8" fill="#64748B">
+                    Clinch-Riveted Flange &amp; Weep Holes
+                  </text>
 
-                    <text x="10" y="22" fontSize="12" fontWeight="900" fill="#C5221F" letterSpacing="1">
+                  {/* LEDs Callout */}
+                  <line x1="465" y1="194" x2="520" y2="175" stroke="#D97706" strokeWidth="1" />
+                  <line x1="520" y1="175" x2="540" y2="175" stroke="#D97706" strokeWidth="1" />
+                  <text x="545" y="173" fontSize="9" fill="#D97706" fontWeight="700">
+                    12V DC IP67 LED MODULES
+                  </text>
+                  <text x="545" y="184" fontSize="8" fill="#64748B">
+                    6500K • 160° Batwing Lens
+                  </text>
+
+                  {/* Standoff & Backer Callouts */}
+                  <line x1="635" y1="137" x2="635" y2="160" stroke="#0284C7" strokeWidth="1" />
+                  <line x1="635" y1="160" x2="670" y2="160" stroke="#0284C7" strokeWidth="1" />
+                  <text x="675" y="158" fontSize="8.5" fill="#0F172A" fontWeight="700">
+                    1.50" MACHINED STANDOFF
+                  </text>
+
+                  {/* DIMENSION STRINGS */}
+                  <line x1="295" y1="315" x2="583" y2="315" stroke="#334155" strokeWidth="1.5" />
+                  <line x1="295" y1="308" x2="295" y2="322" stroke="#334155" strokeWidth="1.5" />
+                  <line x1="583" y1="308" x2="583" y2="322" stroke="#334155" strokeWidth="1.5" />
+                  <text x="439" y="328" fontSize="10" fontWeight="700" fill="#0F172A" textAnchor="middle" fontFamily="'JetBrains Mono', monospace">
+                    3.50" RETURN DEPTH
+                  </text>
+
+                  <line x1="595" y1="210" x2="675" y2="210" stroke="#334155" strokeWidth="1.5" />
+                  <line x1="595" y1="204" x2="595" y2="216" stroke="#334155" strokeWidth="1.5" />
+                  <line x1="675" y1="204" x2="675" y2="216" stroke="#334155" strokeWidth="1.5" />
+                  <text x="635" y="206" fontSize="9" fontWeight="700" fill="#0F172A" textAnchor="middle" fontFamily="'JetBrains Mono', monospace">
+                    1.50"
+                  </text>
+
+                  {/* ================= REFINED FASTSIGNS TITLE BLOCK (NO COLLISION) ================= */}
+                  <g transform="translate(480, 365)">
+                    <rect x="0" y="0" width="430" height="75" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.5" />
+                    
+                    {/* Vertical Dividing Lines */}
+                    <line x1="140" y1="0" x2="140" y2="75" stroke="#0F172A" strokeWidth="1" />
+                    <line x1="300" y1="0" x2="300" y2="75" stroke="#0F172A" strokeWidth="1" />
+                    
+                    {/* Horizontal Dividing Line */}
+                    <line x1="140" y1="38" x2="430" y2="38" stroke="#0F172A" strokeWidth="1" />
+
+                    {/* Column 1: Fastsigns Center Branding */}
+                    <text x="12" y="22" fontSize="12" fontWeight="900" fill="#C5221F" letterSpacing="1">
                       FASTSIGNS®
                     </text>
-                    <text x="10" y="36" fontSize="8" fontWeight="700" fill="#0F172A">
+                    <text x="12" y="37" fontSize="8.5" fontWeight="700" fill="#0F172A">
                       COMMERCIAL OPS #2041
                     </text>
-                    <text x="10" y="48" fontSize="8" fill="#64748B">
+                    <text x="12" y="50" fontSize="8" fill="#64748B">
                       12+ YRS FASTSIGNS FRANCHISE
                     </text>
-                    <text x="10" y="60" fontSize="8" fill="#059669" fontWeight="700">
+                    <text x="12" y="64" fontSize="8" fill="#059669" fontWeight="700">
                       UL 48 LISTED ENCLOSURE
                     </text>
 
-                    <text x="142" y="15" fontSize="7.5" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>
-                    <text x="142" y="28" fontSize="9" fontWeight="800" fill="#0F172A">Apex Dental (FS-2026-084)</text>
+                    {/* Column 2 Top: Project */}
+                    <text x="150" y="16" fontSize="7.5" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>
+                    <text x="150" y="30" fontSize="9" fontWeight="800" fill="#0F172A">Apex Dental (FS-2026-084)</text>
 
-                    <text x="142" y="48" fontSize="7.5" fill="#64748B" fontWeight="700">PRE-FLIGHT ESTIMATOR</text>
-                    <text x="142" y="61" fontSize="9" fontWeight="800" fill="#0369A1">Jezreel Dave Leybag (Gemini Cert)</text>
+                    {/* Column 2 Bottom: Estimator */}
+                    <text x="150" y="52" fontSize="7.5" fill="#64748B" fontWeight="700">PRE-FLIGHT ESTIMATOR</text>
+                    <text x="150" y="65" fontSize="8.5" fontWeight="800" fill="#0369A1">Jezreel Dave Leybag (Gemini Cert)</text>
 
-                    <text x="272" y="15" fontSize="7.5" fill="#64748B" fontWeight="700">DWG NO. / REV</text>
-                    <text x="272" y="28" fontSize="9" fontWeight="800" fill="#0F172A">CAD-01 • REV B</text>
+                    {/* Column 3 Top: Dwg No */}
+                    <text x="310" y="16" fontSize="7.5" fill="#64748B" fontWeight="700">DWG NO. / REV</text>
+                    <text x="310" y="30" fontSize="9" fontWeight="800" fill="#0F172A">CAD-01 • REV B</text>
 
-                    <text x="272" y="48" fontSize="7.5" fill="#64748B" fontWeight="700">STATUS</text>
-                    <text x="272" y="61" fontSize="9" fontWeight="800" fill="#059669">APPROVED FOR PERMIT</text>
+                    {/* Column 3 Bottom: Status */}
+                    <text x="310" y="52" fontSize="7.5" fill="#64748B" fontWeight="700">PERMIT STATUS</text>
+                    <text x="310" y="65" fontSize="8.5" fontWeight="800" fill="#059669">APPROVED FOR PERMIT</text>
                   </g>
                 </svg>
               </div>
