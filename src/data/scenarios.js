@@ -1,5 +1,5 @@
 // Commercial Project Database & Wholesale Fabricator Ecosystem
-// Engineered by Jezreel Dave Leybag for US Fastsigns Center Operations
+// Engineered by Jezreel Dave Leybag for Commercial Sign Operations
 
 export const projectsData = {
   case1: {
@@ -41,7 +41,7 @@ Electrical: 120V primary feed in attic space. Serialized UL 48 listing required.
       "Matched Trade Fabricator: Direct Sign Wholesale (Denver, CO — 8-10 Days)"
     ],
     inspectorItems: [
-      { id: "face", name: "Letter Face", detail: '0.063" 5052-H32 Aluminum, Waterjet/CNC Routed, Satin Black Polyurethane Enamel', code: "PART #CL-FACE-063", vendor: "Direct Sign Wholesale", material: "5052-H32 Aluminum", qc: "Fastsigns Satin Black Enamel Spec", iconType: "metal-face" },
+      { id: "face", name: "Letter Face", detail: '0.063" 5052-H32 Aluminum, Waterjet/CNC Routed, Satin Black Polyurethane Enamel', code: "PART #CL-FACE-063", vendor: "Direct Sign Wholesale", material: "5052-H32 Aluminum", qc: "Architectural Satin Black Enamel Spec", iconType: "metal-face" },
       { id: "return", name: "Sidewall Return", detail: '0.040" 5052-H32 Aluminum, 3.50" Depth, Machine-Bent & Clinch-Riveted Flanges with UL 48 Baffled Drainage Weep Holes', code: "PART #CL-RET-040", vendor: "Direct Sign Wholesale", material: "0.040\" Formed Aluminum", qc: "Clinch-Riveted Flange & UL 48 Weep Drainage", iconType: "return" },
       { id: "leds", name: "12V LED Modules", detail: "Acrovane 12V DC IP67 High-Output Modules, 6500K, 0.72W/mod, 160° Batwing Lens", code: "PART #LED-12V-65K", vendor: "Acrovane / SloanLED", material: "IP67 Weatherproof Silicon", qc: "UL 48 / Class 2 Continuous Duty", iconType: "leds" },
       { id: "polycarb", name: "Clear Back Plate", detail: '3/16" Optical-Grade Clear Lexan Polycarbonate Back with Countersunk Fasteners', code: "PART #PC-CLR-316", vendor: "Piedmont Plastics", material: "Lexan Polycarbonate", qc: "UV-Resistant Non-Yellowing", iconType: "polycarb" },

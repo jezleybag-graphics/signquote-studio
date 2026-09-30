@@ -36,7 +36,7 @@ export default function MarginEngine({
 
   const handleExportJson = () => {
     const payload = {
-      fastsigns_corebridge_work_order: {
+      commercial_sign_work_order: {
         job_id: project.jobId,
         client: project.client,
         estimator: "Jezreel Dave Leybag (Gemini AI Certified)",
@@ -216,9 +216,9 @@ export default function MarginEngine({
             <div className="flex items-start gap-2.5">
               <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <div className="text-xs text-amber-950 leading-relaxed">
-                <strong className="font-bold">Fastsigns Margin vs. Markup Formula Safeguard:</strong>{' '}
+                <strong className="font-bold">Commercial Margin vs. Markup Formula Safeguard:</strong>{' '}
                 Mistaking a {targetMargin.toFixed(0)}% gross margin for a standard markup quotes this job at ${naiveMarkupPrice.toFixed(2)} instead of ${retailPrice.toFixed(2)}, leaking an immediate{' '}
-                <strong className="text-red-600 font-extrabold font-mono">${profitLeakage.toFixed(2)} in lost franchise profit</strong> on this single contract.
+                <strong className="text-red-600 font-extrabold font-mono">${profitLeakage.toFixed(2)} in lost profit</strong> on this single contract.
               </div>
             </div>
           </div>

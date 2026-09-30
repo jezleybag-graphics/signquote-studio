@@ -112,7 +112,7 @@ export default function LeadTakeoff({
           {/* QUICK SCOPE SUMMARY CARD */}
           <div className="p-3.5 rounded-xl bg-gray-50 border border-gray-200/80 text-xs">
             <span className="text-[10px] uppercase font-extrabold text-gray-400 block mb-1.5">
-              Fastsigns Scope Identification
+              Commercial Scope Identification
             </span>
             <div className="flex items-center justify-between text-gray-700 mb-1">
               <span>Target Client:</span>

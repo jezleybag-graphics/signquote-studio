@@ -58,10 +58,10 @@ export default function CandidateDrawer({ isOpen, onClose }) {
               </div>
             </div>
 
-            {/* VALUE PROPOSITION TO FASTSIGNS */}
+            {/* VALUE PROPOSITION TO CLIENTS & FIRMS */}
             <div className="p-4 rounded-2xl bg-[#FFF6EB] border border-[#F79223]/30">
               <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#F79223] block mb-1">
-                Franchise Operational Fit
+                Commercial Operations &amp; Technical Fit
               </span>
               <p className="text-xs text-gray-800 leading-relaxed">
                 Direct commercial print production &amp; substrate experience combined with Google Gemini AI workflows. Engineered specifically to double quoting turnaround speed, eliminate CoreBridge data-entry bottlenecks, and protect 50% gross margins on wholesale contracts.
@@ -168,7 +168,7 @@ export default function CandidateDrawer({ isOpen, onClose }) {
           {/* DRAWER FOOTER CTA */}
           <div className="p-6 border-t border-gray-100 bg-gray-50">
             <a 
-              href="mailto:jezreelleybag.graphics@gmail.com?subject=FASTSIGNS%20Estimator%20Screening%20Call%20-%20Jezreel%20Dave%20Leybag" 
+              href="mailto:jezreelleybag.graphics@gmail.com?subject=Signage%20Estimator%20Screening%20Call%20-%20Jezreel%20Dave%20Leybag" 
               className="w-full py-3.5 px-6 rounded-xl bg-[#F79223] hover:bg-[#E07E12] text-white text-xs font-bold shadow-md shadow-[#F79223]/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
             >
               <Mail className="w-4 h-4" />

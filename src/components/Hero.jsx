@@ -19,7 +19,7 @@ export default function Hero({ onExploreClick }) {
             </span>
             <span>GOOGLE GEMINI CERTIFIED (86%)</span>
             <span className="text-gray-300">•</span>
-            <span className="text-gray-600 font-semibold">U.S. FASTSIGNS® OPERATIONS BENCHMARK</span>
+            <span className="text-gray-600 font-semibold">COMMERCIAL SIGNAGE ESTIMATING BENCHMARK</span>
           </div>
         </div>
 

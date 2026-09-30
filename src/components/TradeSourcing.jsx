@@ -20,12 +20,12 @@ export default function TradeSourcing({
 
   const handleCopyRfq = () => {
     const emailBody = `TO: ${selectedPartner.name} Estimating Queue (${selectedPartner.location})
-FROM: Fastsigns Franchise Estimating & Sourcing Desk [Center #2041]
+FROM: Commercial Estimating & Technical Sourcing Desk
 SUBJECT: RFQ: Wholesale Fabrication Quote - ${project.jobId}
 
 Hello Team,
 
-Please provide a wholesale fabrication quote, crating, and freight to our Fastsigns center [Zip 19001] for the following job specs:
+Please provide a wholesale fabrication quote, crating, and freight to our Regional Production Facility [Zip 19001] for the following job specs:
 
 Project: ${project.client}
 Product: ${project.classification}
@@ -45,7 +45,7 @@ Vector artwork ready in DXF/AI format upon PO issuance.
 Thank you,
 Jezreel Dave Leybag
 Signage Estimator & Vendor Sourcing Specialist
-Fastsigns Center Operations #2041`;
+J.STUDIO Commercial Sign Operations`;
 
     navigator.clipboard.writeText(emailBody).then(() => {
       setCopied(true);
@@ -76,7 +76,7 @@ Fastsigns Center Operations #2041`;
       </div>
 
       <p className="text-xs text-gray-500 mb-5 leading-relaxed">
-        Fastsigns centers rely on pre-cleared wholesale partners to absorb overflow fabrication. Select a partner below to route specifications, dynamically update wholesale costs, and dispatch an RFQ package.
+        Commercial sign operations rely on pre-cleared wholesale partners to absorb specialized fabrication. Select a partner below to route specifications, dynamically update wholesale costs, and dispatch an RFQ package.
       </p>
 
       {/* VENDOR CARDS LIST */}

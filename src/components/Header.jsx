@@ -65,7 +65,7 @@ export default function Header({ onOpenDrawer }) {
 
           {/* PRIMARY ACTION: SCHEDULE CALL */}
           <a 
-            href="mailto:jezreelleybag.graphics@gmail.com?subject=FASTSIGNS%20Estimator%20Candidate%20Interview%20-%20Jezreel%20Dave%20Leybag" 
+            href="mailto:jezreelleybag.graphics@gmail.com?subject=Signage%20Estimator%20Candidate%20Interview%20-%20Jezreel%20Dave%20Leybag" 
             className="h-10 px-4 sm:px-5 rounded-xl bg-[#F79223] hover:bg-[#E07E12] text-white text-xs font-bold shadow-sm shadow-[#F79223]/25 active:scale-95 transition-all cursor-pointer flex items-center gap-2 shrink-0 whitespace-nowrap group"
           >
             <Mail className="w-4 h-4 shrink-0" />

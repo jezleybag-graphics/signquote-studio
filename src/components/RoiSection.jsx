@@ -27,13 +27,13 @@ export default function RoiSection() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="text-xs font-bold uppercase tracking-widest text-[#F79223] mb-2 flex items-center justify-center gap-2">
             <Award className="w-3.5 h-3.5" />
-            <span>EXECUTIVE ROI &amp; FRANCHISE VALUE</span>
+            <span>EXECUTIVE ROI &amp; ENTERPRISE VALUE</span>
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#111213] tracking-tight mb-4">
-            How This Operational Workbench Protects Franchise Profitability
+            How This Operational Workbench Protects Commercial Sign Profitability
           </h2>
           <p className="text-sm text-gray-500 leading-relaxed">
-            Eliminating the three most expensive friction points in modern Fastsigns commercial estimating: slow inbound takeoff turnaround, naive margin calculation, and incomplete wholesale trade RFQs.
+            Eliminating the three most expensive friction points in modern commercial signage estimating: slow inbound takeoff turnaround, naive margin calculation, and incomplete wholesale trade RFQs.
           </p>
         </div>
 

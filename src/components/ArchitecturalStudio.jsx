@@ -232,7 +232,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
               Interactive CAD Blueprints &amp; Storefront Elevation
             </h2>
             <p className="text-xs sm:text-sm text-gray-500 mt-1 max-w-2xl">
-              Authentic engineering submittal drawings prepared to FASTSIGNS® center standards. Toggle between storefront elevation, precision CAD cross-sections, UL 48 electrical schedules, and CoreBridge ERP work orders.
+              Authentic engineering submittal drawings prepared to commercial architectural standards. Toggle between storefront elevation, precision CAD cross-sections, UL 48 electrical schedules, and CoreBridge ERP work orders.
             </p>
           </div>
 
@@ -647,7 +647,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                         SECTION A-A: REVERSE HALO-LIT CHANNEL LETTER PROFILE
                       </text>
                       <text x="0" y="27" fontSize="8" fill="#64748B" fontWeight="600">
-                        SCALE: 3" = 1'-0" [HALF SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-01
+                        SCALE: 3" = 1'-0" [HALF SIZE: N.T.S.] • COMMERCIAL SPEC CAD-01
                       </text>
                     </g>
 
@@ -808,16 +808,16 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       6061-T6 Aluminum Barrel
                     </text>
 
-                    {/* FASTSIGNS TITLE BLOCK */}
+                    {/* ARCHITECTURAL SPEC TITLE BLOCK */}
                     <g transform="translate(500, 380)">
                       <rect x="0" y="0" width="420" height="70" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.2" />
                       <line x1="135" y1="0" x2="135" y2="70" stroke="#0F172A" strokeWidth="1" />
                       <line x1="290" y1="0" x2="290" y2="70" stroke="#0F172A" strokeWidth="1" />
                       <line x1="135" y1="35" x2="420" y2="35" stroke="#0F172A" strokeWidth="1" />
                       
-                      <text x="10" y="20" fontSize="11" fontWeight="900" fill="#C5221F" letterSpacing="1">FASTSIGNS®</text>
-                      <text x="10" y="34" fontSize="7.5" fontWeight="700" fill="#0F172A">COMMERCIAL OPS #2041</text>
-                      <text x="10" y="47" fontSize="7.5" fill="#64748B">12+ YRS FASTSIGNS FRANCHISE</text>
+                      <text x="10" y="20" fontSize="11" fontWeight="900" fill="#F79223" letterSpacing="1">J.STUDIO</text>
+                      <text x="10" y="34" fontSize="7.5" fontWeight="700" fill="#0F172A">COMMERCIAL SIGNAGE</text>
+                      <text x="10" y="47" fontSize="7.5" fill="#64748B">ARCHITECTURAL SPEC</text>
                       <text x="10" y="60" fontSize="7.5" fill="#059669" fontWeight="700">UL 48 LISTED ENCLOSURE</text>
 
                       <text x="145" y="15" fontSize="7" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>
@@ -854,7 +854,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                         SECTION B-B: FRONT-LIT CHANNEL LETTER ON EXTRUDED RACEWAY
                       </text>
                       <text x="0" y="27" fontSize="8" fill="#64748B" fontWeight="600">
-                        SCALE: 3" = 1'-0" [HALF SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-02
+                        SCALE: 3" = 1'-0" [HALF SIZE: N.T.S.] • COMMERCIAL SPEC CAD-02
                       </text>
                     </g>
 
@@ -1016,16 +1016,16 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       Landlord Spec Painted
                     </text>
 
-                    {/* FASTSIGNS TITLE BLOCK */}
+                    {/* ARCHITECTURAL SPEC TITLE BLOCK */}
                     <g transform="translate(500, 380)">
                       <rect x="0" y="0" width="420" height="70" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.2" />
                       <line x1="135" y1="0" x2="135" y2="70" stroke="#0F172A" strokeWidth="1" />
                       <line x1="290" y1="0" x2="290" y2="70" stroke="#0F172A" strokeWidth="1" />
                       <line x1="135" y1="35" x2="420" y2="35" stroke="#0F172A" strokeWidth="1" />
                       
-                      <text x="10" y="20" fontSize="11" fontWeight="900" fill="#C5221F" letterSpacing="1">FASTSIGNS®</text>
-                      <text x="10" y="34" fontSize="7.5" fontWeight="700" fill="#0F172A">COMMERCIAL OPS #2041</text>
-                      <text x="10" y="47" fontSize="7.5" fill="#64748B">12+ YRS FASTSIGNS FRANCHISE</text>
+                      <text x="10" y="20" fontSize="11" fontWeight="900" fill="#F79223" letterSpacing="1">J.STUDIO</text>
+                      <text x="10" y="34" fontSize="7.5" fontWeight="700" fill="#0F172A">COMMERCIAL SIGNAGE</text>
+                      <text x="10" y="47" fontSize="7.5" fill="#64748B">ARCHITECTURAL SPEC</text>
                       <text x="10" y="60" fontSize="7.5" fill="#059669" fontWeight="700">UL 48 LISTED ENCLOSURE</text>
 
                       <text x="145" y="15" fontSize="7" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>
@@ -1062,7 +1062,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                         SECTION C-C: J.STUDIO ARCHITECTURAL STANDOFF PLAQUE DETAIL
                       </text>
                       <text x="0" y="27" fontSize="8" fill="#64748B" fontWeight="600">
-                        SCALE: 6" = 1'-0" [QUARTER SIZE: N.T.S.] • FASTSIGNS COMMERCIAL SPEC CAD-03
+                        SCALE: 6" = 1'-0" [QUARTER SIZE: N.T.S.] • COMMERCIAL SPEC CAD-03
                       </text>
                     </g>
 
@@ -1191,16 +1191,16 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       1.0" OD x 1.0" Projection SS
                     </text>
 
-                    {/* FASTSIGNS TITLE BLOCK */}
+                    {/* ARCHITECTURAL SPEC TITLE BLOCK */}
                     <g transform="translate(500, 380)">
                       <rect x="0" y="0" width="420" height="70" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.2" />
                       <line x1="135" y1="0" x2="135" y2="70" stroke="#0F172A" strokeWidth="1" />
                       <line x1="290" y1="0" x2="290" y2="70" stroke="#0F172A" strokeWidth="1" />
                       <line x1="135" y1="35" x2="420" y2="35" stroke="#0F172A" strokeWidth="1" />
                       
-                      <text x="10" y="20" fontSize="11" fontWeight="900" fill="#C5221F" letterSpacing="1">FASTSIGNS®</text>
-                      <text x="10" y="34" fontSize="7.5" fontWeight="700" fill="#0F172A">COMMERCIAL OPS #2041</text>
-                      <text x="10" y="47" fontSize="7.5" fill="#64748B">12+ YRS FASTSIGNS FRANCHISE</text>
+                      <text x="10" y="20" fontSize="11" fontWeight="900" fill="#F79223" letterSpacing="1">J.STUDIO</text>
+                      <text x="10" y="34" fontSize="7.5" fontWeight="700" fill="#0F172A">COMMERCIAL SIGNAGE</text>
+                      <text x="10" y="47" fontSize="7.5" fill="#64748B">ARCHITECTURAL SPEC</text>
                       <text x="10" y="60" fontSize="7.5" fill="#059669" fontWeight="700">ARCHITECTURAL DISPLAY</text>
 
                       <text x="145" y="15" fontSize="7" fill="#64748B" fontWeight="700">PROJECT / CLIENT</text>

@@ -32,7 +32,7 @@ export default function StickyFooter({ onOpenDrawer }) {
           </div>
           <div className="text-left">
             <div className="text-xs font-bold text-white flex items-center gap-2">
-              <span>Ready to accelerate your Fastsigns quoting capacity?</span>
+              <span>Ready to accelerate your commercial sign quoting capacity?</span>
               <span className="hidden md:inline-block text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/60">
                 Full-Time US EST Ready
               </span>
@@ -51,7 +51,7 @@ export default function StickyFooter({ onOpenDrawer }) {
             Candidate Dossier
           </button>
           <a
-            href="mailto:jezreelleybag.graphics@gmail.com?subject=FASTSIGNS%20Estimator%20Screening%20Call%20-%20Jezreel%20Dave%20Leybag"
+            href="mailto:jezreelleybag.graphics@gmail.com?subject=Signage%20Estimator%20Screening%20Call%20-%20Jezreel%20Dave%20Leybag"
             className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-[#F79223] hover:bg-[#E07E12] text-white text-xs font-bold shadow-md shadow-[#F79223]/25 transition-all cursor-pointer"
           >
             <Mail className="w-3.5 h-3.5" />
