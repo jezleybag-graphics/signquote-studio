@@ -1467,80 +1467,97 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
           </div>
 
-          {/* INTERACTIVE COMPONENT HOTSPOT INSPECTOR BAR */}
-          <div className="px-6 py-5 border-t border-gray-200 bg-gradient-to-r from-gray-50 via-white to-gray-50">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-              
-              {/* COMPONENT INFO CARD WITH DEDICATED VISUAL SCHEMATIC THUMBNAIL */}
-              <div className="flex items-start sm:items-center gap-4">
-                <ComponentVisualThumbnail item={activeInspector} />
-
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-gray-400">
-                      Interactive Subassembly Inspector
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full bg-amber-100 text-[#D97706] text-[10px] font-bold">
-                      ● LIVE IN BLUEPRINT
-                    </span>
-                  </div>
-                  <div className="flex items-baseline gap-2 mt-0.5">
-                    <strong className="text-sm font-extrabold text-gray-900">
-                      {activeInspector?.name || 'Component Spec'}
-                    </strong>
-                    <span className="text-xs text-gray-500 font-mono font-semibold">
-                      ({activeInspector?.code})
-                    </span>
-                  </div>
-                  <p className="text-xs text-gray-600 mt-1 max-w-2xl leading-relaxed">
-                    {activeInspector?.detail}
-                  </p>
-
-                  {/* SUBASSEMBLY METADATA PILLS */}
-                  <div className="flex flex-wrap items-center gap-2 mt-2">
-                    {activeInspector?.vendor && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 font-semibold border border-gray-200">
-                        🏭 Source: {activeInspector.vendor}
-                      </span>
-                    )}
-                    {activeInspector?.material && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-md bg-blue-50 text-blue-800 font-semibold border border-blue-200">
-                        📐 Material: {activeInspector.material}
-                      </span>
-                    )}
-                    {activeInspector?.qc && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200">
-                        🛡️ QC: {activeInspector.qc}
-                      </span>
-                    )}
-                  </div>
+          {/* INTERACTIVE SUBASSEMBLY INSPECTOR SECTION */}
+          <div className="px-5 sm:px-8 py-6 border-t border-gray-200/90 bg-gradient-to-b from-gray-50/80 via-white to-gray-50/40">
+            
+            {/* TIER 1: SUBASSEMBLY SELECTOR BAR */}
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#F79223] animate-pulse" />
+                  <span className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 font-mono">
+                    Subassembly Explorer
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full bg-amber-50 text-[#D97706] border border-amber-200/80 text-[10px] font-bold">
+                    ● LIVE 3D &amp; BLUEPRINT INSPECTION
+                  </span>
                 </div>
+                <span className="text-xs font-medium text-gray-400">
+                  Select any layer below to isolate, X-Ray &amp; view specifications
+                </span>
               </div>
 
-              {/* TACTILE TOGGLE BUTTONS WITH DEDICATED ELEMENT ICONS */}
-              <div className="flex flex-wrap items-center gap-2 shrink-0">
+              {/* TOGGLE PILLS ROW - CLEAN RESPONSIVE WRAP, FULL WIDTH, ZERO OVERFLOW */}
+              <div className="flex flex-wrap items-center gap-2 pt-1">
                 {project.inspectorItems.map((item) => {
                   const isSelected = activeInspector?.id === item.id;
                   return (
                     <button
                       key={item.id}
                       onClick={() => setActiveInspector(item)}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer select-none group ${
+                      className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer select-none group ${
                         isSelected
-                          ? 'bg-[#111213] text-white ring-2 ring-[#F79223] shadow-md shadow-black/15 scale-105'
+                          ? 'bg-[#111213] text-white ring-2 ring-[#F79223] shadow-md shadow-black/15 scale-[1.02]'
                           : 'bg-white border border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900 hover:bg-gray-50'
                       }`}
                     >
                       <span className="shrink-0">
                         {renderToggleIcon(item.iconType || item.id, isSelected)}
                       </span>
-                      <span>{item.name}</span>
+                      <span className="whitespace-nowrap">{item.name}</span>
                     </button>
                   );
                 })}
               </div>
-
             </div>
+
+            {/* TIER 2: ACTIVE COMPONENT ARCHITECTURAL SPECIFICATION CARD */}
+            <div className="mt-4 p-4 sm:p-5 rounded-2xl bg-white border border-gray-200/90 shadow-xs">
+              <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5">
+                
+                {/* LEFT: THUMBNAIL + TITLE + DETAIL TEXT */}
+                <div className="flex items-start gap-4 max-w-3xl">
+                  <ComponentVisualThumbnail item={activeInspector} />
+                  <div>
+                    <div className="flex items-center flex-wrap gap-2">
+                      <strong className="text-base font-extrabold text-gray-900 tracking-tight">
+                        {activeInspector?.name || 'Component Spec'}
+                      </strong>
+                      <span className="text-xs px-2.5 py-0.5 rounded-md bg-gray-100 text-gray-700 font-mono font-bold border border-gray-200">
+                        {activeInspector?.code}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-600 mt-1.5 leading-relaxed font-medium">
+                      {activeInspector?.detail}
+                    </p>
+                  </div>
+                </div>
+
+                {/* RIGHT: SPEC METADATA GRID */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 shrink-0 lg:min-w-[440px]">
+                  {activeInspector?.vendor && (
+                    <div className="px-3.5 py-2 rounded-xl bg-gray-50 border border-gray-200/90">
+                      <span className="text-[10px] uppercase font-bold text-gray-600 block">Supply Vendor</span>
+                      <span className="text-xs font-bold text-gray-900 truncate block mt-0.5">{activeInspector.vendor}</span>
+                    </div>
+                  )}
+                  {activeInspector?.material && (
+                    <div className="px-3.5 py-2 rounded-xl bg-blue-50/60 border border-blue-200/70">
+                      <span className="text-[10px] uppercase font-bold text-blue-800 block">Specification</span>
+                      <span className="text-xs font-bold text-blue-950 truncate block mt-0.5">{activeInspector.material}</span>
+                    </div>
+                  )}
+                  {activeInspector?.qc && (
+                    <div className="px-3.5 py-2 rounded-xl bg-emerald-50/60 border border-emerald-200/70">
+                      <span className="text-[10px] uppercase font-bold text-emerald-800 block">Quality Standard</span>
+                      <span className="text-xs font-bold text-emerald-950 truncate block mt-0.5">{activeInspector.qc}</span>
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            </div>
+
           </div>
 
         </div>

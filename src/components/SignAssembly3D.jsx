@@ -825,6 +825,7 @@ const LAYER_SCHEMATICS = {
     polycarb:  { baseZ:  2.8, deltaZ: 18.0 },
     leds:      { baseZ:  3.2, deltaZ: 28.0 },
     return:    { baseZ:  3.1, deltaZ: 40.0 },
+    weep:      { baseZ:  3.1, deltaZ: 40.0 },
     face:      { baseZ:  6.6, deltaZ: 55.0 },
   },
   case2: {
@@ -972,43 +973,198 @@ export default function SignAssembly3D({
     applyExplodeOffsets(layers, project.id, explodeFactor);
   }, [explodeFactor, project.id]);
 
-  // Highlight active subassembly mesh when activeInspector changes
+  // Highlight active subassembly mesh when activeInspector changes (with Smart X-Ray isolation)
   useEffect(() => {
     const layers = layersGroupRef.current;
     if (!layers) return;
 
-    Object.entries(layers).forEach(([key, group]) => {
-      const isMatch = activeInspector && (
-        activeInspector.id === key || 
-        (activeInspector.id === 'metal-face' && key === 'face') ||
-        (activeInspector.id === 'acrylic-face' && key === 'face') ||
-        (activeInspector.id === 'logo' && (key === 'logo' || key === 'logoFace' || key === 'logoCore')) ||
-        (activeInspector.id === 'standoffs' && (key === 'standoffBarrels' || key === 'standoffCaps' || key === 'standoffs')) ||
-        (activeInspector.id === 'weep' && (key === 'return' || key === 'backer')) ||
-        (activeInspector.id === 'polycarb' && key === 'polycarb') ||
-        (activeInspector.id === 'trim' && key === 'trim') ||
-        (activeInspector.id === 'drivers' && key === 'drivers') ||
-        (activeInspector.id === 'raceway' && key === 'raceway')
-      );
+    const inspectedId = activeInspector?.id;
 
+    // Helper functions for material states
+    const saveOrig = (child) => {
+      if (!child.userData.origMaterial) {
+        child.userData.origMaterial = child.material;
+      }
+    };
+
+    const restoreOrig = (child) => {
+      if (child.userData.origMaterial) {
+        child.material = child.userData.origMaterial;
+      }
+    };
+
+    const applyHighlight = (child, color = 0xF79223, intensity = 0.85) => {
+      saveOrig(child);
+      if (child.material.isMeshStandardMaterial) {
+        const m = child.userData.origMaterial.clone();
+        m.emissive = new THREE.Color(color);
+        m.emissiveIntensity = intensity;
+        child.material = m;
+      } else if (child.material.isMeshBasicMaterial) {
+        const m = child.userData.origMaterial.clone();
+        m.color = new THREE.Color(color);
+        child.material = m;
+      }
+    };
+
+    const applyGhost = (child, opacity = 0.18) => {
+      saveOrig(child);
+      const m = child.userData.origMaterial.clone();
+      m.transparent = true;
+      m.opacity = opacity;
+      m.depthWrite = false;
+      child.material = m;
+    };
+
+    // If no active inspector, restore all meshes to original materials
+    if (!inspectedId) {
+      Object.values(layers).forEach((group) => {
+        group.traverse((child) => {
+          if (child.isMesh) restoreOrig(child);
+        });
+      });
+      return;
+    }
+
+    // Role flags based on current inspected component
+    const isLeds = inspectedId === 'leds';
+    const isPoly = inspectedId === 'polycarb';
+    const isStandoffs = inspectedId === 'standoffs';
+    const isReturn = inspectedId === 'return';
+    const isWeep = inspectedId === 'weep';
+    const isFace = inspectedId === 'face' || inspectedId === 'metal-face' || inspectedId === 'acrylic-face';
+    const isBacker = inspectedId === 'backer';
+    const isRaceway = inspectedId === 'raceway';
+    const isDrivers = inspectedId === 'drivers';
+    const isTrim = inspectedId === 'trim';
+    const isPlaque = inspectedId === 'plaque';
+    const isLogo = inspectedId === 'logo';
+
+    Object.entries(layers).forEach(([key, group]) => {
       group.traverse((child) => {
-        if (child.isMesh && child.material) {
-          if (child.userData.isAccent) return; // Preserve pristine brand accents like cyan medical cross
-          if (!child.userData.origMaterial) {
-            child.userData.origMaterial = child.material;
-          }
-          if (isMatch) {
-            if (child.material.isMeshStandardMaterial) {
-              child.material = child.material.clone();
-              child.material.emissive = new THREE.Color(0xF79223);
-              child.material.emissiveIntensity = 0.65;
-            } else if (child.material.isMeshBasicMaterial) {
-              child.material = child.material.clone();
-              child.material.color = new THREE.Color(0xF79223);
-            }
+        if (!child.isMesh || !child.material) return;
+        saveOrig(child);
+
+        // Always preserve pristine brand accents (e.g. cyan cross & ring)
+        if (child.userData.isAccent && !child.userData.isHalo) return;
+
+        // 1. 12V LED Modules & Halo Illumination
+        if (isLeds) {
+          if (key === 'leds') {
+            applyHighlight(child, 0xFEF08A, 2.0); // Intense luminous LED glow
+          } else if (child.userData.isHalo) {
+            const m = child.userData.origMaterial.clone();
+            m.opacity = 1.0;
+            child.material = m;
+          } else if (key === 'face' || key === 'return') {
+            applyGhost(child, 0.16); // X-Ray ghosting so internal LEDs shine through
           } else {
-            child.material = child.userData.origMaterial;
+            restoreOrig(child);
           }
+        }
+        // 2. Clear Back Plate (Polycarbonate)
+        else if (isPoly) {
+          if (key === 'polycarb') {
+            applyHighlight(child, 0x38BDF8, 1.1); // Electric cyan polycarb edge highlight
+          } else if (key === 'face' || key === 'return') {
+            applyGhost(child, 0.15); // X-Ray ghosting to showcase clear back plate
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // 3. Standoff Spacers
+        else if (isStandoffs) {
+          if (key === 'standoffs' || key === 'standoffBarrels' || key === 'standoffCaps') {
+            applyHighlight(child, 0xF79223, 1.1); // Amber chrome standoff highlight
+          } else if (key === 'face' || key === 'return') {
+            applyGhost(child, 0.28); // Ghost letters so standoffs are visible from any angle
+          } else if (key === 'plaque') {
+            applyGhost(child, 0.20);
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // 4. Sidewall Return
+        else if (isReturn) {
+          if (key === 'return') {
+            applyHighlight(child, 0xF79223, 0.85); // 3.5" Return sidewall highlight
+          } else if (key === 'face') {
+            applyGhost(child, 0.25); // Ghost face to reveal return can depth
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // 5. Baffled Weep Holes
+        else if (isWeep) {
+          if (key === 'weep' || child.userData.isWeep) {
+            applyHighlight(child, 0xF79223, 1.8); // Glowing drainage slots
+          } else if (key === 'face') {
+            applyGhost(child, 0.35); // Slight ghost so letter drain holes stand out
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // 6. Letter Face
+        else if (isFace) {
+          if (key === 'face') {
+            applyHighlight(child, 0xF79223, 0.85);
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // 7. ACM Backer Panel
+        else if (isBacker) {
+          if (key === 'backer' && !child.userData.isAccent && !child.userData.isHalo) {
+            applyHighlight(child, 0xF79223, 0.70);
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // 8. Drivers (Metro Burger)
+        else if (isDrivers) {
+          if (key === 'drivers') {
+            applyHighlight(child, 0x10B981, 1.4); // Green UL Class 2 power supply highlight
+          } else if (key === 'raceway') {
+            applyGhost(child, 0.20); // Ghost raceway wireway box
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // 9. Landlord Raceway (Metro Burger)
+        else if (isRaceway) {
+          if (key === 'raceway') {
+            applyHighlight(child, 0xF79223, 0.85);
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // 10. Trim Cap (Metro Burger)
+        else if (isTrim) {
+          if (key === 'trim') {
+            applyHighlight(child, 0xF79223, 0.90);
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // 11. Acrylic Plaque (J.Studio)
+        else if (isPlaque) {
+          if (key === 'plaque') {
+            applyHighlight(child, 0x38BDF8, 0.80);
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // 12. Bronze Logo (J.Studio)
+        else if (isLogo) {
+          if (key === 'logo' || key === 'logoFace' || key === 'logoCore') {
+            applyHighlight(child, 0xF79223, 0.90);
+          } else {
+            restoreOrig(child);
+          }
+        }
+        // Default fallback
+        else {
+          restoreOrig(child);
         }
       });
     });
@@ -1451,14 +1607,6 @@ function buildSignLayers(scene, project, layers) {
     flangeRight.position.set(52, 0, 0.25);
     backerGroup.add(flangeRight);
 
-    // Baffled weep slots along bottom edge
-    const weepMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
-    [-40, -20, 0, 20, 40].forEach((wx) => {
-      const weep = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.4, 0.32), weepMat);
-      weep.position.set(wx, -14.6, 0.16);
-      backerGroup.add(weep);
-    });
-
     // Soft architectural halo wash plane reflecting against the black ACM backer tray
     const haloGeo = new THREE.PlaneGeometry(104, 30);
     const haloTex = createApexHaloTexture(apexLettersData, emblemPos);
@@ -1471,6 +1619,7 @@ function buildSignLayers(scene, project, layers) {
     const haloBackdropMesh = new THREE.Mesh(haloGeo, haloMat);
     haloBackdropMesh.position.set(0, 0, 0.302);
     haloBackdropMesh.userData.isAccent = true;
+    haloBackdropMesh.userData.isHalo = true;
     backerGroup.add(haloBackdropMesh);
 
     // UV-Printed Secondary Subtitle ("FAMILY & COSMETIC DENTISTRY")
@@ -1704,6 +1853,43 @@ function buildSignLayers(scene, project, layers) {
 
     scene.add(faceGroup);
     layers.face = faceGroup;
+
+    // 8. BAFFLED WEEP HOLES & CONDENSATION DRAINAGE (UL 48 Wet Location Mandated)
+    const weepGroup = new THREE.Group();
+    const weepMat = new THREE.MeshStandardMaterial({
+      color: 0x0EA5E9,
+      emissive: 0x0284C7,
+      emissiveIntensity: 0.6,
+      roughness: 0.3,
+      metalness: 0.8
+    });
+
+    // Tray perimeter drainage weep slots
+    [-40, -20, 0, 20, 40].forEach((wx) => {
+      const weep = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.45, 0.35), weepMat);
+      weep.position.set(wx, -14.6, 0.22);
+      weep.userData.isWeep = true;
+      backerGroup.add(weep); // backer drainage
+    });
+
+    // Channel letter bottom drainage weep holes (at the low point of every letter)
+    apexLettersData.forEach((item) => {
+      const letterWeep = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.45, 12), weepMat);
+      letterWeep.rotation.x = Math.PI / 2;
+      letterWeep.position.set(item.x, item.y - 4.6, 1.8);
+      letterWeep.userData.isWeep = true;
+      weepGroup.add(letterWeep);
+    });
+
+    // Emblem drainage weep hole
+    const emblemWeep = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.45, 12), weepMat);
+    emblemWeep.rotation.x = Math.PI / 2;
+    emblemWeep.position.set(emblemPos.x, emblemPos.y - 4.4, 1.8);
+    emblemWeep.userData.isWeep = true;
+    weepGroup.add(emblemWeep);
+
+    scene.add(weepGroup);
+    layers.weep = weepGroup;
   }
 
   // --------------------------------------------------------------------------
