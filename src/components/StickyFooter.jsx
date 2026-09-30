@@ -23,11 +23,11 @@ export default function StickyFooter({ onOpenDrawer }) {
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
         
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#F79223] flex items-center justify-center text-white shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-[#111213] border border-gray-700 p-1 flex items-center justify-center shrink-0">
             <img 
-              src="/branding/on white_2.png" 
-              alt="Logo" 
-              className="w-5 h-5 object-contain filter brightness-0 invert"
+              src="/branding/logo-mark-light.png" 
+              alt="Jezreel Dave Logo" 
+              className="w-full h-full object-contain"
             />
           </div>
           <div className="text-left">
