@@ -65,42 +65,259 @@ function getBrandLogoShapes() {
   return [s1, s2, s3, s4];
 }
 
-// Create High-Resolution Typographic Texture for J.STUDIO plaque (TRANSPARENT BACKGROUND, NO GREY BOX)
-function createJStudioTextTexture() {
+// ============================================================================
+// EXACT 3D VECTOR CONTOURS FOR J.STUDIO WORDMARK LETTERS
+// Allows J.STUDIO letters to be 3D elevated identically to the logo mark
+// ============================================================================
+function getBrandWordmarkShapes() {
+  const letters = [];
+  
+  // Letter 1: J
+  {
+    const s = new THREE.Shape();
+    s.moveTo(-11.252, 3.6);
+    s.lineTo(-11.972, 3.6);
+    s.lineTo(-11.972, 1.105);
+    s.lineTo(-12.073, 0.703);
+    s.lineTo(-12.223, 0.586);
+    s.lineTo(-12.525, 0.569);
+    s.lineTo(-12.776, 0.753);
+    s.lineTo(-12.86, 1.189);
+    s.lineTo(-13.546, 1.139);
+    s.lineTo(-13.546, 0.887);
+    s.lineTo(-13.446, 0.502);
+    s.lineTo(-13.312, 0.285);
+    s.lineTo(-13.077, 0.084);
+    s.lineTo(-12.675, -0.05);
+    s.lineTo(-12.022, -0.017);
+    s.lineTo(-11.671, 0.151);
+    s.lineTo(-11.403, 0.452);
+    s.lineTo(-11.302, 0.703);
+    s.lineTo(-11.252, 1.055);
+    s.closePath();
+    letters.push(s);
+  }
+
+  // Letter 2: Dot .
+  {
+    const s = new THREE.Shape();
+    s.moveTo(-9.896, 0.67);
+    s.lineTo(-9.896, 0.0);
+    s.lineTo(-9.209, 0.0);
+    s.lineTo(-9.209, 0.67);
+    s.closePath();
+    letters.push(s);
+  }
+
+  // Letter 3: S
+  {
+    const s = new THREE.Shape();
+    s.moveTo(-6.999, 3.533);
+    s.lineTo(-7.418, 3.299);
+    s.lineTo(-7.635, 2.997);
+    s.lineTo(-7.719, 2.478);
+    s.lineTo(-7.602, 2.11);
+    s.lineTo(-7.334, 1.808);
+    s.lineTo(-7.033, 1.641);
+    s.lineTo(-5.827, 1.273);
+    s.lineTo(-5.676, 1.122);
+    s.lineTo(-5.66, 0.871);
+    s.lineTo(-6.011, 0.536);
+    s.lineTo(-6.53, 0.502);
+    s.lineTo(-6.949, 0.72);
+    s.lineTo(-7.133, 1.155);
+    s.lineTo(-7.836, 1.105);
+    s.lineTo(-7.736, 0.62);
+    s.lineTo(-7.401, 0.167);
+    s.lineTo(-6.982, -0.05);
+    s.lineTo(-6.061, -0.117);
+    s.lineTo(-5.66, -0.033);
+    s.lineTo(-5.291, 0.167);
+    s.lineTo(-5.007, 0.553);
+    s.lineTo(-5.923, 0.871);
+    s.lineTo(-5.007, 1.457);
+    s.lineTo(-5.492, 1.942);
+    s.lineTo(-6.832, 2.361);
+    s.lineTo(-6.982, 2.495);
+    s.lineTo(-7.016, 2.713);
+    s.lineTo(-6.781, 2.93);
+    s.lineTo(-6.212, 2.98);
+    s.lineTo(-5.911, 2.83);
+    s.lineTo(-5.76, 2.478);
+    s.lineTo(-5.04, 2.495);
+    s.lineTo(-5.107, 2.93);
+    s.lineTo(-5.425, 3.349);
+    s.lineTo(-5.844, 3.55);
+    s.lineTo(-6.681, 3.6);
+    s.closePath();
+    letters.push(s);
+  }
+
+  // Letter 4: T
+  {
+    const s = new THREE.Shape();
+    s.moveTo(-4.153, 3.6);
+    s.lineTo(-4.153, 3.014);
+    s.lineTo(-3.081, 2.997);
+    s.lineTo(-3.081, 0.017);
+    s.lineTo(-2.361, 0.017);
+    s.lineTo(-2.361, 2.997);
+    s.lineTo(-1.289, 3.014);
+    s.lineTo(-1.289, 3.6);
+    s.closePath();
+    letters.push(s);
+  }
+
+  // Letter 5: U
+  {
+    const s = new THREE.Shape();
+    s.moveTo(-0.251, 3.6);
+    s.lineTo(-0.234, 1.088);
+    s.lineTo(-0.184, 0.753);
+    s.lineTo(0.0, 0.385);
+    s.lineTo(0.452, 0.05);
+    s.lineTo(0.887, -0.05);
+    s.lineTo(1.641, -0.033);
+    s.lineTo(2.177, 0.184);
+    s.lineTo(2.478, 0.536);
+    s.lineTo(2.595, 0.988);
+    s.lineTo(2.612, 3.6);
+    s.lineTo(1.892, 3.6);
+    s.lineTo(1.875, 1.055);
+    s.lineTo(1.792, 0.804);
+    s.lineTo(1.39, 0.553);
+    s.lineTo(0.787, 0.636);
+    s.lineTo(0.502, 1.021);
+    s.lineTo(0.469, 3.6);
+    s.closePath();
+    letters.push(s);
+  }
+
+  // Letter 6: D (with inner counter hole)
+  {
+    const s = new THREE.Shape();
+    s.moveTo(3.801, 3.6);
+    s.lineTo(3.801, 0.017);
+    s.lineTo(5.509, 0.017);
+    s.lineTo(5.927, 0.117);
+    s.lineTo(6.212, 0.268);
+    s.lineTo(6.463, 0.519);
+    s.lineTo(6.664, 0.871);
+    s.lineTo(6.815, 1.507);
+    s.lineTo(6.815, 2.06);
+    s.lineTo(6.748, 2.495);
+    s.lineTo(6.463, 3.098);
+    s.lineTo(6.112, 3.416);
+    s.lineTo(5.743, 3.567);
+    s.closePath();
+
+    const h0 = new THREE.Path();
+    h0.moveTo(4.554, 3.014);
+    h0.lineTo(5.325, 2.997);
+    h0.lineTo(5.593, 2.93);
+    h0.lineTo(5.81, 2.78);
+    h0.lineTo(5.978, 2.512);
+    h0.lineTo(6.061, 2.127);
+    h0.lineTo(6.045, 1.356);
+    h0.lineTo(5.894, 0.904);
+    h0.lineTo(5.676, 0.703);
+    h0.lineTo(5.392, 0.62);
+    h0.lineTo(4.538, 0.62);
+    h0.closePath();
+    s.holes.push(h0);
+    letters.push(s);
+  }
+
+  // Letter 7: I
+  {
+    const s = new THREE.Shape();
+    s.moveTo(7.836, 3.6);
+    s.lineTo(7.836, 0.017);
+    s.lineTo(8.556, 0.017);
+    s.lineTo(8.556, 3.6);
+    s.closePath();
+    letters.push(s);
+  }
+
+  // Letter 8: O (with inner counter hole)
+  {
+    const s = new THREE.Shape();
+    s.moveTo(10.649, 3.533);
+    s.lineTo(10.331, 3.399);
+    s.lineTo(10.063, 3.198);
+    s.lineTo(9.846, 2.947);
+    s.lineTo(9.661, 2.612);
+    s.lineTo(9.527, 2.043);
+    s.lineTo(9.527, 1.423);
+    s.lineTo(9.645, 0.904);
+    s.lineTo(9.946, 0.402);
+    s.lineTo(10.482, 0.017);
+    s.lineTo(10.984, -0.117);
+    s.lineTo(11.537, -0.117);
+    s.lineTo(11.922, -0.033);
+    s.lineTo(12.424, 0.251);
+    s.lineTo(12.709, 0.569);
+    s.lineTo(12.86, 0.854);
+    s.lineTo(13.01, 1.557);
+    s.lineTo(12.993, 2.093);
+    s.lineTo(12.876, 2.579);
+    s.lineTo(12.558, 3.098);
+    s.lineTo(12.039, 3.466);
+    s.lineTo(11.537, 3.6);
+    s.lineTo(10.984, 3.6);
+    s.closePath();
+
+    const h0 = new THREE.Path();
+    h0.moveTo(11.085, 2.98);
+    h0.lineTo(11.453, 2.98);
+    h0.lineTo(11.637, 2.93);
+    h0.lineTo(11.888, 2.78);
+    h0.lineTo(12.106, 2.512);
+    h0.lineTo(12.24, 2.093);
+    h0.lineTo(12.257, 1.557);
+    h0.lineTo(12.207, 1.256);
+    h0.lineTo(12.106, 0.988);
+    h0.lineTo(11.989, 0.82);
+    h0.lineTo(11.805, 0.653);
+    h0.lineTo(11.62, 0.553);
+    h0.lineTo(11.436, 0.502);
+    h0.lineTo(11.085, 0.502);
+    h0.lineTo(10.867, 0.569);
+    h0.lineTo(10.683, 0.687);
+    h0.lineTo(10.415, 1.005);
+    h0.lineTo(10.281, 1.44);
+    h0.lineTo(10.281, 2.06);
+    h0.lineTo(10.348, 2.344);
+    h0.lineTo(10.432, 2.528);
+    h0.lineTo(10.733, 2.847);
+    h0.closePath();
+    s.holes.push(h0);
+    letters.push(s);
+  }
+
+  return letters;
+}
+
+// Crisp Subtitle Texture for UV-printed secondary text (transparent background)
+function createSubtitleTexture() {
   const canvas = document.createElement('canvas');
   canvas.width = 1024;
-  canvas.height = 300;
+  canvas.height = 160;
   const ctx = canvas.getContext('2d');
-
-  // Completely clear transparent canvas
-  ctx.clearRect(0, 0, 1024, 300);
-
-  // Wordmark: J. (Bronze/Orange) STUDIO (Obsidian Charcoal)
-  ctx.font = '900 108px "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  const jWidth = ctx.measureText('J.').width;
-  const studioWidth = ctx.measureText('STUDIO').width;
-  const totalWidth = jWidth + studioWidth;
-  const startX = 512 - totalWidth / 2;
-
-  ctx.textAlign = 'left';
-  ctx.fillStyle = '#F79223';
-  ctx.fillText('J.', startX, 110);
-
-  ctx.fillStyle = '#111213';
-  ctx.fillText('STUDIO', startX + jWidth, 110);
+  ctx.clearRect(0, 0, 1024, 160);
 
   // Subtitle: ARCHITECTURAL DESIGN & SIGNAGE
   ctx.textAlign = 'center';
-  ctx.font = '700 24px "Inter", -apple-system, sans-serif';
+  ctx.font = '700 28px "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
   ctx.fillStyle = '#475569';
-  ctx.letterSpacing = '5px';
-  ctx.fillText('ARCHITECTURAL DESIGN & SIGNAGE', 512, 190);
+  ctx.letterSpacing = '6px';
+  ctx.fillText('ARCHITECTURAL DESIGN & SIGNAGE', 512, 60);
 
   // Executive Identifier
-  ctx.font = '600 18px "Inter", -apple-system, sans-serif';
+  ctx.font = '600 20px "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
   ctx.fillStyle = '#64748B';
   ctx.letterSpacing = '3px';
-  ctx.fillText('JEZREEL DAVE LEYBAG • EXECUTIVE SUITE 400', 512, 235);
+  ctx.fillText('JEZREEL DAVE LEYBAG • EXECUTIVE SUITE 400', 512, 115);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.minFilter = THREE.LinearFilter;
@@ -181,7 +398,7 @@ export default function SignAssembly3D({
     const bgColor = 0xF8FAFC;
     scene.background = new THREE.Color(bgColor);
 
-    // 2. CAMERA (Airy framing to fit whole sign and lights comfortably)
+    // 2. CAMERA (Airy, balanced framing)
     const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 1000);
     camera.position.set(50, 26, 125);
     cameraRef.current = camera;
@@ -212,12 +429,12 @@ export default function SignAssembly3D({
     controls.target.set(0, 0, 2.5);
     controlsRef.current = controls;
 
-    // 5. BALANCED DAYLIGHT LIGHTING (Soft contact shadows directly behind sign)
-    const ambientLight = new THREE.AmbientLight(0xFFFFFF, 1.2);
+    // 5. BALANCED DAYLIGHT LIGHTING
+    const ambientLight = new THREE.AmbientLight(0xFFFFFF, 1.25);
     scene.add(ambientLight);
 
     const dirLight = new THREE.DirectionalLight(0xFFFFFF, 1.3);
-    dirLight.position.set(25, 45, 70); // Frontal-top key light
+    dirLight.position.set(25, 45, 70);
     dirLight.castShadow = true;
     dirLight.shadow.mapSize.width = 2048;
     dirLight.shadow.mapSize.height = 2048;
@@ -582,8 +799,8 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     scene.add(capsGroup);
     layers.standoffCaps = capsGroup;
 
-    // 5. 1/4" LASER-CUT ACRYLIC DIMENSIONAL CORE SUBSTRATE
-    // Mounted flush to front face of plaque (Z = 3.1 to 3.5, thickness = 0.4)
+    // 5. 1/4" LASER-CUT ACRYLIC DIMENSIONAL CORE SUBSTRATE (Z = 3.1 to 3.5, depth = 0.4)
+    // Mounted flush to front face of plaque. Both Logo Mark AND Wordmark Letters have 3D acrylic core!
     const logoCoreGroup = new THREE.Group();
 
     const coreMat = new THREE.MeshStandardMaterial({ 
@@ -592,8 +809,6 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
       metalness: 0.15 
     });
 
-    // Generate accurate 3D extruded shapes from official brand mark
-    const brandShapes = getBrandLogoShapes();
     const coreExtrudeSettings = {
       steps: 1,
       depth: 0.4,
@@ -603,11 +818,23 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
       bevelSegments: 3
     };
 
-    // Position mark at optical top center of plaque (Y = 4.5)
+    // A. 3D LOGO MARK GLYPHS CORE (Positioned at Y = 5.5, top = 15.5, bottom = -4.5)
+    const brandShapes = getBrandLogoShapes();
     brandShapes.forEach((shape) => {
       const geo = new THREE.ExtrudeGeometry(shape, coreExtrudeSettings);
       const mesh = new THREE.Mesh(geo, coreMat);
-      mesh.position.set(0, 4.5, 0); // local 0.0 to 0.4 (world 3.1 to 3.5)
+      mesh.position.set(0, 5.5, 0);
+      mesh.castShadow = true;
+      logoCoreGroup.add(mesh);
+    });
+
+    // B. 3D DIMENSIONAL J.STUDIO WORDMARK LETTERS CORE (Positioned at Y = -13.3)
+    // Exact 5.2 unit graphic design breathing room between mark bottom (-4.5) and text top (-9.7)
+    const wordmarkShapes = getBrandWordmarkShapes();
+    wordmarkShapes.forEach((shape) => {
+      const geo = new THREE.ExtrudeGeometry(shape, coreExtrudeSettings);
+      const mesh = new THREE.Mesh(geo, coreMat);
+      mesh.position.set(0, -13.3, 0);
       mesh.castShadow = true;
       logoCoreGroup.add(mesh);
     });
@@ -616,7 +843,7 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
     layers.logoCore = logoCoreGroup;
 
     // 6. CHEMETAL METAL LAMINATE FACE (.030" Brushed Bronze & Satin Obsidian)
-    // Bonded flush directly to front face of acrylic core (Z = 3.5 to 3.58, thickness = 0.08)
+    // Bonded flush directly to front face of acrylic core (Z = 3.5 to 3.58, depth = 0.08)
     const logoFaceGroup = new THREE.Group();
 
     const bronzeMat = new THREE.MeshStandardMaterial({ 
@@ -639,26 +866,38 @@ function buildSignLayers(scene, project, layers, spotLightsList, conesList) {
       bevelSegments: 2
     };
 
+    // A. 3D LOGO MARK GLYPHS FACE
     // Shapes 1 & 2 = Brushed Bronze (#F79223), Shapes 3 & 4 = Satin Obsidian (#18181B)
     brandShapes.forEach((shape, idx) => {
       const geo = new THREE.ExtrudeGeometry(shape, faceExtrudeSettings);
       const mesh = new THREE.Mesh(geo, idx < 2 ? bronzeMat : obsidianMat);
-      mesh.position.set(0, 4.5, 0); // local 0.0 to 0.08 (world 3.5 to 3.58)
+      mesh.position.set(0, 5.5, 0);
       mesh.castShadow = true;
       logoFaceGroup.add(mesh);
     });
 
-    // High-resolution typographic lockup (NO GREY BOX - 100% TRANSPARENT BACKGROUND)
-    const textFaceGeo = new THREE.PlaneGeometry(38, 11.2);
-    const textTexture = createJStudioTextTexture();
-    const textFaceMat = new THREE.MeshBasicMaterial({ 
-      map: textTexture, 
+    // B. 3D DIMENSIONAL J.STUDIO WORDMARK LETTERS FACE
+    // Letters 1 & 2 (J.) = Brushed Bronze (#F79223)
+    // Letters 3 to 8 (STUDIO) = Satin Obsidian (#18181B)
+    wordmarkShapes.forEach((shape, idx) => {
+      const geo = new THREE.ExtrudeGeometry(shape, faceExtrudeSettings);
+      const mesh = new THREE.Mesh(geo, idx < 2 ? bronzeMat : obsidianMat);
+      mesh.position.set(0, -13.3, 0);
+      mesh.castShadow = true;
+      logoFaceGroup.add(mesh);
+    });
+
+    // C. ARCHITECTURAL SECONDARY TAGLINE (Transparent UV-printed subtext, placed at Y = -17.0)
+    const subGeo = new THREE.PlaneGeometry(36, 5.6);
+    const subTexture = createSubtitleTexture();
+    const subMat = new THREE.MeshBasicMaterial({ 
+      map: subTexture, 
       transparent: true,
       depthWrite: false
     });
-    const textFaceMesh = new THREE.Mesh(textFaceGeo, textFaceMat);
-    textFaceMesh.position.set(0, -9.8, 0.09); // on the face plane
-    logoFaceGroup.add(textFaceMesh);
+    const subMesh = new THREE.Mesh(subGeo, subMat);
+    subMesh.position.set(0, -17.0, 0.09); // on the front face of the plaque
+    logoFaceGroup.add(subMesh);
 
     scene.add(logoFaceGroup);
     layers.logoFace = logoFaceGroup;
