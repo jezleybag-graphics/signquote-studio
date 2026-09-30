@@ -1665,7 +1665,7 @@ function buildSignLayers(scene, project, layers) {
 
     // 2. 7" x 4.5" EXTRUDED ALUMINUM RACEWAY (Z = 0.0 to 4.5)
     const racewayGroup = new THREE.Group();
-    const racewayGeo = new THREE.BoxGeometry(112, 12, 4.5);
+    const racewayGeo = new THREE.BoxGeometry(128, 12, 4.5);
     const racewayMat = new THREE.MeshStandardMaterial({ 
       color: 0xD6CEBE, 
       metalness: 0.72, 
@@ -1677,17 +1677,6 @@ function buildSignLayers(scene, project, layers) {
     racewayMesh.castShadow = true;
     racewayGroup.add(racewayMesh);
 
-    // Industrial label on raceway front face
-    const labelGeo = new THREE.PlaneGeometry(108, 10);
-    const labelTexture = createMetroRacewayTexture();
-    const labelMat = new THREE.MeshBasicMaterial({ 
-      map: labelTexture, 
-      transparent: true, 
-      depthWrite: false 
-    });
-    const labelMesh = new THREE.Mesh(labelGeo, labelMat);
-    labelMesh.position.set(3.5, -3.0, 4.52);
-    racewayGroup.add(labelMesh);
 
     // Commercial mounting angle brackets (3x heavy steel brackets securing raceway to wall studs)
     const bracketGeo = new THREE.BoxGeometry(2.4, 14, 0.4);
@@ -1779,20 +1768,20 @@ function buildSignLayers(scene, project, layers) {
 
     // INDIVIDUAL CHANNEL LETTERS FOR "METRO BURGER"
     const metroLettersData = [
-      { char: 'M', x: -43.0, y: 3.2 },
-      { char: 'E', x: -33.5, y: 3.2 },
-      { char: 'T', x: -24.5, y: 3.2 },
-      { char: 'R', x: -15.5, y: 3.2 },
-      { char: 'O', x:  -6.5, y: 3.2 },
-      { char: 'B', x:   5.5, y: 3.2 },
+      { char: 'M', x: -52.0, y: 3.2 },
+      { char: 'E', x: -41.0, y: 3.2 },
+      { char: 'T', x: -31.0, y: 3.2 },
+      { char: 'R', x: -21.0, y: 3.2 },
+      { char: 'O', x: -10.5, y: 3.2 },
+      { char: 'B', x:   4.0, y: 3.2 },
       { char: 'U', x:  14.5, y: 3.2 },
-      { char: 'R', x:  23.5, y: 3.2 },
-      { char: 'G', x:  32.5, y: 3.2 },
-      { char: 'E', x:  41.5, y: 3.2 },
-      { char: 'R', x:  50.5, y: 3.2 }
+      { char: 'R', x:  24.5, y: 3.2 },
+      { char: 'G', x:  34.5, y: 3.2 },
+      { char: 'E', x:  44.5, y: 3.2 },
+      { char: 'R', x:  54.5, y: 3.2 }
     ];
 
-    const metroScale = 1.15;
+    const metroScale = 1.0;
 
     metroLettersData.forEach((item) => {
       const shape = getChannelLetterShape(item.char);
@@ -1812,15 +1801,10 @@ function buildSignLayers(scene, project, layers) {
       returnGroup.add(rMesh);
 
       // Internal LED Modules & Red glow
-      const glowGeo = new THREE.CircleGeometry(4.5, 20);
-      const glowMesh = new THREE.Mesh(glowGeo, ledGlowMat);
-      glowMesh.position.set(item.x, item.y, -1.2);
-      ledsGroup.add(glowMesh);
-
       const l1 = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.4), ledMat);
-      l1.position.set(item.x, item.y + 2.5, 0);
+      l1.position.set(item.x, item.y + 2.5, 1.5);
       const l2 = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.4), ledMat);
-      l2.position.set(item.x, item.y - 2.5, 0);
+      l2.position.set(item.x, item.y - 2.5, 1.5);
       ledsGroup.add(l1);
       ledsGroup.add(l2);
 
@@ -1834,7 +1818,7 @@ function buildSignLayers(scene, project, layers) {
       });
       const fMesh = new THREE.Mesh(fGeo, faceMat);
       fMesh.scale.set(metroScale, metroScale, 1.0);
-      fMesh.position.set(item.x, item.y, 0);
+      fMesh.position.set(item.x, item.y, 3.5);
       fMesh.castShadow = true;
       faceGroup.add(fMesh);
 
@@ -1848,7 +1832,7 @@ function buildSignLayers(scene, project, layers) {
       });
       const tMesh = new THREE.Mesh(tGeo, trimMat);
       tMesh.scale.set(metroScale * 1.025, metroScale * 1.025, 1.0);
-      tMesh.position.set(item.x, item.y, 0);
+      tMesh.position.set(item.x, item.y, 3.2);
       tMesh.castShadow = true;
       trimGroup.add(tMesh);
     });

@@ -467,7 +467,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       strokeWidth={activeInspector?.id === 'raceway' ? '3' : '2'} 
                       rx="2" 
                     />
-                    <text x="75" y="152" fontSize="9.5" fill={activeInspector?.id === 'raceway' ? '#D97706' : '#57534E'} fontWeight="700">
+                    <text x="75" y="213" fontSize="9.5" fill={activeInspector?.id === 'raceway' ? '#D97706' : '#57534E'} fontWeight="700">
                       7" x 4.5" EXTRUDED ALUMINUM RACEWAY (PAINTED KHAKI BEIGE)
                     </text>
 
@@ -485,7 +485,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
                     {/* FRONT-LIT RED CHANNEL LETTERS */}
                     <text 
-                      x="440" y="150" fontSize="64" fontWeight="900" 
+                      x="440" y="138" fontSize="50" fontWeight="900" 
                       fill="#0F172A" 
                       stroke={activeInspector?.id === 'trim' ? '#F79223' : '#0F172A'} 
                       strokeWidth={activeInspector?.id === 'trim' ? '16' : '12'} 
@@ -494,7 +494,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       METRO BURGER
                     </text>
                     <text 
-                      x="440" y="150" fontSize="64" fontWeight="900" 
+                      x="440" y="138" fontSize="50" fontWeight="900" 
                       fill={activeInspector?.id === 'face' ? '#EF4444' : '#DC2626'} 
                       textAnchor="middle" letterSpacing="8"
                       stroke={activeInspector?.id === 'face' ? '#FEF08A' : 'none'}
