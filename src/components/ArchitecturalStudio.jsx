@@ -207,8 +207,7 @@ function renderToggleIcon(iconType, isSelected) {
 }
 
 export default function ArchitecturalStudio({ project, letterHeight, returnDepth }) {
-  const [viewMode, setViewMode] = useState('elev'); // 'elev' | 'cad' | 'elec' | 'cb'
-  const [isNightMode, setIsNightMode] = useState(false);
+  const [viewMode, setViewMode] = useState('elev'); // 'elev' | '3d' | 'cad' | 'elec' | 'cb'
   const [activeInspector, setActiveInspector] = useState(project.inspectorItems[0]);
 
   // When project changes, update default active inspector
@@ -315,7 +314,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
             {/* RIGHT CONTROLS: ACTIVE INSPECTOR FOCUS HUD + ILLUMINATION TOGGLE */}
             <div className="flex items-center gap-3">
               {activeInspector && (
-                <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-[#F79223]/30 text-xs font-mono font-bold text-gray-800 shadow-xs">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-[#F79223]/30 text-xs font-mono font-bold text-gray-800 shadow-xs">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F79223] opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F79223]"></span>
@@ -324,27 +323,6 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                   <span className="text-[#F79223] uppercase font-extrabold tracking-wide">{activeInspector?.name}</span>
                 </div>
               )}
-
-              <button
-                onClick={() => setIsNightMode(!isNightMode)}
-                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
-                  isNightMode 
-                    ? 'bg-[#111213] border-[#111213] text-[#FEF08A] shadow-md shadow-black/10' 
-                    : 'bg-white border-gray-300 text-gray-700 hover:border-gray-900'
-                }`}
-              >
-                {isNightMode ? (
-                  <>
-                    <Moon className="w-3.5 h-3.5 text-[#FEF08A]" />
-                    <span>Night Illumination Active</span>
-                  </>
-                ) : (
-                  <>
-                    <Sun className="w-3.5 h-3.5 text-[#F79223]" />
-                    <span>Daylight View</span>
-                  </>
-                )}
-              </button>
             </div>
 
           </div>
@@ -356,7 +334,6 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
             {viewMode === '3d' && (
               <SignAssembly3D 
                 project={project} 
-                isNightMode={isNightMode} 
                 activeInspector={activeInspector} 
                 setActiveInspector={setActiveInspector} 
               />
@@ -370,9 +347,9 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                   <svg viewBox="0 0 880 340" className="w-full h-auto block select-none">
                     <defs>
                       <pattern id="brick-pat-elev" width="44" height="22" patternUnits="userSpaceOnUse">
-                        <rect width="44" height="22" fill={isNightMode ? "#0F172A" : "#334155"} />
-                        <rect x="0" y="0" width="42" height="10" fill={isNightMode ? "#1E293B" : "#475569"} rx="1" />
-                        <rect x="22" y="11" width="42" height="10" fill={isNightMode ? "#1E293B" : "#475569"} rx="1" />
+                        <rect width="44" height="22" fill="#334155" />
+                        <rect x="0" y="0" width="42" height="10" fill="#475569" rx="1" />
+                        <rect x="22" y="11" width="42" height="10" fill="#475569" rx="1" />
                       </pattern>
                       <filter id="halo-glow-fx" x="-20%" y="-20%" width="140%" height="140%">
                         <feGaussianBlur in="SourceAlpha" stdDeviation="14" result="blur" />
@@ -389,7 +366,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     <rect width="880" height="340" fill="url(#brick-pat-elev)" />
                     
                     {/* ARCHITECTURAL COPING */}
-                    <rect x="0" y="0" width="880" height="30" fill={isNightMode ? "#090D16" : "#1E293B"} />
+                    <rect x="0" y="0" width="880" height="30" fill="#1E293B" />
                     <text x="24" y="20" fontSize="9.5" fill="#94A3B8" fontWeight="700" letterSpacing="1.5">
                       NORTH ELEVATION • LEVEL 2 MAIN RETAIL ENTRANCE
                     </text>
@@ -402,8 +379,8 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       strokeWidth={activeInspector?.id === 'backer' ? '3' : '2'} 
                     />
                     
-                    {/* HALO GLOW LAYER (NIGHT MODE OR LED INSPECT) */}
-                    {(isNightMode || activeInspector?.id === 'leds') && (
+                    {/* HALO GLOW LAYER (LED INSPECT) */}
+                    {activeInspector?.id === 'leds' && (
                       <g>
                         <text x="470" y="152" fontSize="52" fontWeight="800" fill="#FEF08A" textAnchor="middle" letterSpacing="14" filter="url(#halo-glow-fx)" opacity="0.95">
                           APEX DENTAL
@@ -432,11 +409,9 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </g>
 
                     {/* CHANNEL LETTERS */}
-                    {!isNightMode && (
-                      <text x="472" y="154" fontSize="50" fontWeight="800" fill="#000000" textAnchor="middle" letterSpacing="14" opacity="0.65">
-                        APEX DENTAL
-                      </text>
-                    )}
+                    <text x="472" y="154" fontSize="50" fontWeight="800" fill="#000000" textAnchor="middle" letterSpacing="14" opacity="0.65">
+                      APEX DENTAL
+                    </text>
                     <text 
                       x="470" y="152" fontSize="50" fontWeight="800" 
                       fill="#0F172A" 
@@ -475,10 +450,10 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                 {/* CASE 2: METRO BURGER ELEVATION */}
                 {project.id === 'case2' && (
                   <svg viewBox="0 0 880 340" className="w-full h-auto block select-none">
-                    <rect width="880" height="340" fill={isNightMode ? "#0F172A" : "#E2E8F0"} />
+                    <rect width="880" height="340" fill="#E2E8F0" />
                     
                     {/* Horizontal Timber Cladding */}
-                    <g opacity={isNightMode ? "0.1" : "0.3"}>
+                    <g opacity="0.3">
                       {[40, 60, 80, 100, 120, 140, 160, 180].map(y => (
                         <line key={y} x1="0" y1={y} x2="880" y2={y} stroke="#78350F" strokeWidth="14" />
                       ))}
@@ -520,11 +495,11 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </text>
                     <text 
                       x="440" y="150" fontSize="64" fontWeight="900" 
-                      fill={isNightMode ? "#FF4D4D" : (activeInspector?.id === 'face' ? '#EF4444' : '#DC2626')} 
+                      fill={activeInspector?.id === 'face' ? '#EF4444' : '#DC2626'} 
                       textAnchor="middle" letterSpacing="8"
                       stroke={activeInspector?.id === 'face' ? '#FEF08A' : 'none'}
                       strokeWidth={activeInspector?.id === 'face' ? '2' : '0'}
-                      style={{ filter: (isNightMode || activeInspector?.id === 'face') ? 'drop-shadow(0 0 18px rgba(239, 68, 68, 0.95))' : 'none' }}
+                      style={{ filter: activeInspector?.id === 'face' ? 'drop-shadow(0 0 18px rgba(239, 68, 68, 0.95))' : 'none' }}
                     >
                       METRO BURGER
                     </text>
@@ -547,7 +522,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                 {/* CASE 3: J.STUDIO ARCHITECTURAL ELEVATION (WITH JEZREEL'S BRANDING) */}
                 {project.id === 'case3' && (
                   <svg viewBox="0 0 880 340" className="w-full h-auto block select-none">
-                    <rect width="880" height="340" fill={isNightMode ? "#090D16" : "#F8FAFC"} />
+                    <rect width="880" height="340" fill="#F8FAFC" />
                     
                     {/* ACOUSTIC WOOD SLATS */}
                     <g opacity="0.15">
@@ -555,8 +530,8 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                     </g>
 
                     {/* OVERHEAD GALLERY SPOTLIGHT WASH */}
-                    {(isNightMode || activeInspector?.id === 'lighting') && (
-                      <polygon points="320,0 560,0 700,320 180,320" fill="#FEF08A" opacity={activeInspector?.id === 'lighting' ? "0.32" : "0.18"} />
+                    {activeInspector?.id === 'lighting' && (
+                      <polygon points="320,0 560,0 700,320 180,320" fill="#FEF08A" opacity="0.32" />
                     )}
 
                     {/* 48" x 72" CLEAR ACRYLIC PLAQUE */}
@@ -596,10 +571,10 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
 
                       {/* AUTHENTIC BRAND EMBLEM (JEZREEL DAVE LEYBAG OFFICIAL MARK) */}
                       <image 
-                        href={isNightMode ? "/branding/logo-mark-light.png" : "/branding/logo-mark.png"} 
+                        href="/branding/logo-mark.png" 
                         x="-27" y="-64" width="54" height="57" 
                         preserveAspectRatio="xMidYMid meet"
-                        style={{ filter: isNightMode ? 'drop-shadow(0 0 12px rgba(254, 240, 138, 0.8))' : 'drop-shadow(0 2px 4px rgba(0,0,0,0.12))' }}
+                        style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.12))' }}
                       />
 
                       {/* J.STUDIO TYPOGRAPHY - REFINED DUAL-TONE ORANGE/OBSIDIAN */}
@@ -609,13 +584,13 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                         fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
                       >
                         <tspan fill="#F79223">J.</tspan>
-                        <tspan fill={activeInspector?.id === 'logo' ? '#D97706' : (isNightMode ? '#F8FAFC' : '#111213')}>STUDIO</tspan>
+                        <tspan fill={activeInspector?.id === 'logo' ? '#D97706' : '#111213'}>STUDIO</tspan>
                       </text>
 
                       {/* PRIMARY ARCHITECTURAL TAGLINE */}
                       <text 
                         x="0" y="44" fontSize="8" fontWeight="700" 
-                        fill={isNightMode ? "#94A3B8" : "#475569"} 
+                        fill="#475569" 
                         textAnchor="middle" letterSpacing="3.5"
                         fontFamily="'Inter', -apple-system, sans-serif"
                       >
@@ -625,7 +600,7 @@ export default function ArchitecturalStudio({ project, letterHeight, returnDepth
                       {/* SECONDARY EXECUTIVE SUITE IDENTIFIER */}
                       <text 
                         x="0" y="58" fontSize="6.5" fontWeight="600" 
-                        fill={isNightMode ? "#64748B" : "#64748B"} 
+                        fill="#64748B" 
                         textAnchor="middle" letterSpacing="1.8"
                         fontFamily="'Inter', -apple-system, sans-serif"
                       >
